@@ -1,9 +1,8 @@
 package GameHandlers;
 
-import Graphics.Renderer;
 import Graphics.Screen;
 
-import java.awt.*;
+import Graphics.EngineGraphics;
 import java.awt.event.MouseEvent;
 
 public abstract class GameCase {
@@ -25,7 +24,7 @@ public abstract class GameCase {
 
     public abstract void init();
     public abstract void update(double delta);
-    public abstract void render(Graphics2D g2d);
+    public abstract void render(EngineGraphics g);
     public abstract void keyPressed(int key);
     public abstract void keyReleased(int key);
     public abstract void mousePressed(MouseEvent e);

@@ -2,7 +2,7 @@ package GameHandlers;
 
 import Graphics.Renderer;
 
-import java.awt.*;
+import Graphics.EngineGraphics;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
@@ -33,9 +33,9 @@ public class GameCaseHandler {
         currentCase = Case;
     }
 
-    public void render(Graphics2D g2d) {
+    public void render(EngineGraphics g) {
 
-        gameCases.get(currentCase).render(g2d);
+        gameCases.get(currentCase).render(g);
     }
 
     public void update(double delta){

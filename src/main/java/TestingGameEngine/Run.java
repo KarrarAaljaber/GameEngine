@@ -1,18 +1,18 @@
 package TestingGameEngine;
 
 import GameHandlers.GameCase;
-import GameHandlers.GameCaseHandler;
 import Graphics.Screen;
+
+import Graphics.EngineGraphics;
+import Utilities.Vector2f;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.util.Random;
 
 public class Run extends GameCase {
 
 
     private static Screen screen;
-
     public Run(Screen screen) {
         super(screen);
         screen = new Screen(1280, 720, false, new Color(0,0,0));
@@ -37,9 +37,9 @@ public class Run extends GameCase {
     }
 
     @Override
-    public void render(Graphics2D g2d) {
-        g2d.setColor(Color.RED);
-        g2d.fillRect(100,100,100,100);
+    public void render(EngineGraphics g) {
+
+        g.drawRect(new Vector2f(22,22), 50,500, Color.RED,false);
     }
 
     @Override

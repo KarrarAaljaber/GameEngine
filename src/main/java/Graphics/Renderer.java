@@ -3,6 +3,8 @@ package Graphics;
 import GameHandlers.GameCaseHandler;
 
 import java.awt.*;
+import java.awt.Graphics;
+import Graphics.EngineGraphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
@@ -46,7 +48,8 @@ public class Renderer extends Canvas implements  Runnable{
         g.fillRect( 0, 0, WIDTH, HEIGHT);
 
         Graphics2D g2d = (Graphics2D)g;
-        gch.render(g2d);
+        EngineGraphics engineGraphics = new EngineGraphics(g2d);
+        gch.render(engineGraphics);
 
         g.dispose();
 
