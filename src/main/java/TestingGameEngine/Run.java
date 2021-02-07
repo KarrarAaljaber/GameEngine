@@ -20,7 +20,6 @@ public class Run extends GameCase {
 
     private static Screen screen;
     private SpriteSheet spriteSheet;
-    private BufferedImage spriteSheetimg;
     private GameObject testPlayer;
     private ImageLoader loader;
     public Run(Screen screen) {
@@ -40,7 +39,7 @@ public class Run extends GameCase {
     @Override
     public void init() {
         loader = new ImageLoader();
-        spriteSheetimg = loader.loadImage("resources/spritesheet.png");
+         BufferedImage  spriteSheetimg = loader.loadImage("/spritesheet.png");
         spriteSheet = new SpriteSheet(spriteSheetimg);
         testPlayer = new GameObject(new Vector2f(50,50), new Sprite(spriteSheet,32,32,0,0));
     }
