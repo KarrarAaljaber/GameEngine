@@ -6,10 +6,6 @@ import java.awt.image.BufferedImage;
 public class ImageLoader {
 
     private BufferedImage img;
-    public ImageLoader(){
-
-    }
-
     public BufferedImage loadImage(String path) {
 
         try {

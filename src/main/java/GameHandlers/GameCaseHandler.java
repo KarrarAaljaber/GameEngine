@@ -38,6 +38,14 @@ public class GameCaseHandler {
         gameCases.get(currentCase).render(g);
     }
 
+
+    public void init(){
+
+
+        gameCases.get(currentCase).init();
+
+    }
+
     public void update(double delta){
 
 

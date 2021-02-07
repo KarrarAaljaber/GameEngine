@@ -33,7 +33,8 @@ public class EngineGraphics {
     }
 
     public void drawGameObject(GameObject obj){
-        g2d.drawImage(obj.getSprite().getImg(), (int)obj.getPos().getX() ,(int)obj.getPos().getY(),null);
+        System.out.println(obj.getPos().toString());
+        g2d.fillRect((int)obj.getPos().getX(), (int)obj.getPos().getY(), 50,50);
     }
 
     public void drawString(String text, Vector2f pos, String fontname, int fontSize ){

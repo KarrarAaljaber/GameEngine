@@ -26,7 +26,11 @@ public class Run extends GameCase {
         super(screen);
         screen = new Screen(1280, 720, false, new Color(0,0,0));
         screen.getRenderer().getGch().getGameCases().add(this);
-
+        loader = new ImageLoader();
+        BufferedImage  spriteSheetimg = loader.loadImage("spritesheet.png");
+        spriteSheet = new SpriteSheet(spriteSheetimg);
+        Vector2f v2 = new Vector2f(22,22);
+        testPlayer = new GameObject(v2);
     }
 
 
@@ -38,10 +42,7 @@ public class Run extends GameCase {
 
     @Override
     public void init() {
-        loader = new ImageLoader();
-         BufferedImage  spriteSheetimg = loader.loadImage("/spritesheet.png");
-        spriteSheet = new SpriteSheet(spriteSheetimg);
-        testPlayer = new GameObject(new Vector2f(50,50), new Sprite(spriteSheet,32,32,0,0));
+
     }
 
     @Override
