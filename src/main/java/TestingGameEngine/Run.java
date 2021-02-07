@@ -11,6 +11,9 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Random;
+
 import Graphics.ImageLoader;
 import Graphics.Sprite;
 
@@ -32,8 +35,16 @@ public class Run extends GameCase  {
         loader = new ImageLoader();
         BufferedImage  spriteSheetimg = loader.loadImage("spritesheet.png");
         spriteSheet = new SpriteSheet(spriteSheetimg);
-        player = new TestPlayer(new Vector2f(100,100), 128,128, new Sprite(spriteSheet, 32,32,1,1));
-        screen.getRenderer().getGch().getObjects().add(player);
+        ArrayList<GameObject> objects = new ArrayList<>();
+        Random rand = new Random();
+       for(int i=0;i < 100; i++){
+           objects.add(new TestPlayer(new Vector2f((float)rand.nextInt(screen.getRenderer().getWIDTH()),(float)rand.nextInt(screen.getRenderer().getHEIGHT())), 128,128, new Sprite(spriteSheet, 32,32,1,1)));
+
+       }
+       for(int i=0; i< objects.size(); i++){
+           screen.getRenderer().getGch().getObjects().add(objects.get(i));
+
+       }
 
     }
 
@@ -64,23 +75,22 @@ public class Run extends GameCase  {
     @Override
     public void keyPressed(int key) {
         if(key == KeyEvent.VK_W) {
-           player.setVelocity(new Vector2f( 0,-1f));
+           player.setVelocity(new Vector2f( 0,-2f));
 
-        System.out.println("dddd");
 
         }
 
         if(key == KeyEvent.VK_S) {
-            player.setVelocity(new Vector2f( 0,1f));
+            player.setVelocity(new Vector2f( 0,2f));
 
         }
         if(key == KeyEvent.VK_A) {
-            player.setVelocity(new Vector2f( -1f,0));
+            player.setVelocity(new Vector2f( -2f,0));
 
 
         }
         if(key == KeyEvent.VK_D) {
-            player.setVelocity(new Vector2f( 1f,0));
+            player.setVelocity(new Vector2f( 2f,0));
         }
 
     }
