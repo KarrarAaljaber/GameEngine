@@ -1,5 +1,6 @@
 package Graphics;
 
+import GameHandlers.GameObject;
 import Utilities.Vector2f;
 
 import java.awt.*;
@@ -29,6 +30,10 @@ public class EngineGraphics {
             g2d.setColor(color);
             g2d.fillRect((int) pos.getX(), (int) pos.getY(), width, height);
         }
+    }
+
+    public void drawGameObject(GameObject obj){
+        g2d.drawImage(obj.getSprite().getImg(), (int)obj.getPos().getX() ,(int)obj.getPos().getY(),null);
     }
 
     public void drawString(String text, Vector2f pos, String fontname, int fontSize ){
