@@ -12,10 +12,7 @@ public class SpriteSheet {
         this.img = img;
     }
 
-    public BufferedImage getImage(int col, int row, int w, int h) {
-        BufferedImage imgg = img.getSubimage((col * w) - w, (row * h) - h, w, h);
-        return imgg;
-    }
+
 
 
 

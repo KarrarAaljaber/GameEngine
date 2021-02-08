@@ -17,7 +17,7 @@ public class TestPlayer extends GameObject {
 
     @Override
     public void render(EngineGraphics g) {
-        g.drawGameObject(this);
+        g.drawGameObject(this,1,1);
     }
 
     public Vector2f getVelocity() {

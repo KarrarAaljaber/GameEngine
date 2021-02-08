@@ -1,29 +1,40 @@
 package Graphics;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
 public class Sprite {
 
-    private SpriteSheet spriteSheet;
+    private BufferedImage spritesheet = null;
     private int width, height;
-    private BufferedImage img;
-    private int col, row;
-    public Sprite(SpriteSheet spriteSheet, int width, int height, int col, int row){
-        this.spriteSheet = spriteSheet;
+
+
+
+    public Sprite(String file, int width, int height){
+
+        spritesheet = loadSpriteSheet(file);
         this.width = width;
-        this.col = col;
-        this.row = row;
         this.height = height;
+
+
     }
 
-    public BufferedImage getImg(){
-        return spriteSheet.getImage(col, row, width, height);
+    public BufferedImage loadSpriteSheet(String file){
+        BufferedImage sprite = null;
+        try{
+            sprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream(file));
+        }catch(Exception e){
+            e.printStackTrace();
+            System.out.println("couldnt load sprite! at File:  " + file);
+        }
+        System.out.println(sprite.getWidth());
+        return sprite;
     }
 
-    public SpriteSheet getSpriteSheet() {
-        return spriteSheet;
+    public BufferedImage getSprite(int col, int row) {
+        BufferedImage imgg = spritesheet.getSubimage((col * width) - width, (row * height) - height, width, height);
+        return imgg;
     }
-
 
 
     public int getWidth() {
