@@ -3,10 +3,16 @@ package Graphics;
 import GameHandlers.GameCaseHandler;
 
 import java.awt.*;
+import java.awt.Graphics;
+import Graphics.EngineGraphics;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
-public class Renderer extends Canvas implements  Runnable{
+public class Renderer extends Canvas implements  Runnable, KeyListener {
 
     private Thread thread;
     private boolean isRunning = false;
@@ -29,6 +35,7 @@ public class Renderer extends Canvas implements  Runnable{
         this.HEIGHT = HEIGHT;
         this.backgroundcolor = backgroundcolor;
         gch = new GameCaseHandler(this);
+        this.addKeyListener(this);
     }
 
 
@@ -46,7 +53,8 @@ public class Renderer extends Canvas implements  Runnable{
         g.fillRect( 0, 0, WIDTH, HEIGHT);
 
         Graphics2D g2d = (Graphics2D)g;
-        gch.render(g2d);
+        EngineGraphics engineGraphics = new EngineGraphics(g2d);
+        gch.render(engineGraphics);
 
         g.dispose();
 
@@ -112,5 +120,24 @@ public class Renderer extends Canvas implements  Runnable{
 
     public int getHEIGHT() {
         return HEIGHT;
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        int key = e.getKeyCode();
+
+        gch.keyPressed(key);
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        int key = e.getKeyCode();
+
+        gch.keyReleased(key);
     }
 }

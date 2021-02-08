@@ -2,13 +2,14 @@ package GameHandlers;
 
 import Graphics.Renderer;
 
-import java.awt.*;
+import Graphics.EngineGraphics;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class GameCaseHandler {
 
     private ArrayList<GameCase> gameCases;
+    private ArrayList<GameObject> objects;
 
     private int currentCase;
     public static final int MENUCASE = 0;
@@ -18,9 +19,10 @@ public class GameCaseHandler {
     private Renderer renderer;
     public GameCaseHandler(Renderer renderer)
     {
+        objects = new ArrayList<>();
         this.renderer = renderer;
         gameCases = new ArrayList<GameCase>();
-        currentCase = MENUCASE;
+        currentCase = 0;
 
 
     }
@@ -33,14 +35,27 @@ public class GameCaseHandler {
         currentCase = Case;
     }
 
-    public void render(Graphics2D g2d) {
+    public void render(EngineGraphics g) {
 
-        gameCases.get(currentCase).render(g2d);
+        gameCases.get(currentCase).render(g);
+        for(int i=0; i < objects.size(); i++){
+            objects.get(i).render(g);
+        }
+    }
+
+
+    public void init(){
+
+        gameCases.get(currentCase).init();
+
     }
 
     public void update(double delta){
 
 
+        for(int i=0; i < objects.size(); i++){
+            objects.get(i).update(delta);
+        }
         gameCases.get(currentCase).update(delta);
 
     }
@@ -67,6 +82,13 @@ public class GameCaseHandler {
 
     }
 
+    public ArrayList<GameObject> getObjects() {
+        return objects;
+    }
+
+    public void setObjects(ArrayList<GameObject> objects) {
+        this.objects = objects;
+    }
 }
 
 
