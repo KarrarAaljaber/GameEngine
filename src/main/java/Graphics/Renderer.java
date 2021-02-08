@@ -53,6 +53,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener {
         g.fillRect( 0, 0, WIDTH, HEIGHT);
 
         Graphics2D g2d = (Graphics2D)g;
+
         EngineGraphics engineGraphics = new EngineGraphics(g2d);
         gch.render(engineGraphics);
 

@@ -5,6 +5,7 @@ import GameHandlers.GameObject;
 import Graphics.Screen;
 
 import Graphics.EngineGraphics;
+import Tiles.TileMap;
 import Utilities.Vector2f;
 
 import java.awt.*;
@@ -25,13 +26,9 @@ public class Run extends GameCase  {
 
     //GameObjects
     private TestPlayer player;
+    private TileMap tileMap;
     public Run(Screen screen) {
         super(screen);
-        screen = new Screen(1280, 720, false, new Color(0,0,0));
-        screen.getRenderer().getGch().getGameCases().add(this);
-
-        player = new TestPlayer(new Vector2f(100,100), 128,128, new Sprite("spritesheet.png", 32    ,32));
-        screen.getRenderer().getGch().getObjects().add(player);
 
     }
 
@@ -41,9 +38,17 @@ public class Run extends GameCase  {
     }
 
 
-
     @Override
     public void init() {
+        screen = new Screen(1280, 720, false, new Color(0,0,0));
+        screen.getRenderer().getGch().getGameCases().add(this);
+        player = new TestPlayer(new Vector2f(100,100), 64,64, new Sprite("spritesheet.png", 32    ,32));
+
+        tileMap = new TileMap(128, 128, 32,32);
+        screen.getRenderer().getGch().addObjectArray(tileMap.getMap());
+
+        screen.getRenderer().getGch().addObjects(player);
+
 
     }
 
@@ -54,7 +59,6 @@ public class Run extends GameCase  {
 
     @Override
     public void render(EngineGraphics g) {
-
     //    g.drawRect(new Vector2f(22,22), 50,500, Color.RED,false);
 
     }
@@ -62,22 +66,22 @@ public class Run extends GameCase  {
     @Override
     public void keyPressed(int key) {
         if(key == KeyEvent.VK_W) {
-           player.setVelocity(new Vector2f( 0,-2f));
+           player.setVelocity(new Vector2f( 0,-4f));
 
 
         }
 
         if(key == KeyEvent.VK_S) {
-            player.setVelocity(new Vector2f( 0,2f));
+            player.setVelocity(new Vector2f( 0,4f));
 
         }
         if(key == KeyEvent.VK_A) {
-            player.setVelocity(new Vector2f( -2f,0));
+            player.setVelocity(new Vector2f( -4f,0));
 
 
         }
         if(key == KeyEvent.VK_D) {
-            player.setVelocity(new Vector2f( 2f,0));
+            player.setVelocity(new Vector2f( 4f,0));
         }
 
     }

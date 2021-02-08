@@ -13,6 +13,8 @@ public abstract class GameCase {
 
     public GameCase(Screen screen) {
         this.screen = screen;
+        init();
+
     }
 
     public Screen getScreen() {

@@ -5,6 +5,7 @@ import Graphics.Renderer;
 import Graphics.EngineGraphics;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GameCaseHandler {
 
@@ -17,8 +18,8 @@ public class GameCaseHandler {
 
 
     private Renderer renderer;
-    public GameCaseHandler(Renderer renderer)
-    {
+
+    public GameCaseHandler(Renderer renderer) {
         objects = new ArrayList<>();
         this.renderer = renderer;
         gameCases = new ArrayList<GameCase>();
@@ -38,22 +39,22 @@ public class GameCaseHandler {
     public void render(EngineGraphics g) {
 
         gameCases.get(currentCase).render(g);
-        for(int i=0; i < objects.size(); i++){
+        for (int i = 0; i < objects.size(); i++) {
             objects.get(i).render(g);
         }
     }
 
 
-    public void init(){
+    public void init() {
 
         gameCases.get(currentCase).init();
 
     }
 
-    public void update(double delta){
+    public void update(double delta) {
 
 
-        for(int i=0; i < objects.size(); i++){
+        for (int i = 0; i < objects.size(); i++) {
             objects.get(i).update(delta);
         }
         gameCases.get(currentCase).update(delta);
@@ -85,6 +86,21 @@ public class GameCaseHandler {
     public ArrayList<GameObject> getObjects() {
         return objects;
     }
+
+    public void addObjects(GameObject object) {
+        objects.add(object);
+    }
+
+    public void addObjectArray(GameObject[][] objectz) {
+        for (int i = 0; i < objectz.length; i++) {
+            for (int j = 0; j < objectz[i].length; j++) {
+                objects.add(objectz[i][j]);
+                }
+            }
+        }
+
+
+
 
     public void setObjects(ArrayList<GameObject> objects) {
         this.objects = objects;
