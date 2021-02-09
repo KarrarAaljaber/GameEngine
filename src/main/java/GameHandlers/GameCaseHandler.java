@@ -13,15 +13,16 @@ public class GameCaseHandler {
     private ArrayList<GameObject> objects;
 
     private int currentCase;
-    public static final int MENUCASE = 0;
-    public static final int LEVEL1 = 1;
+
 
 
     private Renderer renderer;
+    private GameObject player;
 
-    public GameCaseHandler(Renderer renderer) {
+    public GameCaseHandler(Renderer renderer, GameObject player) {
         objects = new ArrayList<>();
         this.renderer = renderer;
+        this.player = player;
         gameCases = new ArrayList<GameCase>();
         currentCase = 0;
 
@@ -40,9 +41,15 @@ public class GameCaseHandler {
 
         gameCases.get(currentCase).render(g);
         for (int i = 0; i < objects.size(); i++) {
-            objects.get(i).render(g);
+            if( !((objects.get(i).getPos().getX() + 64   <= player.getPos().getX() - renderer.getWIDTH() /2 )|| (objects.get(i).getPos().getX()  - 64  >=player.getPos().getX()  + renderer.getWIDTH() /2 )
+
+                    || (objects.get(i).getPos().getY() + 64  <= player.getPos().getY() - renderer.getHEIGHT() /2 ) || (objects.get(i).getPos().getY() -64  >=player.getPos().getY() + renderer.getHEIGHT() / 2))){
+                objects.get(i).render(g);
+
+            }
         }
     }
+
 
 
     public void init() {

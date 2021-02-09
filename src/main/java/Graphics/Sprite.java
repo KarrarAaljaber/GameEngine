@@ -5,37 +5,22 @@ import java.awt.image.BufferedImage;
 
 public class Sprite {
 
-    private BufferedImage spritesheet = null;
     private int width, height;
+    private SpriteSheet sheet;
 
-
-
-    public Sprite(String file, int width, int height){
-
-        spritesheet = loadSpriteSheet(file);
+    public Sprite(SpriteSheet sheet, int width, int height){
         this.width = width;
         this.height = height;
-
-
+        this.sheet = sheet;
     }
 
-    public BufferedImage loadSpriteSheet(String file){
-        BufferedImage sprite = null;
-        try{
-            sprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream(file));
-        }catch(Exception e){
-            e.printStackTrace();
-            System.out.println("couldnt load sprite! at File:  " + file);
-        }
-        System.out.println(sprite.getWidth());
+    public BufferedImage getSpriteImage(int col, int row) {
+        BufferedImage sprite = sheet.getImg().getSubimage((col * width) - width, (row * height) - height, width, height);
         return sprite;
     }
-
-    public BufferedImage getSprite(int col, int row) {
-        BufferedImage imgg = spritesheet.getSubimage((col * width) - width, (row * height) - height, width, height);
-        return imgg;
+    public SpriteSheet getSheet() {
+        return sheet;
     }
-
 
     public int getWidth() {
         return width;

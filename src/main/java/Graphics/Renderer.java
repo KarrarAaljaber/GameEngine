@@ -4,7 +4,10 @@ import GameHandlers.GameCaseHandler;
 
 import java.awt.*;
 import java.awt.Graphics;
+
+import GameHandlers.GameObject;
 import Graphics.EngineGraphics;
+import Utilities.TopDownCamera;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -18,7 +21,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener {
     private boolean isRunning = false;
 
     //FRAMES
-    private int FPS = 120;
+    private int FPS = 1000;
     public 	int frames =0;
 
     //Grap
@@ -30,36 +33,55 @@ public class Renderer extends Canvas implements  Runnable, KeyListener {
 
     private int WIDTH, HEIGHT;
     private Color backgroundcolor;
-    public Renderer(int WIDTH, int HEIGHT, Color backgroundcolor){
+    private  TopDownCamera camera;
+    private GameObject player;
+    public Renderer(GameObject player, int WIDTH, int HEIGHT, Color backgroundcolor, TopDownCamera camera){
         this.WIDTH = WIDTH;
+        this.player = player;
         this.HEIGHT = HEIGHT;
         this.backgroundcolor = backgroundcolor;
-        gch = new GameCaseHandler(this);
+        this.camera = camera;
         this.addKeyListener(this);
+        init();
+
     }
 
+    public void init() {
 
+        img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+        g2d = (Graphics2D) img.getGraphics();
+
+
+        gch = new GameCaseHandler(this, player);
+
+    }
+
+    public void renderToScreen() {
+        Graphics g = (Graphics) this.getGraphics();
+
+        g.drawImage(img, 0, 0, getWidth(), getHeight(), null);
+        g.dispose();
+    }
 
     public void render() {
 
-        BufferStrategy bs = this.getBufferStrategy();
-        if(bs == null) {
-            this.createBufferStrategy(3);
-            return;
-        }
 
-        Graphics g = bs.getDrawGraphics();
-        g.setColor(backgroundcolor);
-        g.fillRect( 0, 0, WIDTH, HEIGHT);
 
-        Graphics2D g2d = (Graphics2D)g;
+        g2d.setColor(backgroundcolor);
+        g2d.fillRect( 0, 0, WIDTH, HEIGHT);
+
 
         EngineGraphics engineGraphics = new EngineGraphics(g2d);
+        g2d.translate(camera.getPos().getX(), camera.getPos().getY());
+
+
+
         gch.render(engineGraphics);
 
-        g.dispose();
+        g2d.translate(-camera.getPos().getX(), -camera.getPos().getY());
 
-        bs.show();
+
+
 
     }
     public void update(double delta) {
@@ -77,38 +99,53 @@ public class Renderer extends Canvas implements  Runnable, KeyListener {
 
     @Override
     public void run() {
-        long lastTime = System.nanoTime();
-        double delta = 0;
-        double nPerTick =1000000000.0/  60.0 ;
-        int frames = 0;
+        long initialTime = System.nanoTime();
+        final double timeU = 1000000000 / FPS;
+        final double timeF = 1000000000 / FPS;
+        double deltaU = 0, deltaF = 0;
         int ticks = 0;
-        long Timer = System.currentTimeMillis();
-        requestFocus();
-        while(isRunning) {
-            long now = System.nanoTime();
-            delta  += (now - lastTime) /nPerTick;
-            lastTime = now;
-            while(delta >=1) {
-                update(delta);
+        long timer = System.currentTimeMillis();
+        boolean RENDER_TIME = false;
+        while (isRunning) {
+
+            long currentTime = System.nanoTime();
+            deltaU += (currentTime - initialTime) / timeU;
+            deltaF += (currentTime - initialTime) / timeF;
+            initialTime = currentTime;
+
+            if (deltaU >= 1) {
+                update(deltaU);
                 ticks++;
-                delta-=1;
+                deltaU--;
             }
-            {
-                frames++;
+
+            if (deltaF >= 1) {
+                RENDER_TIME = true;
+
                 render();
+                renderToScreen();
+
+                frames++;
+                deltaF--;
+
+
 
             }
 
-            if(System.currentTimeMillis() - Timer > 1000) {
-                Timer+=1000;
-                System.out.println( ticks + " ticks " + frames +"  FPS");
-                //frame.setTitle(TITLE +  " || " +"UPDATES : " + ticks + " || " + " FPS : " + frames);
+            if (System.currentTimeMillis() - timer > 1000) {
+
+                if (RENDER_TIME) {
+                    System.out.println(String.format("UPS: %s, FPS: %s", ticks, frames));
+
+
+                }
+
+
                 frames = 0;
-                ticks =0;
+                ticks = 0;
+                timer += 1000;
             }
         }
-       // stop();
-
     }
 
     public GameCaseHandler getGch() {

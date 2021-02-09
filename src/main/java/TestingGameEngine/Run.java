@@ -6,6 +6,7 @@ import Graphics.Screen;
 
 import Graphics.EngineGraphics;
 import Tiles.TileMap;
+import Utilities.TopDownCamera;
 import Utilities.Vector2f;
 
 import java.awt.*;
@@ -27,6 +28,14 @@ public class Run extends GameCase  {
     //GameObjects
     private TestPlayer player;
     private TileMap tileMap;
+
+    //SpriteSheets
+    private SpriteSheet playersheet;
+    private SpriteSheet tilesheet;
+
+
+    //Utils
+    private TopDownCamera cam;
     public Run(Screen screen) {
         super(screen);
 
@@ -40,21 +49,31 @@ public class Run extends GameCase  {
 
     @Override
     public void init() {
-        screen = new Screen(1280, 720, false, new Color(0,0,0));
+
+        playersheet = new SpriteSheet("spritesheet.png");
+        tilesheet = new SpriteSheet("blocksheet.png");
+
+
+        tileMap = new TileMap(500, 500, 32,32, tilesheet);
+
+
+
+
+        player = new TestPlayer(new Vector2f(300,300), 64,64, new Sprite(playersheet, 32,32));
+        cam = new TopDownCamera(player,new Vector2f(0,0), 1280 ,720,1);
+
+
+        //Screen stuff
+        screen = new Screen(player,cam,1280, 720, false, new Color(0,0,0));
         screen.getRenderer().getGch().getGameCases().add(this);
-        player = new TestPlayer(new Vector2f(100,100), 64,64, new Sprite("spritesheet.png", 32    ,32));
-
-        tileMap = new TileMap(128, 128, 32,32);
         screen.getRenderer().getGch().addObjectArray(tileMap.getMap());
-
         screen.getRenderer().getGch().addObjects(player);
-
+        screen.getRenderer().getGch().addObjects(cam);
 
     }
 
     @Override
     public void update(double delta) {
-
     }
 
     @Override
@@ -67,8 +86,6 @@ public class Run extends GameCase  {
     public void keyPressed(int key) {
         if(key == KeyEvent.VK_W) {
            player.setVelocity(new Vector2f( 0,-4f));
-
-
         }
 
         if(key == KeyEvent.VK_S) {
@@ -90,8 +107,6 @@ public class Run extends GameCase  {
     public void keyReleased(int key) {
         if(key == KeyEvent.VK_W) {
             player.setVelocity(new Vector2f( 0,0));
-
-            System.out.println("dddd");
 
         }
 

@@ -1,6 +1,8 @@
 package Tiles;
 
 import Graphics.EngineGraphics;
+import Graphics.Sprite;
+import Graphics.SpriteSheet;
 import Utilities.Vector2f;
 
 public class TileMap{
@@ -9,7 +11,7 @@ public class TileMap{
     private int w, h;
     private int tileWidth, tileHeight;
 
-    public TileMap(int w, int h, int tileWidth, int tileHeight ){
+    public TileMap(int w, int h, int tileWidth, int tileHeight , SpriteSheet spriteSheet){
         this.w = w;
         this.h =h;
         this.tileHeight = tileHeight;
@@ -18,7 +20,7 @@ public class TileMap{
 
         for(int i=0; i < map.length; i++){
             for(int j=0; j < map[i].length; j++){
-                map[i][j] = new EmptyTile(new Vector2f(i*tileWidth, j* tileHeight), tileWidth, tileHeight);
+                map[i][j] = new EmptyTile(new Vector2f(i*tileWidth, j* tileHeight), tileWidth, tileHeight, new Sprite(spriteSheet, tileWidth, tileHeight));
             }
 
         }

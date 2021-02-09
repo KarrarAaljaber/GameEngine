@@ -36,7 +36,7 @@ public class EngineGraphics {
         if(obj == null){
             System.out.println("NULLLL");
         }
-        g2d.drawImage(obj.getSprite().getSprite(spritecol, spriterow) ,(int)obj.getPos().getX(), (int) obj.getPos().getY(), obj.getWidth(), obj.getHeight() , null);
+        g2d.drawImage(obj.getSprite().getSpriteImage(spritecol, spriterow),(int)obj.getPos().getX(), (int) obj.getPos().getY(), obj.getWidth(), obj.getHeight() , null);
     }
 
     public void drawString(String text, Vector2f pos, String fontname, int fontSize ){

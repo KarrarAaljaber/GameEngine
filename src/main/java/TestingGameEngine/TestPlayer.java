@@ -17,6 +17,8 @@ public class TestPlayer extends GameObject {
 
     @Override
     public void render(EngineGraphics g) {
+
+        g.drawString("X:  " + pos.getX() + "   Y:" + pos.getY() , new Vector2f(getPos().getX() , getPos().getY() + 10 ) ,"Arial", 16);
         g.drawGameObject(this,1,1);
     }
 
@@ -32,5 +34,7 @@ public class TestPlayer extends GameObject {
     public void update(double delta) {
         Vector2f move = pos.plus(velocity);
         pos = move;
+
+
     }
 }

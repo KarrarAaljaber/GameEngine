@@ -9,13 +9,15 @@ import java.awt.*;
 public class EmptyTile extends  Tile{
 
 
-    public EmptyTile(Vector2f pos, int width, int height) {
-        super(pos, width, height);
+    public EmptyTile(Vector2f pos, int width, int height, Sprite sprite) {
+        super(pos, width, height, sprite);
     }
 
     @Override
     public void render(EngineGraphics g) {
-        g.drawRect(pos, width, height, Color.green, false);
+
+         g.drawGameObject(this, 1,1);
+
     }
 
     @Override
