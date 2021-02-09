@@ -1,19 +1,22 @@
 package TestingGameEngine;
 
 import GameHandlers.GameObject;
+import Graphics.Animation;
 import Graphics.EngineGraphics;
 import Graphics.Sprite;
 import Utilities.Vector2f;
+
+import java.util.ArrayList;
 
 public class TestPlayer extends GameObject {
 
 
     private Vector2f velocity;
 
-    public TestPlayer(Vector2f pos, int width, int height, Sprite sprite) {
-        super(pos, width, height, sprite);
-        velocity = new Vector2f(0,0);
+    public TestPlayer(Vector2f pos, int width, int height, ArrayList<Animation> animations) {
+        super(pos, width, height, animations);
     }
+
 
     @Override
     public void render(EngineGraphics g) {

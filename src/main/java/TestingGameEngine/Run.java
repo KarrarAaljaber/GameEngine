@@ -64,13 +64,6 @@ public class Run extends GameCase  {
         player = new TestPlayer(new Vector2f(300,300), 64,64, s);
         cam = new TopDownCamera(player,new Vector2f(0,0), 1280 ,720,1);
 
-        ArrayList<TestPlayer> test = new ArrayList<>();
-        for(int i=0; i  <  500;  i+=64) {
-            for (int j = 0; j < 500; j += 64) {
-                test.add(new TestPlayer(new Vector2f(i, j), 64, 64, s));
-            }
-        }
-
 
 
         //Screen stuff
@@ -79,7 +72,6 @@ public class Run extends GameCase  {
         screen.getRenderer().getGch().addObjectArray(tileMap.getMap());
         screen.getRenderer().getGch().addObjects(player);
         screen.getRenderer().getGch().addObjects(cam);
-        screen.getRenderer().getGch().getObjects().addAll(test);
 
     }
 

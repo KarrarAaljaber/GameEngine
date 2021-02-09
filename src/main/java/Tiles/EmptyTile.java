@@ -16,7 +16,8 @@ public class EmptyTile extends  Tile{
     @Override
     public void render(EngineGraphics g) {
 
-         g.drawGameObject(this, 1,1);
+        g.drawRect(pos, width, height, Color.RED, false);
+
 
     }
 

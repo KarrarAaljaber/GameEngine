@@ -4,6 +4,7 @@ import GameHandlers.GameObject;
 import Utilities.Vector2f;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class EngineGraphics {
 
@@ -30,6 +31,9 @@ public class EngineGraphics {
             g2d.setColor(color);
             g2d.fillRect((int) pos.getX(), (int) pos.getY(), width, height);
         }
+    }
+    public void drawImage(BufferedImage img, int x, int y, int width, int height){
+        g2d.drawImage(img, x,y,width,height, null);
     }
 
     public void drawGameObject(GameObject obj, int spritecol, int spriterow){

@@ -43,7 +43,6 @@ public class GameCaseHandler {
         gameCases.get(currentCase).render(g);
         for (int i = 0; i < objects.size(); i++) {
             if( !((objects.get(i).getPos().getX() + 64   <= player.getPos().getX() - renderer.getWidth() /2 )|| (objects.get(i).getPos().getX()  - 64  >=player.getPos().getX()  + renderer.getWidth() /2 )
-
                     || (objects.get(i).getPos().getY() + 64  <= player.getPos().getY() - renderer.getHeight() /2 ) || (objects.get(i).getPos().getY() -64  >=player.getPos().getY() + renderer.getHeight() / 2))){
                 objects.get(i).render(g);
 
