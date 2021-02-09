@@ -50,6 +50,10 @@ public class EngineGraphics {
     }
 
 
+    public void drawAnim(BufferedImage curImg, int x, int y, int width, int height) {
+        g2d.drawImage(curImg, x, y, width, height, null);
+
+    }
 
 
 

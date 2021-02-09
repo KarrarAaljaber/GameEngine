@@ -14,6 +14,7 @@ public class Sprite {
         this.sheet = sheet;
     }
 
+
     public BufferedImage getSpriteImage(int col, int row) {
         BufferedImage sprite = sheet.getImg().getSubimage((col * width) - width, (row * height) - height, width, height);
         return sprite;

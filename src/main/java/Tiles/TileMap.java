@@ -10,10 +10,11 @@ public class TileMap{
     public  Tile[][]map;
     private int w, h;
     private int tileWidth, tileHeight;
-
+    private  SpriteSheet spriteSheet;
     public TileMap(int w, int h, int tileWidth, int tileHeight , SpriteSheet spriteSheet){
         this.w = w;
         this.h =h;
+        this.spriteSheet = spriteSheet;
         this.tileHeight = tileHeight;
         this.tileWidth = tileWidth;
         map = new Tile[w][h];

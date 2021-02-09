@@ -3,60 +3,38 @@ package Graphics;
 import java.awt.image.BufferedImage;
 
 public class Animation {
-    private int speed;
-    private int frames;
-
-    private int index = 0;
-    private int count = 0;
-
-    private BufferedImage[] imgs;
-    private BufferedImage curImg;
 
 
-    public Animation(int speed, BufferedImage... args) {
-        this.speed = speed;
-        imgs = new BufferedImage[args.length];
 
-        for (int i = 0; i < args.length; i++) {
-            imgs[i] = args[i];
-        }
-        frames = args.length;
+    private int speed, animIndex;
+    private BufferedImage[] frames;
+    private long lastTime, Timer;
 
+    public Animation(int speed, BufferedImage[]frames) {
+        this.speed =speed;
+        this.frames = frames;
+        animIndex = 0;
+
+        Timer = 0;
+        lastTime = System.currentTimeMillis();
     }
 
-    public void startAnim() {
-        index++;
-        if (index > speed) {
-            index = 0;
-            nextFrame();
-        }
-    }
+    public void update(double delta){
+        Timer += System.currentTimeMillis() - lastTime;
+        lastTime = System.currentTimeMillis();
 
-    private void nextFrame() {
-        for (int i = 0; i < frames; i++) {
-            if (count == i) {
-                curImg = imgs[i];
-
+        if(Timer >speed){
+            animIndex++;
+            Timer =0;
+            if(animIndex >= frames.length){
+                animIndex = 0;
             }
         }
-        count++;
-        if (count > frames) {
-            count = 0;
-        }
-
     }
 
-    public void renderAnim(EngineGraphics g, int x, int y, int width, int height) {
-        g.drawImage(curImg, x, y, width, height);
-
+    public BufferedImage getCurrentFrame(){
+        return frames[animIndex];
     }
-    /*
-    public void renderAnim(Graphics2D g2d, int x, int y, int width, int height) {
-        g2d.drawImage(curImg, x, y, width , height, null);
-
-    }
-
-     */
 
 
 
