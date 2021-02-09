@@ -4,6 +4,7 @@ import Graphics.Renderer;
 
 import Graphics.EngineGraphics;
 import java.awt.event.MouseEvent;
+import java.awt.image.RescaleOp;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -41,9 +42,9 @@ public class GameCaseHandler {
 
         gameCases.get(currentCase).render(g);
         for (int i = 0; i < objects.size(); i++) {
-            if( !((objects.get(i).getPos().getX() + 64   <= player.getPos().getX() - renderer.getWIDTH() /2 )|| (objects.get(i).getPos().getX()  - 64  >=player.getPos().getX()  + renderer.getWIDTH() /2 )
+            if( !((objects.get(i).getPos().getX() + 64   <= player.getPos().getX() - renderer.getWidth() /2 )|| (objects.get(i).getPos().getX()  - 64  >=player.getPos().getX()  + renderer.getWidth() /2 )
 
-                    || (objects.get(i).getPos().getY() + 64  <= player.getPos().getY() - renderer.getHEIGHT() /2 ) || (objects.get(i).getPos().getY() -64  >=player.getPos().getY() + renderer.getHEIGHT() / 2))){
+                    || (objects.get(i).getPos().getY() + 64  <= player.getPos().getY() - renderer.getHeight() /2 ) || (objects.get(i).getPos().getY() -64  >=player.getPos().getY() + renderer.getHeight() / 2))){
                 objects.get(i).render(g);
 
             }
@@ -64,6 +65,7 @@ public class GameCaseHandler {
         for (int i = 0; i < objects.size(); i++) {
             objects.get(i).update(delta);
         }
+
         gameCases.get(currentCase).update(delta);
 
     }
@@ -105,6 +107,7 @@ public class GameCaseHandler {
                 }
             }
         }
+
 
 
 
