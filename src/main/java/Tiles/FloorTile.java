@@ -5,20 +5,35 @@ import Graphics.Sprite;
 import Utilities.Vector2f;
 
 import java.awt.*;
+import  Graphics.Renderer;
 
 public class FloorTile extends  Tile{
 
 
-    public FloorTile(Vector2f pos, int width, int height, Sprite sprite) {
-        super(pos, width, height, sprite);
+    public FloorTile(int x, int y, int width, int height, boolean isSolid) {
+        super(x, y, width, height, isSolid);
+    }
+
+    public FloorTile(int x, int y, int width, int height) {
+        super(x, y, width, height);
+    }
+
+    public FloorTile(int x, int y, int width, int height, Sprite sprite) {
+        super(x, y, width, height, sprite);
+    }
+
+    public FloorTile(int x, int y, int width, int height, boolean isSolid, Sprite sprite) {
+        super(x, y, width, height, isSolid, sprite);
     }
 
     @Override
     public void render(EngineGraphics g) {
 
         g.drawGameObject(this);
-      //  g.drawRect(pos, width, height, Color.GREEN, false);
+        if (Renderer.showLayers) {
+            g.drawRect(x,y, width, height, Color.GREEN, false);
 
+        }
 
     }
 

@@ -37,14 +37,23 @@ public class Renderer extends Canvas implements  Runnable, KeyListener {
     private Color backgroundcolor;
     private  TopDownCamera camera;
     private GameObject player;
-    public Renderer(GameObject player, int WIDTH, int HEIGHT, Color backgroundcolor, TopDownCamera camera){
+    private int SCALE;
+
+    public static boolean showLayers;
+    public static  boolean toggle;
+
+    public Renderer(GameObject player, int WIDTH, int HEIGHT, int SCALE, Color backgroundcolor, TopDownCamera camera){
         this.WIDTH = WIDTH;
+        this.SCALE = SCALE;
         this.player = player;
         this.HEIGHT = HEIGHT;
         this.backgroundcolor = backgroundcolor;
         this.camera = camera;
         this.addKeyListener(this);
+        gch = new GameCaseHandler(this, player);
         init();
+
+        System.out.println(getWIDTH());
 
     }
 
@@ -54,7 +63,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener {
         g2d = (Graphics2D) img.getGraphics();
 
 
-        gch = new GameCaseHandler(this, player);
+
 
     }
 
@@ -74,13 +83,13 @@ public class Renderer extends Canvas implements  Runnable, KeyListener {
 
 
         EngineGraphics engineGraphics = new EngineGraphics(g2d);
-        g2d.translate(camera.getPos().getX(), camera.getPos().getY());
+        g2d.translate(camera.getX(), camera.getY());
 
 
 
         gch.render(engineGraphics);
 
-        g2d.translate(-camera.getPos().getX(), -camera.getPos().getY());
+        g2d.translate(-camera.getX(), -camera.getY());
 
 
 
@@ -173,11 +182,14 @@ public class Renderer extends Canvas implements  Runnable, KeyListener {
         }
     }
     public int getWIDTH() {
-        return WIDTH;
+        return WIDTH *SCALE ;
+    }
+    public int getSCALE(){
+        return  SCALE;
     }
 
     public int getHEIGHT() {
-        return HEIGHT;
+        return HEIGHT * SCALE;
     }
 
     @Override
@@ -189,8 +201,17 @@ public class Renderer extends Canvas implements  Runnable, KeyListener {
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
 
+
         gch.keyPressed(key);
+        if (key == KeyEvent.VK_G && !toggle) {
+            showLayers = !showLayers;
+            toggle = true;
+        } else if (!(key == KeyEvent.VK_G)) toggle = false;
+
+
     }
+
+
 
     @Override
     public void keyReleased(KeyEvent e) {

@@ -19,7 +19,7 @@ public class Screen  {
         this.player = player;
         this.sizeScale = sizeScale;
 
-        renderer = new Renderer(player,WIDTH, HEIGHT, Backgroundcolor, camera);
+        renderer = new Renderer(player,WIDTH, HEIGHT, sizeScale, Backgroundcolor, camera);
         frame.setPreferredSize(new Dimension( WIDTH * sizeScale, HEIGHT * sizeScale));
         frame.setMinimumSize(new Dimension( WIDTH * sizeScale, HEIGHT * sizeScale));
         frame.setMaximumSize(new Dimension( WIDTH * sizeScale, HEIGHT * sizeScale));

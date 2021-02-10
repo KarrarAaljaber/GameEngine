@@ -1,6 +1,5 @@
 package Tiles;
 
-import Graphics.EngineGraphics;
 import Graphics.Sprite;
 import Graphics.SpriteSheet;
 import org.w3c.dom.Document;
@@ -76,10 +75,14 @@ public class TileHandler {
                 //floor layer
                 if(i == 0)
                 {
-                    tileLayers.add(new FloorTileLayer(data[i],width, height, tileWidth, tileHeight, tilecols,spriteSheet));
+                    tileLayers.add(new GroundTileLayer(data[i],width, height, tileWidth, tileHeight, tilecols,spriteSheet));
                     //solid layer
                 }else if(i==1){
                     tileLayers.add(new SolidTileLayer(data[i],width, height, tileWidth, tileHeight, tilecols,spriteSheet));
+
+                    //non solid layer for props
+                }else if(i== 2){
+                    tileLayers.add(new NonSolidTileLayer(data[i],width, height, tileWidth, tileHeight, tilecols,spriteSheet));
 
                 }
 

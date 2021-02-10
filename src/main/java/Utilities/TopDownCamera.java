@@ -10,18 +10,21 @@ public class TopDownCamera extends GameObject {
 
     private double camSpeed;
     private GameObject player;
-    public TopDownCamera(GameObject player,Vector2f pos, int width, int height, double camSpeed) {
-        super(pos, width, height);
+
+    public TopDownCamera(GameObject player,int x, int y, int width, int height,double camSpeed) {
+        super(x, y, width, height);
         this.camSpeed = camSpeed;
         this.player = player;
     }
+
+
 
     public void followEntity(GameObject obj) {
         if(obj == null){
             System.out.println("Obj is null cant follow player");
         }
-        getPos().setX(-(obj.getPos().getX() - width/ 2) * (float)camSpeed) ;
-        getPos().setY(-(obj.getPos().getY() - height / 2) * (float) camSpeed);
+        setX((int)(-(obj.getX() - width/ 2) * (float)camSpeed)) ;
+        setY((int)(-(obj.getY() - height / 2) * (float) camSpeed));
     }
 
     public void setCamSpeed(double camSpeed) {

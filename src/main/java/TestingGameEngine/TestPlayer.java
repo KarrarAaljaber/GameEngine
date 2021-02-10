@@ -26,9 +26,8 @@ public class TestPlayer extends Entity {
     private  Animation walkRight;
     private BufferedImage[] walkRightSprites;
 
-
-    public TestPlayer(Vector2f pos, int width, int height, Sprite sprite) {
-        super(pos, width, height, sprite);
+    public TestPlayer(int x, int y, int width, int height, Sprite sprite) {
+        super(x, y, width, height, sprite);
         walkUpSprites = new BufferedImage[3];
         walkUpSprites[0] = sprite.getSpriteImage(1,1);
         walkUpSprites[1] = sprite.getSpriteImage(2,1);
@@ -55,38 +54,45 @@ public class TestPlayer extends Entity {
         walkDown = new Animation(300, walkDownSprites);
         walkLeft = new Animation(300, walkLeftSprites);
         walkRight = new Animation(300, walkRightSprites);
-
     }
+
 
     @Override
     public void render(EngineGraphics g) {
      //   g.drawString("X:  " + pos.getX() + "   Y:" + pos.getY(), Color.WHITE , new Vector2f(getPos().getX() , getPos().getY() + 10 ) ,"Arial", 16);
         if(isUp()){
-            g.drawImage(walkUp.getCurrentFrame(),pos.getIntX(), pos.getIntY(), width, height);
+            g.drawImage(walkUp.getCurrentFrame(),x, y, width, height);
         }else if(isDown()){
-            g.drawImage(walkDown.getCurrentFrame(),pos.getIntX(), pos.getIntY(), width, height);
+            g.drawImage(walkDown.getCurrentFrame(),x,y, width, height);
 
         }else if( isLeft()){
-            g.drawImage(walkLeft.getCurrentFrame(),pos.getIntX(), pos.getIntY(), width, height);
+            g.drawImage(walkLeft.getCurrentFrame(),x,y, width, height);
 
         }else if(isRight()){
-            g.drawImage(walkRight.getCurrentFrame(),pos.getIntX(), pos.getIntY(), width, height);
+            g.drawImage(walkRight.getCurrentFrame(),x,y,width, height);
 
         }else{
-            g.drawImage(walkDownSprites[0],pos.getIntX(), pos.getIntY(), width, height);
+            g.drawImage(walkDownSprites[0],x,y, width, height);
 
         }
 
+
+
     }
+
+
 
     @Override
     public void update(double delta) {
+
         walkUp.update(delta);
         walkRight.update(delta);
         walkLeft.update(delta);
         walkDown.update(delta);
 
-        pos = pos.plus(velocity);
+        move(delta);
+
+
 
     }
 }

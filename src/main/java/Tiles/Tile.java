@@ -8,11 +8,21 @@ import Utilities.Vector2f;
 public abstract class Tile extends GameObject {
 
 
-    public Tile(Vector2f pos, int width, int height) {
-        super(pos, width, height);
+    public Tile(int x, int y, int width, int height, boolean isSolid) {
+        super(x, y, width, height, isSolid);
     }
 
-    public Tile(Vector2f pos, int width, int height, Sprite sprite) {
-        super(pos, width, height, sprite);
+    public Tile(int x, int y, int width, int height) {
+        super(x, y, width, height);
     }
+
+    public Tile(int x, int y, int width, int height, Sprite sprite) {
+        super(x, y, width, height, sprite);
+    }
+
+    public Tile(int x, int y, int width, int height, boolean isSolid, Sprite sprite) {
+        super(x, y, width, height, isSolid, sprite);
+    }
+
+
 }

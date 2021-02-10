@@ -13,23 +13,32 @@ public class EngineGraphics {
         this.g2d = g2d;
     }
 
-    public void drawCircle(Vector2f pos, int radius, Color color, boolean isFilled){
+    public void drawCircle(int x, int y, int radius, Color color, boolean isFilled){
         if(!isFilled) {
             g2d.setColor(color);
-            g2d.drawOval((int) pos.getX(), (int) pos.getY(), radius, radius);
+            g2d.drawOval(x, y, radius, radius);
         }else{
             g2d.setColor(color);
-            g2d.fillOval((int) pos.getX(), (int) pos.getY(), radius, radius);
+            g2d.fillOval((int) x, y, radius, radius);
+        }
+    }
+    public void drawRect(Rectangle rectangle, Color color, boolean isFilled){
+        if(!isFilled) {
+            g2d.setColor(color);
+            g2d.draw(rectangle);
+        }else{
+            g2d.setColor(color);
+            g2d.fill(rectangle);
         }
     }
 
-    public void drawRect(Vector2f pos, int width, int height, Color color, boolean isFilled){
+    public void drawRect(int x, int y, int width, int height, Color color, boolean isFilled){
         if(!isFilled) {
             g2d.setColor(color);
-            g2d.drawRect((int) pos.getX(), (int) pos.getY(), width, height);
+            g2d.drawRect(x, y, width, height);
         }else{
             g2d.setColor(color);
-            g2d.fillRect((int) pos.getX(), (int) pos.getY(), width, height);
+            g2d.fillRect(x, (int) y, width, height);
         }
     }
     public void drawImage(BufferedImage img, int x, int y, int width, int height){
@@ -40,20 +49,20 @@ public class EngineGraphics {
         if(obj == null){
             System.out.println("NULLLL");
         }
-        g2d.drawImage(obj.getSprite().getSpriteImage(spritecol, spriterow),(int)obj.getPos().getX(), (int) obj.getPos().getY(), obj.getWidth(), obj.getHeight() , null);
+        g2d.drawImage(obj.getSprite().getSpriteImage(spritecol, spriterow),(int)obj.getX(), (int) obj.getY(), obj.getWidth(), obj.getHeight() , null);
     }
     public void drawGameObject(GameObject obj){
         if(obj == null){
             System.out.println("NULLLL");
         }
-        g2d.drawImage(obj.getSprite().getSpriteImage(),(int)obj.getPos().getX(), (int) obj.getPos().getY(), obj.getWidth(), obj.getHeight() , null);
+        g2d.drawImage(obj.getSprite().getSpriteImage(),(int)obj.getX(), (int) obj.getY(), obj.getWidth(), obj.getHeight() , null);
     }
 
-    public void drawString(String text, Color color,Vector2f pos, String fontname, int fontSize ){
+    public void drawString(String text, Color color, int x, int y, String fontname, int fontSize ){
         Font font = new Font(fontname, 0, fontSize);
         g2d.setFont(font);
         g2d.setColor(color);
-        g2d.drawString(text, pos.getX(), pos.getY() );
+        g2d.drawString(text, x,y );
     }
 
 

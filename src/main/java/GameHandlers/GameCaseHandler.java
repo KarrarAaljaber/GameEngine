@@ -13,7 +13,10 @@ import java.util.Arrays;
 public class GameCaseHandler {
 
     private ArrayList<GameCase> gameCases;
+
+    //Different GameObjects
     private ArrayList<GameObject> objects;
+
 
     private int currentCase;
 
@@ -32,6 +35,14 @@ public class GameCaseHandler {
 
     }
 
+    public GameCaseHandler() {
+        objects = new ArrayList<>();
+
+        gameCases = new ArrayList<GameCase>();
+        currentCase = 0;
+
+
+    }
     public ArrayList<GameCase> getGameCases() {
         return gameCases;
     }
@@ -44,8 +55,8 @@ public class GameCaseHandler {
 
         gameCases.get(currentCase).render(g);
         for (int i = 0; i < objects.size(); i++) {
-            if( !((objects.get(i).getPos().getX() + 64   <= player.getPos().getX() - renderer.getWidth() /2 )|| (objects.get(i).getPos().getX()  - 64  >=player.getPos().getX()  + renderer.getWidth() /2 )
-                    || (objects.get(i).getPos().getY() + 64  <= player.getPos().getY() - renderer.getHeight() /2 ) || (objects.get(i).getPos().getY() -64  >=player.getPos().getY() + renderer.getHeight() / 2))){
+            if( !((objects.get(i).getX() + 64   <= player.getX() - ( renderer.getWIDTH() /renderer.getSCALE() )/2|| (objects.get(i).getX() -64   >=player.getX()  + (renderer.getWIDTH() /renderer.getSCALE()) / 2 )
+                    || (objects.get(i).getY() + 64  <= player.getY() - (renderer.getHEIGHT() /renderer.getSCALE()) / 2))|| (objects.get(i).getY() -64  >=player.getY() +(renderer.getHEIGHT() /renderer.getSCALE()) / 2))){
                 objects.get(i).render(g);
 
             }

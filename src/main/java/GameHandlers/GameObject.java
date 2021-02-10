@@ -4,26 +4,74 @@ import Graphics.Sprite;
 import Utilities.Vector2f;
 import Graphics.EngineGraphics;
 
+import java.awt.*;
+
 public abstract class GameObject {
 
-    protected Vector2f pos;
 
     protected int width, height;
     private Sprite sprite;
+    private boolean isSolid;
 
+    protected int x;
+    protected int y;
 
-    public GameObject(Vector2f pos, int width, int height){
-        this.pos  = pos;
+    public GameObject(int x, int y, int width, int height, boolean isSolid){
+        this.x  = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.isSolid = isSolid;
+
+    }
+
+    public GameObject(int x,int y, int width, int height){
+        this.x  = x;
+        this.y = y;
         this.width = width;
         this.height = height;
 
     }
 
-    public GameObject(Vector2f pos, int width, int height, Sprite sprite){
-        this.pos  = pos;
+    public GameObject(int x, int y, int width, int height, Sprite sprite){
+        this.x  = x;
+        this.y = y;
         this.width = width;
         this.height = height;
         this.sprite = sprite;
+    }
+
+    public GameObject(int x, int y, int width, int height, boolean isSolid, Sprite sprite){
+        this.x  = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.sprite = sprite;
+        this.isSolid = isSolid;
+    }
+
+    public boolean isSolid() {
+        return isSolid;
+    }
+
+
+
+    public void setSolid(boolean solid) {
+        isSolid = solid;
+    }
+
+    public Rectangle getCollRight() {
+        return new Rectangle (x + width - 2, y, 4, height);
+    }
+    public Rectangle getCollLeft() {
+        return new Rectangle (x, y, 4, height);
+    }
+
+    public Rectangle getCollUp() {
+        return new Rectangle(x, y, width, 4);
+    }
+    public Rectangle getCollDown() {
+        return new Rectangle(x, y + height - 2, width, 4);
     }
 
     public abstract void render(EngineGraphics g);
@@ -53,11 +101,21 @@ public abstract class GameObject {
         this.height = height;
     }
 
-    public Vector2f getPos() {
-        return pos;
+
+
+    public int getX() {
+        return x;
     }
 
-    public void setPos(Vector2f pos) {
-        this.pos = pos;
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }

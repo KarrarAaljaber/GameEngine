@@ -68,8 +68,8 @@ public class Run extends GameCase  {
        // tileMap = new TileMap(500, 500, 32,32, tilesheet);
 
         Sprite s =  new Sprite(playersheet, 24,32);
-        player = new TestPlayer(new Vector2f((WIDTH / 2),(HEIGHT / 2)), 32,32, s);
-        cam = new TopDownCamera(player,new Vector2f(0,0), WIDTH ,HEIGHT,1);
+        player = new TestPlayer((WIDTH / 2),(HEIGHT / 2), 32,32, s);
+        cam = new TopDownCamera(player,0,0, WIDTH ,HEIGHT,1);
 
 
 
@@ -99,21 +99,29 @@ public class Run extends GameCase  {
     @Override
     public void keyPressed(int key) {
         if(key == KeyEvent.VK_W) {
-           player.setVelocity(new Vector2f( 0,-2f));
            player.setUp(true);
+           player.setDown(false);
+           player.setLeft(false);
+           player.setRight(false);
+
         }
 
         if(key == KeyEvent.VK_S) {
-            player.setVelocity(new Vector2f( 0,2f));
+            player.setUp(false);
             player.setDown(true);
-
+            player.setLeft(false);
+            player.setRight(false);
         }
         if(key == KeyEvent.VK_A) {
-            player.setVelocity(new Vector2f( -2f,0));
+            player.setUp(false);
+            player.setDown(false);
             player.setLeft(true);
+            player.setRight(false);
         }
         if(key == KeyEvent.VK_D) {
-            player.setVelocity(new Vector2f( 2f,0));
+            player.setUp(false);
+            player.setDown(false);
+            player.setLeft(false);
             player.setRight(true);
         }
 
@@ -122,26 +130,26 @@ public class Run extends GameCase  {
     @Override
     public void keyReleased(int key) {
         if(key == KeyEvent.VK_W) {
-            player.setVelocity(new Vector2f( 0,0));
+            player.setVelocity(0,0);
             player.setUp(false);
 
         }
 
         if(key == KeyEvent.VK_S) {
-            player.setVelocity(new Vector2f( 0,0));
+            player.setVelocity(0,0);
             player.setDown(false);
 
 
 
         }
         if(key == KeyEvent.VK_A) {
-            player.setVelocity(new Vector2f( 0,0));
+            player.setVelocity(0,0);
             player.setLeft(false);
 
 
         }
         if(key == KeyEvent.VK_D) {
-            player.setVelocity(new Vector2f( 0,0));
+            player.setVelocity(0,0);
             player.setRight(false);
         }
     }
