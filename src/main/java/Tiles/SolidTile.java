@@ -6,19 +6,20 @@ import Utilities.Vector2f;
 
 import java.awt.*;
 
-public class EmptyTile extends  Tile{
+public class SolidTile extends  Tile{
 
+    public SolidTile(Vector2f pos, int width, int height) {
+        super(pos, width, height);
+    }
 
-    public EmptyTile(Vector2f pos, int width, int height, Sprite sprite) {
+    public SolidTile(Vector2f pos, int width, int height, Sprite sprite) {
         super(pos, width, height, sprite);
     }
 
     @Override
     public void render(EngineGraphics g) {
-
+        g.drawGameObject(this);
         g.drawRect(pos, width, height, Color.RED, false);
-
-
     }
 
     @Override

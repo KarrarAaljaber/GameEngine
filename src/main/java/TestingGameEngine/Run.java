@@ -1,20 +1,17 @@
 package TestingGameEngine;
 
 import GameHandlers.GameCase;
-import GameHandlers.GameObject;
 import Graphics.Screen;
 
 import Graphics.EngineGraphics;
-import Tiles.TileMap;
+import Tiles.TileHandler;
+import Tiles.TileLayers;
 import Utilities.TopDownCamera;
 import Utilities.Vector2f;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import Graphics.Animation;
 
 import Graphics.ImageLoader;
 import Graphics.Sprite;
@@ -30,12 +27,12 @@ public class Run extends GameCase  {
 
     //GameObjects
     private TestPlayer player;
-    private TileMap tileMap;
+    private TileLayers tileMap;
 
     //SpriteSheets
     private SpriteSheet playersheet;
     private SpriteSheet tilesheet;
-
+    private SpriteSheet tileMapSheet;
 
 
 
@@ -46,7 +43,7 @@ public class Run extends GameCase  {
 
     }
 
-
+    private  TileHandler tileHandler;
     public static void main(String[]args){
         Run run = new Run(screen);
     }
@@ -57,11 +54,15 @@ public class Run extends GameCase  {
         //sheets
         playersheet = new SpriteSheet("playersheet.png");
         tilesheet = new SpriteSheet("blocksheet.png");
+        tileMapSheet = new SpriteSheet("tilset.png");
+
+         tileHandler = new TileHandler("tilemap.tmx", 32,32,tileMapSheet );
+
 
 
 
         //objects
-        tileMap = new TileMap(500, 500, 32,32, tilesheet);
+       // tileMap = new TileMap(500, 500, 32,32, tilesheet);
 
         Sprite s =  new Sprite(playersheet, 24,32);
         player = new TestPlayer(new Vector2f(300,300), 64,64, s);
@@ -74,7 +75,7 @@ public class Run extends GameCase  {
         //Screen stuff
         screen = new Screen(player,cam,1280, 720, false, new Color(0,0,0));
         screen.getRenderer().getGch().getGameCases().add(this);
-        screen.getRenderer().getGch().addObjectArray(tileMap.getMap());
+//        screen.getRenderer().getGch().addObjectArray(tileMap.getMap());
         screen.getRenderer().getGch().addObjects(player);
         screen.getRenderer().getGch().addObjects(cam);
 
@@ -87,7 +88,7 @@ public class Run extends GameCase  {
     @Override
     public void render(EngineGraphics g) {
     //    g.drawRect(new Vector2f(22,22), 50,500, Color.RED,false);
-
+        tileHandler.render(g);
     }
 
     @Override
