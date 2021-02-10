@@ -2,25 +2,32 @@ package GameHandlers;
 
 import Graphics.Renderer;
 
-import java.awt.*;
+import Graphics.EngineGraphics;
+import Tiles.Tile;
+
 import java.awt.event.MouseEvent;
+import java.awt.image.RescaleOp;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GameCaseHandler {
 
     private ArrayList<GameCase> gameCases;
+    private ArrayList<GameObject> objects;
 
     private int currentCase;
-    public static final int MENUCASE = 0;
-    public static final int LEVEL1 = 1;
+
 
 
     private Renderer renderer;
-    public GameCaseHandler(Renderer renderer)
-    {
+    private GameObject player;
+
+    public GameCaseHandler(Renderer renderer, GameObject player) {
+        objects = new ArrayList<>();
         this.renderer = renderer;
+        this.player = player;
         gameCases = new ArrayList<GameCase>();
-        currentCase = MENUCASE;
+        currentCase = 0;
 
 
     }
@@ -33,13 +40,32 @@ public class GameCaseHandler {
         currentCase = Case;
     }
 
-    public void render(Graphics2D g2d) {
+    public void render(EngineGraphics g) {
 
-        gameCases.get(currentCase).render(g2d);
+        gameCases.get(currentCase).render(g);
+        for (int i = 0; i < objects.size(); i++) {
+            if( !((objects.get(i).getPos().getX() + 64   <= player.getPos().getX() - renderer.getWidth() /2 )|| (objects.get(i).getPos().getX()  - 64  >=player.getPos().getX()  + renderer.getWidth() /2 )
+                    || (objects.get(i).getPos().getY() + 64  <= player.getPos().getY() - renderer.getHeight() /2 ) || (objects.get(i).getPos().getY() -64  >=player.getPos().getY() + renderer.getHeight() / 2))){
+                objects.get(i).render(g);
+
+            }
+        }
     }
 
-    public void update(double delta){
 
+
+    public void init() {
+
+        gameCases.get(currentCase).init();
+
+    }
+
+    public void update(double delta) {
+
+
+        for (int i = 0; i < objects.size(); i++) {
+            objects.get(i).update(delta);
+        }
 
         gameCases.get(currentCase).update(delta);
 
@@ -67,6 +93,19 @@ public class GameCaseHandler {
 
     }
 
+    public ArrayList<GameObject> getObjects() {
+        return objects;
+    }
+
+
+
+
+
+
+
+    public void setObjects(ArrayList<GameObject> objects) {
+        this.objects = objects;
+    }
 }
 
 
