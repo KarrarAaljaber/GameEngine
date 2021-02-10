@@ -35,6 +35,9 @@ public class Run extends GameCase  {
     private SpriteSheet tileMapSheet;
 
 
+    public static final int SCALE = 2;
+    public static final int WIDTH = 640;
+    public static final int HEIGHT = 480;
 
     //Utils
     private TopDownCamera cam;
@@ -54,9 +57,9 @@ public class Run extends GameCase  {
         //sheets
         playersheet = new SpriteSheet("playersheet.png");
         tilesheet = new SpriteSheet("blocksheet.png");
-        tileMapSheet = new SpriteSheet("tilset.png");
+        tileMapSheet = new SpriteSheet("housetileset.png");
 
-         tileHandler = new TileHandler("tilemap2.tmx", 32,32,tileMapSheet );
+         tileHandler = new TileHandler("tilemap.tmx", 32,32,tileMapSheet );
 
 
 
@@ -65,15 +68,15 @@ public class Run extends GameCase  {
        // tileMap = new TileMap(500, 500, 32,32, tilesheet);
 
         Sprite s =  new Sprite(playersheet, 24,32);
-        player = new TestPlayer(new Vector2f(300,300), 64,64, s);
-        cam = new TopDownCamera(player,new Vector2f(0,0), 1280 ,720,1);
+        player = new TestPlayer(new Vector2f((WIDTH*SCALE)/2,(HEIGHT*SCALE)/2), 64,64, s);
+        cam = new TopDownCamera(player,new Vector2f(0,0), WIDTH ,HEIGHT,1);
 
 
 
 
 
         //Screen stuff
-        screen = new Screen(player,cam,1280, 720, false, new Color(0,0,0));
+        screen = new Screen(player,cam,WIDTH,HEIGHT, SCALE,false, new Color(0,0,0));
         screen.getRenderer().getGch().getGameCases().add(this);
 //        screen.getRenderer().getGch().addObjectArray(tileMap.getMap());
         tileHandler.render();

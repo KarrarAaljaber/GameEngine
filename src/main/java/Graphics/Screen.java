@@ -13,14 +13,16 @@ public class Screen  {
     private Renderer renderer;
     private TopDownCamera camera;
     private GameObject player;
-    public Screen(GameObject player,TopDownCamera camera, int WIDTH, int HEIGHT, boolean resizable, Color Backgroundcolor){
+    private int sizeScale;
+    public Screen(GameObject player,TopDownCamera camera, int WIDTH, int HEIGHT, int sizeScale, boolean resizable, Color Backgroundcolor){
         this.camera = camera;
         this.player = player;
+        this.sizeScale = sizeScale;
 
         renderer = new Renderer(player,WIDTH, HEIGHT, Backgroundcolor, camera);
-        frame.setPreferredSize(new Dimension( WIDTH, HEIGHT));
-        frame.setMinimumSize(new Dimension( WIDTH, HEIGHT));
-        frame.setMaximumSize(new Dimension( WIDTH, HEIGHT));
+        frame.setPreferredSize(new Dimension( WIDTH * sizeScale, HEIGHT * sizeScale));
+        frame.setMinimumSize(new Dimension( WIDTH * sizeScale, HEIGHT * sizeScale));
+        frame.setMaximumSize(new Dimension( WIDTH * sizeScale, HEIGHT * sizeScale));
         frame.setResizable(resizable);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

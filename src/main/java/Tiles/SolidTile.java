@@ -19,7 +19,7 @@ public class SolidTile extends  Tile{
     @Override
     public void render(EngineGraphics g) {
         g.drawGameObject(this);
-        g.drawRect(pos, width, height, Color.RED, false);
+        //g.drawRect(pos, width, height, Color.RED, false);
     }
 
     @Override
