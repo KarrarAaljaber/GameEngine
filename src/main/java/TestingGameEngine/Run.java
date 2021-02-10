@@ -12,7 +12,7 @@ import Utilities.Vector2f;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-
+import Graphics.Renderer;
 import Graphics.ImageLoader;
 import Graphics.Sprite;
 
@@ -56,7 +56,7 @@ public class Run extends GameCase  {
         tilesheet = new SpriteSheet("blocksheet.png");
         tileMapSheet = new SpriteSheet("tilset.png");
 
-         tileHandler = new TileHandler("tilemap.tmx", 32,32,tileMapSheet );
+         tileHandler = new TileHandler("tilemap2.tmx", 32,32,tileMapSheet );
 
 
 
@@ -76,8 +76,11 @@ public class Run extends GameCase  {
         screen = new Screen(player,cam,1280, 720, false, new Color(0,0,0));
         screen.getRenderer().getGch().getGameCases().add(this);
 //        screen.getRenderer().getGch().addObjectArray(tileMap.getMap());
-        screen.getRenderer().getGch().addObjects(player);
-        screen.getRenderer().getGch().addObjects(cam);
+        tileHandler.render();
+        Renderer.addObject(player);
+        Renderer.addObject(cam);
+
+
 
     }
 
@@ -88,7 +91,6 @@ public class Run extends GameCase  {
     @Override
     public void render(EngineGraphics g) {
     //    g.drawRect(new Vector2f(22,22), 50,500, Color.RED,false);
-        tileHandler.render(g);
     }
 
     @Override

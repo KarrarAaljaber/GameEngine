@@ -93,9 +93,9 @@ public class TileHandler {
         }
     }
 
-    public void render(EngineGraphics g){
+    public void render(){
         for(int i=0; i < tileLayers.size(); i++){
-            tileLayers.get(i).render(g);
+            tileLayers.get(i).renderTiles();
         }
     }
 }

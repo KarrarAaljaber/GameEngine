@@ -3,6 +3,8 @@ package GameHandlers;
 import Graphics.Renderer;
 
 import Graphics.EngineGraphics;
+import Tiles.Tile;
+
 import java.awt.event.MouseEvent;
 import java.awt.image.RescaleOp;
 import java.util.ArrayList;
@@ -95,17 +97,7 @@ public class GameCaseHandler {
         return objects;
     }
 
-    public void addObjects(GameObject object) {
-        objects.add(object);
-    }
 
-    public void addObjectArray(GameObject[][] objectz) {
-        for (int i = 0; i < objectz.length; i++) {
-            for (int j = 0; j < objectz[i].length; j++) {
-                objects.add(objectz[i][j]);
-                }
-            }
-        }
 
 
 

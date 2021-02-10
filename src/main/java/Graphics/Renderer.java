@@ -7,6 +7,7 @@ import java.awt.Graphics;
 
 import GameHandlers.GameObject;
 import Graphics.EngineGraphics;
+import Tiles.Tile;
 import Utilities.TopDownCamera;
 
 import java.awt.event.KeyEvent;
@@ -14,6 +15,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class Renderer extends Canvas implements  Runnable, KeyListener {
 
@@ -21,14 +23,14 @@ public class Renderer extends Canvas implements  Runnable, KeyListener {
     private boolean isRunning = false;
 
     //FRAMES
-    private int FPS = 1000;
+    private int FPS = 60;
     public 	int frames =0;
 
     //Grap
     private BufferedImage img;
     private Graphics2D g2d;
 
-    private GameCaseHandler gch;
+    private static GameCaseHandler gch;
 
 
     private int WIDTH, HEIGHT;
@@ -148,10 +150,28 @@ public class Renderer extends Canvas implements  Runnable, KeyListener {
         }
     }
 
-    public GameCaseHandler getGch() {
+    public static GameCaseHandler getGch() {
         return gch;
     }
+    public static void addObject(GameObject object) {
+        getGch().getObjects().add(object);
+    }
 
+    public static void addObjects(ArrayList<GameObject> object) {
+        getGch().getObjects().addAll(object);
+    }
+    public static void addTiles(ArrayList<Tile> object) {
+        getGch().getObjects().addAll(object);
+    }
+
+
+    public static void addObjectArray(GameObject[][] objectz) {
+        for (int i = 0; i < objectz.length; i++) {
+            for (int j = 0; j < objectz[i].length; j++) {
+                getGch().getObjects().add(objectz[i][j]);
+            }
+        }
+    }
     public int getWIDTH() {
         return WIDTH;
     }

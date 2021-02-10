@@ -1,5 +1,6 @@
 package Tiles;
 
+import GameHandlers.GameCaseHandler;
 import Graphics.EngineGraphics;
 import Graphics.Sprite;
 import Graphics.SpriteSheet;
@@ -24,12 +25,7 @@ public class FloorTileLayer extends  TileLayers{
         }
     }
 
-    @Override
-    protected void render(EngineGraphics g) {
-        for(int i=0; i < tiles.size(); i++){
-            tiles.get(i).render(g);
-        }
-    }
+
 
 
 }

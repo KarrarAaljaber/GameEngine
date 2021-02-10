@@ -1,6 +1,8 @@
 package Tiles;
 
+import GameHandlers.GameCaseHandler;
 import Graphics.EngineGraphics;
+import Graphics.Renderer;
 import Graphics.Sprite;
 import Graphics.SpriteSheet;
 import Utilities.Vector2f;
@@ -15,6 +17,7 @@ public abstract class TileLayers {
     protected int tilecols;
     protected  SpriteSheet spriteSheet;
     protected String Data;
+
     public TileLayers(String Data, int w, int h, int tileWidth, int tileHeight , int tilecols, SpriteSheet spriteSheet) {
         this.w = w;
         this.tilecols = tilecols;
@@ -31,7 +34,10 @@ public abstract class TileLayers {
     public abstract void addTiles();
 
 
-    protected  abstract  void render(EngineGraphics g);
+    public void renderTiles(){
+        Renderer.addTiles(tiles);
+
+    }
 
 
 

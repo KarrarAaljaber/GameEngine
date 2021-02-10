@@ -17,7 +17,7 @@ public class FloorTile extends  Tile{
     public void render(EngineGraphics g) {
 
         g.drawGameObject(this);
-        g.drawRect(pos, width, height, Color.GREEN, false);
+      //  g.drawRect(pos, width, height, Color.GREEN, false);
 
 
     }
