@@ -49,9 +49,10 @@ public class EngineGraphics {
         g2d.drawImage(obj.getSprite().getSpriteImage(),(int)obj.getPos().getX(), (int) obj.getPos().getY(), obj.getWidth(), obj.getHeight() , null);
     }
 
-    public void drawString(String text, Vector2f pos, String fontname, int fontSize ){
+    public void drawString(String text, Color color,Vector2f pos, String fontname, int fontSize ){
         Font font = new Font(fontname, 0, fontSize);
         g2d.setFont(font);
+        g2d.setColor(color);
         g2d.drawString(text, pos.getX(), pos.getY() );
     }
 

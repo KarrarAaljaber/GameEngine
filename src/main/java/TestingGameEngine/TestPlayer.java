@@ -7,6 +7,7 @@ import Graphics.EngineGraphics;
 import Graphics.Sprite;
 import Utilities.Vector2f;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -59,7 +60,7 @@ public class TestPlayer extends Entity {
 
     @Override
     public void render(EngineGraphics g) {
-        g.drawString("X:  " + pos.getX() + "   Y:" + pos.getY() , new Vector2f(getPos().getX() , getPos().getY() + 10 ) ,"Arial", 16);
+     //   g.drawString("X:  " + pos.getX() + "   Y:" + pos.getY(), Color.WHITE , new Vector2f(getPos().getX() , getPos().getY() + 10 ) ,"Arial", 16);
         if(isUp()){
             g.drawImage(walkUp.getCurrentFrame(),pos.getIntX(), pos.getIntY(), width, height);
         }else if(isDown()){

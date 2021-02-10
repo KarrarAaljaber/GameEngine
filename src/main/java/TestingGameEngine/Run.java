@@ -57,9 +57,9 @@ public class Run extends GameCase  {
         //sheets
         playersheet = new SpriteSheet("playersheet.png");
         tilesheet = new SpriteSheet("blocksheet.png");
-        tileMapSheet = new SpriteSheet("housetileset.png");
+        tileMapSheet = new SpriteSheet("tilset.png");
 
-         tileHandler = new TileHandler("tilemap.tmx", 32,32,tileMapSheet );
+         tileHandler = new TileHandler("tilemap2.tmx", 32,32,tileMapSheet );
 
 
 
@@ -68,7 +68,7 @@ public class Run extends GameCase  {
        // tileMap = new TileMap(500, 500, 32,32, tilesheet);
 
         Sprite s =  new Sprite(playersheet, 24,32);
-        player = new TestPlayer(new Vector2f((WIDTH*SCALE)/3,(HEIGHT*SCALE)/2), 64,64, s);
+        player = new TestPlayer(new Vector2f((WIDTH / 2),(HEIGHT / 2)), 32,32, s);
         cam = new TopDownCamera(player,new Vector2f(0,0), WIDTH ,HEIGHT,1);
 
 
