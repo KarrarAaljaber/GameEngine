@@ -69,7 +69,7 @@ public class Run extends GameCase  {
         //objects
        // tileMap = new TileMap(500, 500, 32,32, tilesheet);
 
-        Sprite s =  new Sprite(playersheet, 24,32);
+        Sprite s =  new Sprite(playersheet, 1,1,24,32);
         player = new TestPlayer((WIDTH / 3),(HEIGHT / 2), 32,32, s);
         player.placeEntityAtTile(6,9,32,32);
         cam = new TopDownCamera(player,0,0, WIDTH ,HEIGHT,1);

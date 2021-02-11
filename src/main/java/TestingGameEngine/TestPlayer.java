@@ -10,6 +10,7 @@ import Utilities.Vector2f;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import Graphics.SpriteSheet;
 
 public class TestPlayer extends Entity {
 
@@ -25,6 +26,9 @@ public class TestPlayer extends Entity {
 
     private  Animation walkRight;
     private BufferedImage[] walkRightSprites;
+
+    private Sprite health;
+    private SpriteSheet sheet;
 
     public TestPlayer(int x, int y, int width, int height, Sprite sprite) {
         super(x, y, width, height, sprite);
@@ -49,6 +53,8 @@ public class TestPlayer extends Entity {
         walkLeftSprites[2] = sprite.getSpriteImage(3,4);
 
 
+        sheet = new SpriteSheet("blocksheet.png");
+        health = new Sprite(sheet,32,32);
 
         walkUp = new Animation(300, walkUpSprites);
         walkDown = new Animation(300, walkDownSprites);
@@ -75,6 +81,11 @@ public class TestPlayer extends Entity {
             g.drawImage(walkDownSprites[0],x,y, width, height);
 
         }
+
+        for(int i=1; i < 5; i++){
+            g.drawSprite(health, (this.getX() - 8 ) + i * 8 ,this.getY(),3,1,8,8  );
+        }
+
         /*
 
         g.drawRect(getCollDown(),Color.BLACK,false);

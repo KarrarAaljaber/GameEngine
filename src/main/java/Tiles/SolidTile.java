@@ -34,10 +34,16 @@ public class SolidTile extends  Tile{
 
         }
 
+
+        /*
+
         g.drawRect(getCollDown(),Color.BLACK,false);
         g.drawRect(getCollLeft(),Color.BLACK,false);
         g.drawRect(getCollRight(),Color.BLACK,false);
         g.drawRect(getCollUp(),Color.BLACK,false);
+
+
+         */
     }
 
     @Override

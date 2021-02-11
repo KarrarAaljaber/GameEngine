@@ -65,6 +65,9 @@ public class EngineGraphics {
     }
 
 
+    public void drawSprite(Sprite sprite, int x, int y,int col, int row, int width, int height){
+        g2d.drawImage(sprite.getSpriteImage(col, row), x, y, width, height, null );
+    }
     public void drawAnim(BufferedImage curImg, int x, int y, int width, int height) {
         g2d.drawImage(curImg, x, y, width, height, null);
     }
