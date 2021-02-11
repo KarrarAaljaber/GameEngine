@@ -7,7 +7,6 @@ import Graphics.EngineGraphics;
 import Tiles.TileHandler;
 import Tiles.TileLayers;
 import Utilities.TopDownCamera;
-import Utilities.Vector2f;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -52,6 +51,9 @@ public class Run extends GameCase  {
     }
 
 
+
+    private static final Color transparency = new Color(0, 0, 0, 0);
+
     @Override
     public void init() {
         //sheets
@@ -68,7 +70,8 @@ public class Run extends GameCase  {
        // tileMap = new TileMap(500, 500, 32,32, tilesheet);
 
         Sprite s =  new Sprite(playersheet, 24,32);
-        player = new TestPlayer((WIDTH / 2),(HEIGHT / 2), 32,32, s);
+        player = new TestPlayer((WIDTH / 3),(HEIGHT / 2), 32,32, s);
+        player.placeEntityAtTile(6,9,32,32);
         cam = new TopDownCamera(player,0,0, WIDTH ,HEIGHT,1);
 
 
@@ -83,12 +86,15 @@ public class Run extends GameCase  {
         Renderer.addObject(player);
         Renderer.addObject(cam);
 
+        ///
+
 
 
     }
 
     @Override
     public void update(double delta) {
+
     }
 
     @Override

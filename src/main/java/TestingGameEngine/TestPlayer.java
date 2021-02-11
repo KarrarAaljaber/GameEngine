@@ -75,9 +75,13 @@ public class TestPlayer extends Entity {
             g.drawImage(walkDownSprites[0],x,y, width, height);
 
         }
+        /*
 
-
-
+        g.drawRect(getCollDown(),Color.BLACK,false);
+        g.drawRect(getCollLeft(),Color.BLACK,false);
+        g.drawRect(getCollRight(),Color.BLACK,false);
+        g.drawRect(getCollUp(),Color.BLACK,false);
+*/
     }
 
 

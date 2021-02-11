@@ -109,10 +109,9 @@ public class GameCaseHandler {
     }
 
 
-
-
-
-
+    public GameObject getPlayer() {
+        return player;
+    }
 
     public void setObjects(ArrayList<GameObject> objects) {
         this.objects = objects;

@@ -68,6 +68,11 @@ public abstract class Entity extends GameObject {
         }
     }
 
+    public void placeEntityAtTile(int col, int row, int tilesWidth, int tilesHeight){
+        this.setX(col * tilesWidth );
+        this.setY(row * tilesHeight);
+    }
+
 
 
     public void move(double delta){
@@ -142,5 +147,18 @@ public abstract class Entity extends GameObject {
 
     public void setLeft(boolean left) {
         this.left = left;
+    }
+    public Rectangle getCollRight() {
+        return new Rectangle (x + width / 2 + 2 , y + 2, 4, height - 4);
+    }
+    public Rectangle getCollLeft() {
+        return new Rectangle (x +6, y + 2, 4, height - 4);
+    }
+
+    public Rectangle getCollUp() {
+        return new Rectangle(x + 6, y, width /2, 4);
+    }
+    public Rectangle getCollDown() {
+        return new Rectangle(x + 6, y + height - 2, width /2, 4);
     }
 }

@@ -1,7 +1,6 @@
 package Graphics;
 
 import GameHandlers.GameObject;
-import Utilities.Vector2f;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -68,7 +67,6 @@ public class EngineGraphics {
 
     public void drawAnim(BufferedImage curImg, int x, int y, int width, int height) {
         g2d.drawImage(curImg, x, y, width, height, null);
-
     }
 
 
