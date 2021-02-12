@@ -5,11 +5,15 @@ import GameHandlers.GameObject;
 import Graphics.Animation;
 import Graphics.EngineGraphics;
 import Graphics.Sprite;
+import Utilities.APathfinding;
+import Utilities.Node;
 import Utilities.Vector2f;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Random;
+
 import Graphics.SpriteSheet;
 
 public class TestPlayer extends Entity {
@@ -30,6 +34,8 @@ public class TestPlayer extends Entity {
     private Sprite health;
     private SpriteSheet sheet;
 
+
+    private ArrayList<Node> path;
     public TestPlayer(int x, int y, int width, int height, Sprite sprite) {
         super(x, y, width, height, sprite);
         walkUpSprites = new BufferedImage[3];

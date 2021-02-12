@@ -16,6 +16,8 @@ public class TileHandler {
 
     private ArrayList<TileLayers> tileLayers;
 
+    private int tilecount;
+    private int tilecols;
     public TileHandler(){
         tileLayers = new ArrayList<TileLayers>();
     }
@@ -37,8 +39,7 @@ public class TileHandler {
         int height =0;
         int tileWidthM;
         int tileHeightM;
-        int tilecount;
-        int tilecols;
+
         int layers =0;
         Sprite sprite;
         String[] data = new String[10];
@@ -100,5 +101,13 @@ public class TileHandler {
         for(int i=0; i < tileLayers.size(); i++){
             tileLayers.get(i).renderTiles();
         }
+    }
+
+    public int getTilecount() {
+        return tilecount;
+    }
+
+    public int getTilecols() {
+        return tilecols;
     }
 }

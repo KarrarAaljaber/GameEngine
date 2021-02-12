@@ -4,6 +4,8 @@ import GameHandlers.GameObject;
 import Graphics.Animation;
 import Graphics.Sprite;
 import Tiles.SolidTile;
+import Utilities.APathfinding;
+import Utilities.Node;
 import Utilities.Vector2f;
 
 import java.awt.*;
@@ -20,14 +22,19 @@ public abstract class Entity extends GameObject {
 
     private  boolean collided = false;
 
+
+    private APathfinding pathfinding;
     public Entity(int x, int y, int width, int height) {
         super(x, y, width, height);
         moveSpeed = 2;
+        pathfinding = new APathfinding();
     }
 
     public Entity(int x, int y, int width, int height, Sprite sprite) {
         super(x, y, width, height, sprite);
         moveSpeed = 2;
+        pathfinding = new APathfinding();
+
     }
 
 
@@ -73,6 +80,24 @@ public abstract class Entity extends GameObject {
         this.setY(row * tilesHeight);
     }
 
+
+    public void setTartgetPosition(int x, int y, int [][]map){
+        int curIndex =0;
+        ArrayList<Node> nodes = pathfinding.findPath(getX(), getY(), x, y,map);
+
+
+        if(nodes !=null && nodes.size() >1){
+            nodes.remove(0);
+            curIndex++;
+            y+= nodes.get(curIndex).getY() - getY() * moveSpeed;
+            x+= nodes.get(curIndex).getX() - getX() * moveSpeed;
+        }
+
+
+        if(curIndex > nodes.size()){
+            nodes = null;
+        }
+    }
 
 
     public void move(double delta){

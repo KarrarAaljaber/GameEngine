@@ -6,11 +6,15 @@ import Graphics.Screen;
 import Graphics.EngineGraphics;
 import Tiles.TileHandler;
 import Tiles.TileLayers;
+import Utilities.APathfinding;
+import Utilities.Node;
 import Utilities.TopDownCamera;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
 import Graphics.Renderer;
 import Graphics.ImageLoader;
 import Graphics.Sprite;
@@ -38,6 +42,8 @@ public class Run extends GameCase  {
     public static final int WIDTH = 640;
     public static final int HEIGHT = 480;
 
+
+
     //Utils
     private TopDownCamera cam;
     public Run(Screen screen) {
@@ -54,6 +60,7 @@ public class Run extends GameCase  {
 
     private static final Color transparency = new Color(0, 0, 0, 0);
 
+    private ArrayList<Node> moveSteps;
     @Override
     public void init() {
         //sheets
@@ -77,7 +84,6 @@ public class Run extends GameCase  {
 
 
 
-
         //Screen stuff
         screen = new Screen(player,cam,WIDTH,HEIGHT, SCALE,false, new Color(0,0,0));
         screen.getRenderer().getGch().getGameCases().add(this);
@@ -87,7 +93,6 @@ public class Run extends GameCase  {
         Renderer.addObject(cam);
 
         ///
-
 
 
     }
@@ -100,6 +105,8 @@ public class Run extends GameCase  {
     @Override
     public void render(EngineGraphics g) {
     //    g.drawRect(new Vector2f(22,22), 50,500, Color.RED,false);
+
+
     }
 
     @Override

@@ -12,12 +12,13 @@ import Utilities.TopDownCamera;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class Renderer extends Canvas implements  Runnable, KeyListener {
+public class Renderer extends Canvas implements  Runnable, KeyListener , MouseListener{
 
     private Thread thread;
     private boolean isRunning = false;
@@ -50,6 +51,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener {
         this.backgroundcolor = backgroundcolor;
         this.camera = camera;
         this.addKeyListener(this);
+        this.addMouseListener(this);
         gch = new GameCaseHandler(this, player);
         init();
 
@@ -218,5 +220,31 @@ public class Renderer extends Canvas implements  Runnable, KeyListener {
         int key = e.getKeyCode();
 
         gch.keyReleased(key);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        gch.mousePressed(e);
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        gch.mouseReleased(e);
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }
