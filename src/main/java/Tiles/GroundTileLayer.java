@@ -1,10 +1,7 @@
 package Tiles;
 
-import GameHandlers.GameCaseHandler;
-import Graphics.EngineGraphics;
 import Graphics.Sprite;
 import Graphics.SpriteSheet;
-import Utilities.Vector2f;
 
 public class GroundTileLayer extends  TileLayers {
 
@@ -19,7 +16,7 @@ public class GroundTileLayer extends  TileLayers {
         for (int i = 0; i < (w * h); i++) {
             int temp = Integer.parseInt(tile[i].replaceAll("\\s+", ""));
             if (temp != 0) {
-                tiles.add(new FloorTile((int) (i % w) * tileWidth, (int) (i / h) * tileHeight, tileWidth, tileHeight, false,new Sprite(spriteSheet, (int) ((temp - 1) % tilecols), (int) ((temp - 1) / tilecols), 32, 32)));
+                tiles.add(new GroundTile((int) (i % w) * tileWidth, (int) (i / h) * tileHeight, tileWidth, tileHeight, false,new Sprite(spriteSheet, (int) ((temp - 1) % tilecols), (int) ((temp - 1) / tilecols), 32, 32)));
             }
 
         }
