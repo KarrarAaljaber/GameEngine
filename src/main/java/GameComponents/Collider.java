@@ -8,28 +8,27 @@ import java.awt.*;
 public class Collider extends GameComponent {
 
 
-    private int x, y, width, height;
+    private int width, height;
 
-    public Collider(GameObject parent,int x, int y, int width, int height){
+    public Collider(GameObject parent, int width, int height){
         super(parent);
-        this.x = x;
-        this.y = y;
+        this.parent  = parent;
         this.width = width;
         this.height = height;
 
     }
     public Rectangle getCollRight() {
-        return new Rectangle (parent.getX() +parent.getWidth()  - 4, parent.getY(), 2, parent.getHeight());
+        return new Rectangle (parent.getX() +width  - 4, parent.getY(), 2, height);
     }
     public Rectangle getCollLeft() {
-        return new Rectangle (parent.getX() + 4,parent.getY(), 2, parent.getHeight());
+        return new Rectangle (parent.getX() + 4,parent.getY(), 2, height);
     }
 
     public Rectangle getCollUp() {
-        return new Rectangle(parent.getX() + 4, parent.getY(), parent.getWidth() - 4, 2);
+        return new Rectangle(parent.getX() + 4, parent.getY(), width - 6, 2);
     }
     public Rectangle getCollDown() {
-        return new Rectangle(parent.getX() + 4, parent.getY() + parent.getHeight() - 2, parent.getWidth() - 4, 2);
+        return new Rectangle(parent.getX() + 4, parent.getY() +height - 2, width - 6, 2);
     }
 
 
@@ -44,6 +43,8 @@ public class Collider extends GameComponent {
 
     @Override
     public void render( EngineGraphics g) {
+
+        /*
         if(parent.isSolid()) {
             g.drawRect(getCollRight(), Color.BLUE, false);
             g.drawRect(getCollLeft(), Color.BLUE, false);
@@ -51,5 +52,7 @@ public class Collider extends GameComponent {
             g.drawRect(getCollDown(), Color.BLUE, false);
 
         }
+
+         */
     }
 }

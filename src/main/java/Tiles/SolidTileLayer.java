@@ -20,7 +20,7 @@ public class SolidTileLayer extends TileLayers{
             if(temp !=0){
                 SolidTile t = new SolidTile((int)(i%w) * tileWidth,(int) (i/ h) *tileHeight , tileWidth, tileHeight,new Sprite(spriteSheet,(int) ((temp -1) % tilecols ), (int) ((temp -1 ) /tilecols) ,tileWidth,tileHeight ) );
                 tiles.add(t);
-                t.addComponent(new Collider(t,t.getX(), t.getY(), t.getWidth(), t.getHeight()));
+                t.addComponent(new Collider(t,t.getWidth(), t.getHeight()));
 
 
             }

@@ -86,7 +86,7 @@ public class Game extends GameState {
         player = new TestPlayer((WIDTH / 3),(HEIGHT / 2), 32,32, s);
         player.placeEntityAtTile(6,9,32,32);
         //components
-        player.addComponent(new Collider(player,player.getX(), player.getY(), player.getWidth() - 6, player.getHeight()));
+        player.addComponent(new Collider(player, player.getWidth() - 6, player.getHeight() - 6));
         player.addComponent(new Collision(player));
         player.addComponent(new Input(player));
         cam = new Camera(player,0,0, WIDTH ,HEIGHT,1);
