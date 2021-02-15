@@ -1,6 +1,7 @@
 package TestingGameEngine;
 
 import Entities.Entity;
+import GameComponents.Collision;
 import GameHandlers.GameObject;
 import Graphics.Animation;
 import Graphics.EngineGraphics;
@@ -103,7 +104,10 @@ public class TestPlayer extends Entity {
 */
     }
 
-
+    @Override
+    public boolean isSolid() {
+        return true;
+    }
 
     @Override
     public void update(double delta) {
@@ -116,6 +120,11 @@ public class TestPlayer extends Entity {
 
 
         move(delta);
+        Collision col = (Collision) getComponent(Collision.class);
+        if(!col.isCollided()){
+            setVelY(7);
+
+        }
 
 
     }

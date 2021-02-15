@@ -10,11 +10,12 @@ import java.awt.*;
 public class Collision extends GameComponent{
 
 
+    private boolean collided = false;
     public Collision(GameObject parent) {
         super(parent);
     }
 
-    public boolean collision(){
+    public void collision(){
 
         for(int i = 0; i< Renderer.getGch().getObjects().size(); i++){
             if(Renderer.getGch().getObjects().get(i).isSolid()) {
@@ -22,17 +23,51 @@ public class Collision extends GameComponent{
                 Collider parentCollider = (Collider) parent.getComponent(Collider.class);
                 Collider objCollider = (Collider) obj.getComponent(Collider.class);
 
-                if (RectInRect(parentCollider.getBoundingBox(),objCollider.getBoundingBox() ) && parentCollider != objCollider) {
-                    return true;
+                if (parentCollider != objCollider) {
+                    if (RectInRect(parentCollider.getCollLeft(), objCollider.getCollRight())) {
+                        collided = true;
+                        if (parent.getVelX() < 0) {
+                            parent.setVelX(0);
+
+                        }
+                    }
+
+
+                    if (parentCollider.getCollRight().intersects(objCollider.getCollLeft())) {
+                        collided = true;
+                        if (parent.getVelX() > 0) {
+                            parent.setVelX(0);
+                        }
+                        System.out.println("dddd");
+
+                    }
+
+                    if (parentCollider.getCollUp().intersects(objCollider.getCollDown())) {
+                        collided = true;
+                        if (parent.getVelY() < 0) {
+                            parent.setVelY(0);
+                        }
+
+                    }
+
+                    if (parentCollider.getCollDown().intersects(objCollider.getCollUp())) {
+                        collided = true;
+                        if (parent.getVelY() > 0) {
+                            parent.setVelY(0);
+                            parent.setY(parent.getY() - 2);
+                        }
+
+                    }
                 }
             }
 
         }
-        return  false;
 
     }
 
-
+    public boolean isCollided() {
+        return collided;
+    }
 
     public boolean PointInRect(Rectangle rect, int x, int y){
         return (x >= rect.x && y >=rect.y
@@ -56,6 +91,7 @@ public class Collision extends GameComponent{
     @Override
     public void update(double delta) {
         collision();
+
     }
 
     @Override

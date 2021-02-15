@@ -14,7 +14,6 @@ public abstract class Entity extends GameObject {
 
     private final int UP = 0, DOWN = 1, RIGHT = 2, LEFT = 3;
 
-    protected float velocityX, velocityY;
     //abilities
     protected boolean up, down, right, left;
     protected float moveSpeed;
@@ -47,48 +46,25 @@ public abstract class Entity extends GameObject {
     public void move(double delta) {
 
         Collision coll = (Collision)this.getComponent(Collision.class);
-        if(!coll.collision()){
-            x += velocityX;
-            y += velocityY;
-        }
+
+            x += getVelX();
+            y += getVelY();
 
 
 
         if (up) {
-            setVelocityY((float) (-moveSpeed));
+            setVelY((float) (-moveSpeed));
         } else if (down) {
-            setVelocityY((float) (moveSpeed));
+            setVelY((float) (moveSpeed));
         } else if (left) {
-            setVelocityX((float) (-moveSpeed));
+            setVelX((float) (-moveSpeed));
 
         } else if (right) {
-            setVelocityX((float) (moveSpeed));
+            setVelX((float) (moveSpeed));
         }
 
 
     }
-
-    public void setVelocity(float x, float y) {
-        this.velocityX = x;
-        this.velocityY = y;
-    }
-
-    public float getVelocityX() {
-        return velocityX;
-    }
-
-    public void setVelocityX(float velocityX) {
-        this.velocityX = velocityX;
-    }
-
-    public float getVelocityY() {
-        return velocityY;
-    }
-
-    public void setVelocityY(float velocityY) {
-        this.velocityY = velocityY;
-    }
-
 
     public boolean isUp() {
         return up;
@@ -121,5 +97,6 @@ public abstract class Entity extends GameObject {
     public void setLeft(boolean left) {
         this.left = left;
     }
+
 
 }

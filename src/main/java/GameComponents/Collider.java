@@ -18,8 +18,18 @@ public class Collider extends GameComponent {
         this.height = height;
 
     }
-    public Rectangle getBoundingBox() {
-        return  new Rectangle(parent.getX(), parent.getY(), parent.getWidth(), parent.getHeight());
+    public Rectangle getCollRight() {
+        return new Rectangle (parent.getX() +parent.getWidth()  - 4, parent.getY(), 2, parent.getHeight());
+    }
+    public Rectangle getCollLeft() {
+        return new Rectangle (parent.getX() + 4,parent.getY(), 2, parent.getHeight());
+    }
+
+    public Rectangle getCollUp() {
+        return new Rectangle(parent.getX() + 4, parent.getY(), parent.getWidth() - 4, 2);
+    }
+    public Rectangle getCollDown() {
+        return new Rectangle(parent.getX() + 4, parent.getY() + parent.getHeight() - 2, parent.getWidth() - 4, 2);
     }
 
 
@@ -35,7 +45,11 @@ public class Collider extends GameComponent {
     @Override
     public void render( EngineGraphics g) {
         if(parent.isSolid()) {
-            g.drawRect(parent.getX(), parent.getY(), parent.getWidth(), parent.getHeight(), Color.BLUE, false);
+            g.drawRect(getCollRight(), Color.BLUE, false);
+            g.drawRect(getCollLeft(), Color.BLUE, false);
+            g.drawRect(getCollUp(), Color.BLUE, false);
+            g.drawRect(getCollDown(), Color.BLUE, false);
+
         }
     }
 }
