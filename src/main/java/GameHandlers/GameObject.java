@@ -19,7 +19,7 @@ public abstract class GameObject {
     protected int y;
     private ArrayList<GameComponent> components;
     protected Color color;
-    private float velX = 0f, velY =0f;
+    protected float velX = 0f, velY =0f;
 
 
 
@@ -116,6 +116,7 @@ public abstract class GameObject {
         this.velX = x;
         this.velY = y;
     }
+
 
 
     public GameComponent getComponent(Class componentObject){

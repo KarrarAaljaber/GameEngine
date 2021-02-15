@@ -1,5 +1,6 @@
 package Graphics;
 
+import Entities.Entity;
 import GameHandlers.GameStateController;
 
 import java.awt.*;
@@ -7,7 +8,7 @@ import java.awt.Graphics;
 
 import GameHandlers.GameObject;
 import Tiles.Tile;
-import Utilities.TopDownCamera;
+import Utilities.Camera;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -34,14 +35,14 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
     private int WIDTH, HEIGHT;
     private Color backgroundcolor;
-    private  TopDownCamera camera;
+    private  Camera camera;
     private GameObject player;
     private int SCALE;
 
     public static boolean showLayers;
     public static  boolean toggle;
 
-    public Renderer(GameObject player, int WIDTH, int HEIGHT, int SCALE, Color backgroundcolor, TopDownCamera camera){
+    public Renderer(GameObject player, int WIDTH, int HEIGHT, int SCALE, Color backgroundcolor, Camera camera){
         this.WIDTH = WIDTH;
         this.SCALE = SCALE;
         this.player = player;

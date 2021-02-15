@@ -2,18 +2,15 @@ package TestingGameEngine;
 
 import Entities.Entity;
 import GameComponents.Collision;
-import GameHandlers.GameObject;
+import GameComponents.Input;
 import Graphics.Animation;
 import Graphics.EngineGraphics;
 import Graphics.Sprite;
-import Utilities.APathfinding;
 import Utilities.Node;
-import Utilities.Vector2f;
 
-import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Random;
 
 import Graphics.SpriteSheet;
 
@@ -37,6 +34,10 @@ public class TestPlayer extends Entity {
 
 
     private ArrayList<Node> path;
+    private float gravity = 0.9f;
+    private boolean jump = false;
+    private boolean falling = true;
+
     public TestPlayer(int x, int y, int width, int height, Sprite sprite) {
         super(x, y, width, height,sprite);
         walkUpSprites = new BufferedImage[3];
@@ -116,15 +117,80 @@ public class TestPlayer extends Entity {
         walkRight.update(delta);
         walkLeft.update(delta);
         walkDown.update(delta);
+        Input input = (Input) getComponent(Input.class);
 
 
+
+        if(input.KeyDown(KeyEvent.VK_W) ){
+            setUp(true);
+            setDown(false);
+            setLeft(false);
+            setRight(false);
+
+        }
+
+
+        if(input.KeyDown(KeyEvent.VK_S)) {
+            setUp(false);
+            setDown(true);
+            setLeft(false);
+            setRight(false);
+        }
+
+
+        if(input.KeyDown(KeyEvent.VK_A) ){
+            setUp(false);
+            setDown(false);
+            setLeft(true);
+            setRight(false);
+        }
+        if(input.KeyDown(KeyEvent.VK_D) ){
+            setUp(false);
+            setDown(false);
+            setLeft(false);
+            setRight(true);
+        }
+        if(input.KeyDown(KeyEvent.VK_SPACE) ){
+            jump = true;
+        }
+        if(input.KeyUp(KeyEvent.VK_SPACE) ){
+            jump = false;
+        }
+
+
+
+
+        if(input.KeyUp( KeyEvent.VK_W)) {
+            setVelocity(0,0);
+            setUp(false);
+
+        }
+
+        if(input.KeyUp( KeyEvent.VK_S)) {
+            setVelocity(0,0);
+            setDown(false);
+
+
+
+        }
+
+
+
+        if(input.KeyUp( KeyEvent.VK_A)) {
+            setVelocity(0,0);
+            setLeft(false);
+
+
+        }
+        if(input.KeyUp( KeyEvent.VK_D)) {
+            setVelocity(0,0);
+            setRight(false);
+        }
 
         move(delta);
         Collision col = (Collision) getComponent(Collision.class);
-        if(!col.isCollided()){
-            setVelY(7);
 
-        }
+
 
 
     }

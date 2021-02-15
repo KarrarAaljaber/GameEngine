@@ -1,5 +1,6 @@
 package Tiles;
 
+import GameHandlers.GameState;
 import Graphics.Sprite;
 import Graphics.SpriteSheet;
 import org.w3c.dom.Document;
@@ -24,6 +25,8 @@ public class TileHandler {
 
     private int tileWidth, tileHeight;
     private SpriteSheet spriteSheet;
+    private GameState gameState;
+
     public TileHandler(String path, int tileWidth, int tileHeight, SpriteSheet spriteSheet){
         tileLayers = new ArrayList<TileLayers>();
         this.tileWidth = tileWidth;

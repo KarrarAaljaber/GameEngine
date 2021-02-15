@@ -1,5 +1,7 @@
 package Tiles;
 
+import GameComponents.Collider;
+import GameComponents.Collision;
 import Graphics.EngineGraphics;
 import Graphics.Sprite;
 import Utilities.Vector2f;
@@ -12,6 +14,9 @@ public class SolidTile extends  Tile{
 
     public SolidTile(int x, int y, int width, int height, Color color) {
         super(x, y, width, height,color);
+
+
+
     }
 
     public SolidTile(int x, int y, int width, int height, Sprite sprite) {
@@ -20,14 +25,14 @@ public class SolidTile extends  Tile{
 
     @Override
     public void render(EngineGraphics g) {
-     //   g.drawGameObject(this);
+        g.drawGameObject(this);
         if (Renderer.showLayers) {
             g.drawRect(x,y, width, height, Color.RED, false);
 
         }
 
 
-        g.drawRect(x,y,width,height,color,true);
+       // g.drawRect(x,y,width,height,color,true);
 
         /*
 

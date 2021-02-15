@@ -1,5 +1,6 @@
 package Tiles;
 
+import GameHandlers.GameState;
 import Graphics.Sprite;
 import Graphics.SpriteSheet;
 import Utilities.Vector2f;
@@ -7,8 +8,8 @@ import Utilities.Vector2f;
 public class NonSolidTileLayer extends  TileLayers{
 
 
-    public NonSolidTileLayer(String Data, int w, int h, int tileWidth, int tileHeight, int tilecols, SpriteSheet spriteSheet) {
-        super(Data, w, h, tileWidth, tileHeight, tilecols, spriteSheet);
+    public NonSolidTileLayer(  String Data, int w, int h, int tileWidth, int tileHeight, int tilecols, SpriteSheet spriteSheet) {
+        super( Data, w, h, tileWidth, tileHeight, tilecols, spriteSheet);
     }
 
     @Override

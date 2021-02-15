@@ -5,13 +5,13 @@ import Graphics.EngineGraphics;
 
 import java.awt.*;
 
-public class TopDownCamera extends GameObject {
+public class Camera extends GameObject {
 
 
     private double camSpeed;
     private GameObject player;
 
-    public TopDownCamera(GameObject player,int x, int y, int width, int height,double camSpeed) {
+    public Camera(GameObject player, int x, int y, int width, int height, double camSpeed) {
         super(x, y, width, height);
         this.camSpeed = camSpeed;
         this.player = player;

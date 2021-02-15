@@ -1,7 +1,9 @@
 package Graphics;
 
+import Entities.Entity;
 import GameHandlers.GameObject;
-import Utilities.TopDownCamera;
+import GameHandlers.GameState;
+import Utilities.Camera;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,10 +13,10 @@ public class Screen  {
 
     private JFrame frame = new JFrame();
     private Renderer renderer;
-    private TopDownCamera camera;
+    private Camera camera;
     private GameObject player;
     private int sizeScale;
-    public Screen(GameObject player,TopDownCamera camera, int WIDTH, int HEIGHT, int sizeScale, boolean resizable, Color Backgroundcolor){
+    public Screen(GameObject player,Camera camera, int WIDTH, int HEIGHT, int sizeScale, boolean resizable, Color Backgroundcolor){
         this.camera = camera;
         this.player = player;
         this.sizeScale = sizeScale;

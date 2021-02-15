@@ -1,5 +1,6 @@
 package GameHandlers;
 
+import GameComponents.Input;
 import Graphics.Renderer;
 
 import Graphics.EngineGraphics;
@@ -11,11 +12,10 @@ public class GameStateController {
 
     private ArrayList<GameState> gameStates;
 
-    //Different GameObjects
     private ArrayList<GameObject> objects;
 
 
-    private int currentCase;
+    private int currentState;
 
 
 
@@ -27,38 +27,30 @@ public class GameStateController {
         this.renderer = renderer;
         this.player = player;
         gameStates = new ArrayList<GameState>();
-        currentCase = 0;
+        currentState = 0;
 
 
     }
 
-    public GameStateController() {
-        objects = new ArrayList<>();
 
-        gameStates = new ArrayList<GameState>();
-        currentCase = 0;
-
-
-    }
     public ArrayList<GameState> getGameCases() {
         return gameStates;
     }
 
-    public void setCase(int Case) {
-        currentCase = Case;
-    }
+
 
     public void render(EngineGraphics g) {
 
-        gameStates.get(currentCase).render(g);
+        gameStates.get(currentState).render(g);
         for (int i = 0; i < objects.size(); i++) {
-            if( !((objects.get(i).getX() + 64   <= player.getX() - ( renderer.getWIDTH() /renderer.getSCALE() )/2|| (objects.get(i).getX() -64   >=player.getX()  + (renderer.getWIDTH() /renderer.getSCALE()) / 2 )
-                    || (objects.get(i).getY() + 64  <= player.getY() - (renderer.getHEIGHT() /renderer.getSCALE()) / 2))|| (objects.get(i).getY() -64  >=player.getY() +(renderer.getHEIGHT() /renderer.getSCALE()) / 2))){
-                objects.get(i).render(g);
-                objects.get(i).renderAllComponents( objects.get(i),g);
+                if( !((objects.get(i).getX() + 64   <= player.getX() - ( renderer.getWIDTH() /renderer.getSCALE() )/2|| (objects.get(i).getX() -64   >=player.getX()  + (renderer.getWIDTH() /renderer.getSCALE()) / 2 )
+                        || (objects.get(i).getY() + 64  <= player.getY() - (renderer.getHEIGHT() /renderer.getSCALE()) / 2))|| (objects.get(i).getY() -64  >=player.getY() +(renderer.getHEIGHT() /renderer.getSCALE()) / 2))) {
+                    objects.get(i).render(g);
+                    objects.get(i).renderAllComponents(objects.get(i), g);
 
 
-            }
+                }
+
         }
     }
 
@@ -66,7 +58,7 @@ public class GameStateController {
 
     public void init() {
 
-        gameStates.get(currentCase).init();
+        gameStates.get(currentState).init();
         for (int i = 0; i < objects.size(); i++) {
             objects.get(i).init();
             objects.get(i).initALlComponents(objects.get(i));
@@ -82,34 +74,62 @@ public class GameStateController {
             objects.get(i).updateAllComponents( objects.get(i),delta);
         }
 
-        gameStates.get(currentCase).update(delta);
+        gameStates.get(currentState).update(delta);
 
     }
 
 
     public void mousePressed(MouseEvent e) {
-        gameStates.get(currentCase).mousePressed(e);
-
+        gameStates.get(currentState).mousePressed(e);
+        for (int i = 0; i < objects.size(); i++) {
+            if((Input) objects.get(i).getComponent(Input.class) != null){
+                ((Input) objects.get(i).getComponent(Input.class)).mousePressed(e);
+            }
+        }
     }
 
     public void mouseReleased(MouseEvent e) {
-        gameStates.get(currentCase).mouseReleased(e);
+        gameStates.get(currentState).mouseReleased(e);
+
+        for (int i = 0; i < objects.size(); i++) {
+            if((Input) objects.get(i).getComponent(Input.class) != null){
+                ((Input) objects.get(i).getComponent(Input.class)).mouseReleased(e);
+            }
+        }
 
     }
 
     public void keyPressed(int key) {
-        gameStates.get(currentCase).keyPressed(key);
+        gameStates.get(currentState).keyPressed(key);
+        for (int i = 0; i < objects.size(); i++) {
+            if((Input) objects.get(i).getComponent(Input.class) != null){
+                ((Input) objects.get(i).getComponent(Input.class)).keyPressed(key);
+            }
+        }
 
     }
 
 
     public void keyReleased(int key) {
-        gameStates.get(currentCase).keyReleased(key);
+        gameStates.get(currentState).keyReleased(key);
+        for (int i = 0; i < objects.size(); i++) {
+            if((Input) objects.get(i).getComponent(Input.class) != null){
+                ((Input) objects.get(i).getComponent(Input.class)).keyReleased(key);
+            }
+        }
 
     }
 
     public ArrayList<GameObject> getObjects() {
         return objects;
+    }
+
+    public void addGameState(GameState gameState) {
+        gameStates.add(gameState);
+    }
+
+    public void changeGameState(GameState gameState) {
+        currentState = gameStates.indexOf(gameState);
     }
 
 

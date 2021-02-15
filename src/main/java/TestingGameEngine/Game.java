@@ -1,7 +1,9 @@
 package TestingGameEngine;
 
+import Entities.Entity;
 import GameComponents.Collider;
 import GameComponents.Collision;
+import GameComponents.Input;
 import GameHandlers.GameState;
 import Graphics.Screen;
 
@@ -10,13 +12,11 @@ import Tiles.SolidTile;
 import Tiles.TileHandler;
 import Tiles.TileLayers;
 import Utilities.Node;
-import Utilities.TopDownCamera;
+import Utilities.Camera;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import Graphics.Renderer;
 import Graphics.ImageLoader;
@@ -24,7 +24,7 @@ import Graphics.Sprite;
 
 import Graphics.SpriteSheet;
 
-public class Run extends GameState {
+public class Game extends GameState {
 
 
     private static Screen screen;
@@ -48,15 +48,17 @@ public class Run extends GameState {
 
 
     //Utils
-    private TopDownCamera cam;
-    public Run(Screen screen) {
-        super(screen);
+    private Camera cam;
 
-    }
 
     private  TileHandler tileHandler;
+
+    public Game( Screen screen) {
+        super( screen);
+    }
+
     public static void main(String[]args){
-        Run run = new Run(screen);
+        Game run = new Game(screen);
     }
 
 
@@ -66,26 +68,28 @@ public class Run extends GameState {
     private ArrayList<Node> moveSteps;
     @Override
     public void init() {
+
         //sheets
         playersheet = new SpriteSheet("playersheet.png");
         tilesheet = new SpriteSheet("blocksheet.png");
         tileMapSheet = new SpriteSheet("tilset.png");
 
-         tileHandler = new TileHandler("tilemap2.tmx", 32,32,tileMapSheet );
+        tileHandler = new TileHandler("tilemap2.tmx", 32,32,tileMapSheet );
 
 
 
 
         //objects
-       // tileMap = new TileMap(500, 500, 32,32, tilesheet);
+        // tileMap = new TileMap(500, 500, 32,32, tilesheet);
 
         Sprite s =  new Sprite(playersheet, 1,1,24,32);
         player = new TestPlayer((WIDTH / 3),(HEIGHT / 2), 32,32, s);
         player.placeEntityAtTile(6,9,32,32);
         //components
-        player.addComponent(new Collider(player,player.getX(), player.getY(), player.getWidth(), player.getHeight()));
+        player.addComponent(new Collider(player,player.getX(), player.getY(), player.getWidth() - 6, player.getHeight()));
         player.addComponent(new Collision(player));
-        cam = new TopDownCamera(player,0,0, WIDTH ,HEIGHT,1);
+        player.addComponent(new Input(player));
+        cam = new Camera(player,0,0, WIDTH ,HEIGHT,1);
 
 
 
@@ -93,13 +97,13 @@ public class Run extends GameState {
         //Screen stuff
         screen = new Screen(player,cam,WIDTH,HEIGHT, SCALE,false, new Color(0,0,0));
         screen.getRenderer().getGch().getGameCases().add(this);
-//        screen.getRenderer().getGch().addObjectArray(tileMap.getMap());
-      //  tileHandler.render();
+        tileHandler.render();
         Renderer.addObject(player);
 
         Renderer.addObject(cam);
 
         ///
+        /*
         SolidTile[] solidTile = new SolidTile[32];
         for(int i=0; i < solidTile.length; i++)
         {
@@ -113,6 +117,10 @@ public class Run extends GameState {
         }
 
         Renderer.addObjecArray(solidTile);
+
+         */
+
+
 
 
     }
@@ -132,60 +140,12 @@ public class Run extends GameState {
 
     @Override
     public void keyPressed(int key) {
-        if(key == KeyEvent.VK_W) {
-           player.setUp(true);
-           player.setDown(false);
-           player.setLeft(false);
-           player.setRight(false);
-
-        }
-
-        if(key == KeyEvent.VK_S) {
-            player.setUp(false);
-            player.setDown(true);
-            player.setLeft(false);
-            player.setRight(false);
-        }
-        if(key == KeyEvent.VK_A) {
-            player.setUp(false);
-            player.setDown(false);
-            player.setLeft(true);
-            player.setRight(false);
-        }
-        if(key == KeyEvent.VK_D) {
-            player.setUp(false);
-            player.setDown(false);
-            player.setLeft(false);
-            player.setRight(true);
-        }
 
     }
 
     @Override
     public void keyReleased(int key) {
-        if(key == KeyEvent.VK_W) {
-            player.setVelocity(0,0);
-            player.setUp(false);
 
-        }
-
-        if(key == KeyEvent.VK_S) {
-            player.setVelocity(0,0);
-            player.setDown(false);
-
-
-
-        }
-        if(key == KeyEvent.VK_A) {
-            player.setVelocity(0,0);
-            player.setLeft(false);
-
-
-        }
-        if(key == KeyEvent.VK_D) {
-            player.setVelocity(0,0);
-            player.setRight(false);
-        }
     }
 
     @Override
