@@ -9,12 +9,12 @@ import java.awt.*;
 public class NonSolidTile extends Tile{
 
 
-    public NonSolidTile(int x, int y, int width, int height, boolean isSolid, Color color) {
-        super(x, y, width, height, isSolid,color);
+    public NonSolidTile(int x, int y, int width, int height, Color color) {
+        super(x, y, width, height,color);
     }
 
-    public NonSolidTile(int x, int y, int width, int height, boolean isSolid, Sprite sprite) {
-        super(x, y, width, height, isSolid, sprite);
+    public NonSolidTile(int x, int y, int width, int height, Sprite sprite) {
+        super(x, y, width, height, sprite);
     }
 
     @Override

@@ -80,12 +80,12 @@ public class Run extends GameState {
        // tileMap = new TileMap(500, 500, 32,32, tilesheet);
 
         Sprite s =  new Sprite(playersheet, 1,1,24,32);
-        player = new TestPlayer((WIDTH / 3),(HEIGHT / 2), 32,32,true, s);
+        player = new TestPlayer((WIDTH / 3),(HEIGHT / 2), 32,32, s);
         player.placeEntityAtTile(6,9,32,32);
         //components
         player.addComponent(new Collider(player,player.getX(), player.getY(), player.getWidth(), player.getHeight()));
         player.addComponent(new Collision(player));
-        cam = new TopDownCamera(player,0,0, WIDTH ,HEIGHT,false,1);
+        cam = new TopDownCamera(player,0,0, WIDTH ,HEIGHT,1);
 
 
 
@@ -104,7 +104,7 @@ public class Run extends GameState {
         for(int i=0; i < solidTile.length; i++)
         {
 
-            solidTile[i] = new SolidTile( i * 32, HEIGHT, 32,32,true,Color.GREEN );
+            solidTile[i] = new SolidTile( i * 32, HEIGHT, 32,32,Color.GREEN );
         }
         for(int i=0; i < solidTile.length; i++)
         {

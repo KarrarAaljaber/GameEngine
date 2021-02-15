@@ -1,4 +1,7 @@
 package Entities;
+import GameComponents.Collider;
+import GameComponents.Collision;
+import GameComponents.GameComponent;
 import GameHandlers.GameObject;
 import Graphics.Sprite;
 import Utilities.APathfinding;
@@ -17,14 +20,14 @@ public abstract class Entity extends GameObject {
     protected float moveSpeed;
 
 
-    public Entity(int x, int y, int width, int height, boolean isSolid, Sprite sprite) {
-        super(x, y, width, height, isSolid, sprite);
+    public Entity(int x, int y, int width, int height, Sprite sprite) {
+        super(x, y, width, height, sprite);
         moveSpeed = 2;
 
     }
 
-    public Entity(int x, int y, int width, int height, boolean isSolid, Color color) {
-        super(x, y, width, height, isSolid, color);
+    public Entity(int x, int y, int width, int height, Color color) {
+        super(x, y, width, height, color);
         moveSpeed = 2;
 
     }
@@ -43,8 +46,12 @@ public abstract class Entity extends GameObject {
 
     public void move(double delta) {
 
-        x += velocityX;
-        y += velocityY;
+        Collision coll = (Collision)this.getComponent(Collision.class);
+        if(!coll.collision()){
+            x += velocityX;
+            y += velocityY;
+        }
+
 
 
         if (up) {

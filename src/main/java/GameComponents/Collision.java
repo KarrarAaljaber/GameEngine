@@ -4,7 +4,6 @@ import Entities.Entity;
 import GameHandlers.GameObject;
 import Graphics.EngineGraphics;
 import Graphics.Renderer;
-import org.w3c.dom.css.Rect;
 
 import java.awt.*;
 
@@ -15,7 +14,7 @@ public class Collision extends GameComponent{
         super(parent);
     }
 
-    public void collision(){
+    public boolean collision(){
 
         for(int i = 0; i< Renderer.getGch().getObjects().size(); i++){
             if(Renderer.getGch().getObjects().get(i).isSolid()) {
@@ -24,12 +23,12 @@ public class Collision extends GameComponent{
                 Collider objCollider = (Collider) obj.getComponent(Collider.class);
 
                 if (RectInRect(parentCollider.getBoundingBox(),objCollider.getBoundingBox() ) && parentCollider != objCollider) {
-                    System.out.println("Collided");
-
+                    return true;
                 }
             }
 
         }
+        return  false;
 
     }
 

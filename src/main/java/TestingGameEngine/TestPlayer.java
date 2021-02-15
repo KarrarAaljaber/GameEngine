@@ -36,8 +36,8 @@ public class TestPlayer extends Entity {
 
 
     private ArrayList<Node> path;
-    public TestPlayer(int x, int y, int width, int height, boolean isSolid, Sprite sprite) {
-        super(x, y, width, height, isSolid,sprite);
+    public TestPlayer(int x, int y, int width, int height, Sprite sprite) {
+        super(x, y, width, height,sprite);
         walkUpSprites = new BufferedImage[3];
         walkUpSprites[0] = sprite.getSpriteImage(1,1);
         walkUpSprites[1] = sprite.getSpriteImage(2,1);
@@ -113,8 +113,9 @@ public class TestPlayer extends Entity {
         walkLeft.update(delta);
         walkDown.update(delta);
 
-        move(delta);
 
+
+        move(delta);
 
 
     }

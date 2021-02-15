@@ -34,7 +34,8 @@ public class Collider extends GameComponent {
 
     @Override
     public void render( EngineGraphics g) {
-        g.drawRect(parent.getX(), parent.getY(), parent.getWidth(), parent.getHeight(), Color.BLUE, false);
-
+        if(parent.isSolid()) {
+            g.drawRect(parent.getX(), parent.getY(), parent.getWidth(), parent.getHeight(), Color.BLUE, false);
+        }
     }
 }

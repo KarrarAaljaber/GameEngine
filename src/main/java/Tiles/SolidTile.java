@@ -10,12 +10,12 @@ import java.awt.*;
 public class SolidTile extends  Tile{
 
 
-    public SolidTile(int x, int y, int width, int height, boolean isSolid, Color color) {
-        super(x, y, width, height, isSolid,color);
+    public SolidTile(int x, int y, int width, int height, Color color) {
+        super(x, y, width, height,color);
     }
 
-    public SolidTile(int x, int y, int width, int height, boolean isSolid, Sprite sprite) {
-        super(x, y, width, height, isSolid, sprite);
+    public SolidTile(int x, int y, int width, int height, Sprite sprite) {
+        super(x, y, width, height, sprite);
     }
 
     @Override
@@ -50,5 +50,8 @@ public class SolidTile extends  Tile{
 
     }
 
-
+    @Override
+    public boolean isSolid() {
+        return true;
+    }
 }

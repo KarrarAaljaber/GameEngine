@@ -11,8 +11,8 @@ public class TopDownCamera extends GameObject {
     private double camSpeed;
     private GameObject player;
 
-    public TopDownCamera(GameObject player,int x, int y, int width, int height, boolean isSolid,double camSpeed) {
-        super(x, y, width, height, false);
+    public TopDownCamera(GameObject player,int x, int y, int width, int height,double camSpeed) {
+        super(x, y, width, height);
         this.camSpeed = camSpeed;
         this.player = player;
     }

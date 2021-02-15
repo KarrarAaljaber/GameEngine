@@ -13,7 +13,7 @@ public abstract class GameObject {
 
     protected int width, height;
     protected Sprite sprite;
-    protected boolean isSolid;
+    private boolean isSolid = false;
 
     protected int x;
     protected int y;
@@ -22,7 +22,7 @@ public abstract class GameObject {
 
 
 
-    public GameObject(int x,int y, int width, int height, boolean isSolid){
+    public GameObject(int x,int y, int width, int height){
         this.x  = x;
         this.y = y;
         this.width = width;
@@ -32,7 +32,7 @@ public abstract class GameObject {
 
 
     }
-    public GameObject(int x, int y, int width, int height, boolean isSolid, Color color){
+    public GameObject(int x, int y, int width, int height, Color color){
         this.x  = x;
         this.y = y;
         this.width = width;
@@ -45,7 +45,7 @@ public abstract class GameObject {
 
 
 
-    public GameObject(int x, int y, int width, int height, boolean isSolid, Sprite sprite){
+    public GameObject(int x, int y, int width, int height, Sprite sprite){
         this.x  = x;
         this.y = y;
         this.width = width;
@@ -94,6 +94,7 @@ public abstract class GameObject {
     public void setHeight(int height) {
         this.height = height;
     }
+
 
 
     public GameComponent getComponent(Class componentObject){
