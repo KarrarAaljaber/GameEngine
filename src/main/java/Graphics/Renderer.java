@@ -1,12 +1,11 @@
 package Graphics;
 
-import GameHandlers.GameCaseHandler;
+import GameHandlers.GameStateController;
 
 import java.awt.*;
 import java.awt.Graphics;
 
 import GameHandlers.GameObject;
-import Graphics.EngineGraphics;
 import Tiles.Tile;
 import Utilities.TopDownCamera;
 
@@ -14,7 +13,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -31,7 +29,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
     private BufferedImage img;
     private Graphics2D g2d;
 
-    private static GameCaseHandler gch;
+    private static GameStateController gch;
 
 
     private int WIDTH, HEIGHT;
@@ -52,7 +50,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
         this.camera = camera;
         this.addKeyListener(this);
         this.addMouseListener(this);
-        gch = new GameCaseHandler(this, player);
+        gch = new GameStateController(this, player);
         init();
 
         System.out.println(getWIDTH());
@@ -161,7 +159,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
         }
     }
 
-    public static GameCaseHandler getGch() {
+    public static GameStateController getGch() {
         return gch;
     }
     public static void addObject(GameObject object) {
@@ -176,11 +174,16 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
     }
 
 
-    public static void addObjectArray(GameObject[][] objectz) {
+    public static void add2DObjectArray(GameObject[][] objectz) {
         for (int i = 0; i < objectz.length; i++) {
             for (int j = 0; j < objectz[i].length; j++) {
                 getGch().getObjects().add(objectz[i][j]);
             }
+        }
+    }
+    public static void addObjecArray(GameObject[]objects){
+        for(int i=0; i < objects.length; i++){
+            Renderer.addObject(objects[i]);
         }
     }
     public int getWIDTH() {

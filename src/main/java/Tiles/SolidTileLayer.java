@@ -1,10 +1,7 @@
 package Tiles;
 
-import GameHandlers.GameCaseHandler;
-import Graphics.EngineGraphics;
 import Graphics.Sprite;
 import Graphics.SpriteSheet;
-import Utilities.Vector2f;
 
 public class SolidTileLayer extends TileLayers{
 

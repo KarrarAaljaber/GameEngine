@@ -3,16 +3,13 @@ package GameHandlers;
 import Graphics.Renderer;
 
 import Graphics.EngineGraphics;
-import Tiles.Tile;
 
 import java.awt.event.MouseEvent;
-import java.awt.image.RescaleOp;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class GameCaseHandler {
+public class GameStateController {
 
-    private ArrayList<GameCase> gameCases;
+    private ArrayList<GameState> gameStates;
 
     //Different GameObjects
     private ArrayList<GameObject> objects;
@@ -25,26 +22,26 @@ public class GameCaseHandler {
     private Renderer renderer;
     private GameObject player;
 
-    public GameCaseHandler(Renderer renderer, GameObject player) {
+    public GameStateController(Renderer renderer, GameObject player) {
         objects = new ArrayList<>();
         this.renderer = renderer;
         this.player = player;
-        gameCases = new ArrayList<GameCase>();
+        gameStates = new ArrayList<GameState>();
         currentCase = 0;
 
 
     }
 
-    public GameCaseHandler() {
+    public GameStateController() {
         objects = new ArrayList<>();
 
-        gameCases = new ArrayList<GameCase>();
+        gameStates = new ArrayList<GameState>();
         currentCase = 0;
 
 
     }
-    public ArrayList<GameCase> getGameCases() {
-        return gameCases;
+    public ArrayList<GameState> getGameCases() {
+        return gameStates;
     }
 
     public void setCase(int Case) {
@@ -53,11 +50,13 @@ public class GameCaseHandler {
 
     public void render(EngineGraphics g) {
 
-        gameCases.get(currentCase).render(g);
+        gameStates.get(currentCase).render(g);
         for (int i = 0; i < objects.size(); i++) {
             if( !((objects.get(i).getX() + 64   <= player.getX() - ( renderer.getWIDTH() /renderer.getSCALE() )/2|| (objects.get(i).getX() -64   >=player.getX()  + (renderer.getWIDTH() /renderer.getSCALE()) / 2 )
                     || (objects.get(i).getY() + 64  <= player.getY() - (renderer.getHEIGHT() /renderer.getSCALE()) / 2))|| (objects.get(i).getY() -64  >=player.getY() +(renderer.getHEIGHT() /renderer.getSCALE()) / 2))){
                 objects.get(i).render(g);
+                objects.get(i).renderAllComponents( objects.get(i),g);
+
 
             }
         }
@@ -67,7 +66,11 @@ public class GameCaseHandler {
 
     public void init() {
 
-        gameCases.get(currentCase).init();
+        gameStates.get(currentCase).init();
+        for (int i = 0; i < objects.size(); i++) {
+            objects.get(i).init();
+            objects.get(i).initALlComponents(objects.get(i));
+        }
 
     }
 
@@ -76,31 +79,32 @@ public class GameCaseHandler {
 
         for (int i = 0; i < objects.size(); i++) {
             objects.get(i).update(delta);
+            objects.get(i).updateAllComponents( objects.get(i),delta);
         }
 
-        gameCases.get(currentCase).update(delta);
+        gameStates.get(currentCase).update(delta);
 
     }
 
 
     public void mousePressed(MouseEvent e) {
-        gameCases.get(currentCase).mousePressed(e);
+        gameStates.get(currentCase).mousePressed(e);
 
     }
 
     public void mouseReleased(MouseEvent e) {
-        gameCases.get(currentCase).mouseReleased(e);
+        gameStates.get(currentCase).mouseReleased(e);
 
     }
 
     public void keyPressed(int key) {
-        gameCases.get(currentCase).keyPressed(key);
+        gameStates.get(currentCase).keyPressed(key);
 
     }
 
 
     public void keyReleased(int key) {
-        gameCases.get(currentCase).keyReleased(key);
+        gameStates.get(currentCase).keyReleased(key);
 
     }
 

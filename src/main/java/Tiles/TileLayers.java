@@ -1,11 +1,7 @@
 package Tiles;
 
-import GameHandlers.GameCaseHandler;
-import Graphics.EngineGraphics;
 import Graphics.Renderer;
-import Graphics.Sprite;
 import Graphics.SpriteSheet;
-import Utilities.Vector2f;
 
 import java.util.ArrayList;
 

@@ -10,16 +10,8 @@ import  Graphics.Renderer;
 public class GroundTile extends  Tile{
 
 
-    public GroundTile(int x, int y, int width, int height, boolean isSolid) {
-        super(x, y, width, height, isSolid);
-    }
-
-    public GroundTile(int x, int y, int width, int height) {
-        super(x, y, width, height);
-    }
-
-    public GroundTile(int x, int y, int width, int height, Sprite sprite) {
-        super(x, y, width, height, sprite);
+    public GroundTile(int x, int y, int width, int height, boolean isSolid, Color color) {
+        super(x, y, width, height, isSolid,color);
     }
 
     public GroundTile(int x, int y, int width, int height, boolean isSolid, Sprite sprite) {
@@ -39,6 +31,11 @@ public class GroundTile extends  Tile{
 
     @Override
     public void update(double delta) {
+
+    }
+
+    @Override
+    public void init() {
 
     }
 }

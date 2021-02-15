@@ -9,16 +9,8 @@ import java.awt.*;
 public class NonSolidTile extends Tile{
 
 
-    public NonSolidTile(int x, int y, int width, int height, boolean isSolid) {
-        super(x, y, width, height, isSolid);
-    }
-
-    public NonSolidTile(int x, int y, int width, int height) {
-        super(x, y, width, height);
-    }
-
-    public NonSolidTile(int x, int y, int width, int height, Sprite sprite) {
-        super(x, y, width, height, sprite);
+    public NonSolidTile(int x, int y, int width, int height, boolean isSolid, Color color) {
+        super(x, y, width, height, isSolid,color);
     }
 
     public NonSolidTile(int x, int y, int width, int height, boolean isSolid, Sprite sprite) {
@@ -36,6 +28,11 @@ public class NonSolidTile extends Tile{
 
     @Override
     public void update(double delta) {
+
+    }
+
+    @Override
+    public void init() {
 
     }
 }

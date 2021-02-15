@@ -1,12 +1,14 @@
 package TestingGameEngine;
 
-import GameHandlers.GameCase;
+import GameComponents.Collider;
+import GameComponents.Collision;
+import GameHandlers.GameState;
 import Graphics.Screen;
 
 import Graphics.EngineGraphics;
+import Tiles.SolidTile;
 import Tiles.TileHandler;
 import Tiles.TileLayers;
-import Utilities.APathfinding;
 import Utilities.Node;
 import Utilities.TopDownCamera;
 
@@ -14,6 +16,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import Graphics.Renderer;
 import Graphics.ImageLoader;
@@ -21,7 +24,7 @@ import Graphics.Sprite;
 
 import Graphics.SpriteSheet;
 
-public class Run extends GameCase  {
+public class Run extends GameState {
 
 
     private static Screen screen;
@@ -77,9 +80,12 @@ public class Run extends GameCase  {
        // tileMap = new TileMap(500, 500, 32,32, tilesheet);
 
         Sprite s =  new Sprite(playersheet, 1,1,24,32);
-        player = new TestPlayer((WIDTH / 3),(HEIGHT / 2), 32,32, s);
+        player = new TestPlayer((WIDTH / 3),(HEIGHT / 2), 32,32,true, s);
         player.placeEntityAtTile(6,9,32,32);
-        cam = new TopDownCamera(player,0,0, WIDTH ,HEIGHT,1);
+        //components
+        player.addComponent(new Collider(player,player.getX(), player.getY(), player.getWidth(), player.getHeight()));
+        player.addComponent(new Collision(player));
+        cam = new TopDownCamera(player,0,0, WIDTH ,HEIGHT,false,1);
 
 
 
@@ -88,14 +94,29 @@ public class Run extends GameCase  {
         screen = new Screen(player,cam,WIDTH,HEIGHT, SCALE,false, new Color(0,0,0));
         screen.getRenderer().getGch().getGameCases().add(this);
 //        screen.getRenderer().getGch().addObjectArray(tileMap.getMap());
-        tileHandler.render();
+      //  tileHandler.render();
         Renderer.addObject(player);
+
         Renderer.addObject(cam);
 
         ///
+        SolidTile[] solidTile = new SolidTile[32];
+        for(int i=0; i < solidTile.length; i++)
+        {
+
+            solidTile[i] = new SolidTile( i * 32, HEIGHT, 32,32,true,Color.GREEN );
+        }
+        for(int i=0; i < solidTile.length; i++)
+        {
+
+            solidTile[i].addComponent(new Collider( solidTile[i],solidTile[i].getX(),  solidTile[i].getY(),  solidTile[i].getWidth(),  solidTile[i].getHeight()));
+        }
+
+        Renderer.addObjecArray(solidTile);
 
 
     }
+
 
     @Override
     public void update(double delta) {

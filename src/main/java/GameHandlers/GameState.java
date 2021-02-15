@@ -5,23 +5,24 @@ import Graphics.Screen;
 import Graphics.EngineGraphics;
 import java.awt.event.MouseEvent;
 
-public abstract class GameCase {
+public abstract class GameState {
 
-    private GameCaseHandler gch;
+    private GameStateController gsc;
 
     private Screen screen;
 
-    public GameCase(Screen screen) {
+    public GameState(Screen screen) {
         this.screen = screen;
         init();
 
     }
 
+
     public Screen getScreen() {
         return screen;
     }
-    public GameCaseHandler getGch(){
-        return gch;
+    public GameStateController getGSC(){
+        return gsc;
     }
 
     public abstract void init();

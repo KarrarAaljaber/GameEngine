@@ -1,45 +1,49 @@
 package GameHandlers;
 
+import GameComponents.GameComponent;
 import Graphics.Sprite;
 import Utilities.Vector2f;
 import Graphics.EngineGraphics;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public abstract class GameObject {
 
 
     protected int width, height;
-    private Sprite sprite;
-    private boolean isSolid;
+    protected Sprite sprite;
+    protected boolean isSolid;
 
     protected int x;
     protected int y;
+    private ArrayList<GameComponent> components;
+    protected Color color;
 
-    public GameObject(int x, int y, int width, int height, boolean isSolid){
+
+
+    public GameObject(int x,int y, int width, int height, boolean isSolid){
         this.x  = x;
         this.y = y;
         this.width = width;
-        this.height = height;
         this.isSolid = isSolid;
+        this.height = height;
+        components = new ArrayList<>();
+
 
     }
-
-    public GameObject(int x,int y, int width, int height){
+    public GameObject(int x, int y, int width, int height, boolean isSolid, Color color){
         this.x  = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.color = color;
+        this.isSolid = isSolid;
+        components = new ArrayList<>();
 
     }
 
-    public GameObject(int x, int y, int width, int height, Sprite sprite){
-        this.x  = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.sprite = sprite;
-    }
+
 
     public GameObject(int x, int y, int width, int height, boolean isSolid, Sprite sprite){
         this.x  = x;
@@ -48,6 +52,8 @@ public abstract class GameObject {
         this.height = height;
         this.sprite = sprite;
         this.isSolid = isSolid;
+        components = new ArrayList<>();
+
     }
 
     public boolean isSolid() {
@@ -60,22 +66,10 @@ public abstract class GameObject {
         isSolid = solid;
     }
 
-    public Rectangle getCollRight() {
-        return new Rectangle (x + width - 2, y, 4, height);
-    }
-    public Rectangle getCollLeft() {
-        return new Rectangle (x, y, 4, height);
-    }
-
-    public Rectangle getCollUp() {
-        return new Rectangle(x, y, width, 4);
-    }
-    public Rectangle getCollDown() {
-        return new Rectangle(x, y + height - 2, width, 4);
-    }
 
     public abstract void render(EngineGraphics g);
     public abstract void update(double delta);
+    public abstract void init();
 
     public Sprite getSprite() {
         return sprite;
@@ -102,6 +96,52 @@ public abstract class GameObject {
     }
 
 
+    public GameComponent getComponent(Class componentObject){
+        for (GameComponent c : components)
+        {
+            if (c.getClass() == componentObject)
+                return c;
+        }
+
+        return null;
+    }
+    public void removeComponent(GameComponent component){
+        components.remove(component);
+
+    }
+    public void initALlComponents(GameObject parent){
+        for(int i=0; i < components.size(); i++){
+            components.get(i).init();
+        }
+    }
+    public void renderAllComponents(GameObject obj,EngineGraphics g){
+        for(int i=0; i < components.size(); i++){
+            components.get(i).render(g);
+        }
+    }
+
+    public void updateAllComponents( GameObject obj,double delta){
+        for(int i=0; i < components.size(); i++){
+            components.get(i).update(delta);
+        }
+    }
+    public ArrayList<GameComponent> getComponents() {
+        return components;
+    }
+
+    public void addComponent(GameComponent component){
+
+        components.add(component);
+
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
 
     public int getX() {
         return x;

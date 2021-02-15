@@ -10,16 +10,8 @@ import java.awt.*;
 public class SolidTile extends  Tile{
 
 
-    public SolidTile(int x, int y, int width, int height, boolean isSolid) {
-        super(x, y, width, height, isSolid);
-    }
-
-    public SolidTile(int x, int y, int width, int height) {
-        super(x, y, width, height);
-    }
-
-    public SolidTile(int x, int y, int width, int height, Sprite sprite) {
-        super(x, y, width, height, sprite);
+    public SolidTile(int x, int y, int width, int height, boolean isSolid, Color color) {
+        super(x, y, width, height, isSolid,color);
     }
 
     public SolidTile(int x, int y, int width, int height, boolean isSolid, Sprite sprite) {
@@ -28,12 +20,14 @@ public class SolidTile extends  Tile{
 
     @Override
     public void render(EngineGraphics g) {
-        g.drawGameObject(this);
+     //   g.drawGameObject(this);
         if (Renderer.showLayers) {
             g.drawRect(x,y, width, height, Color.RED, false);
 
         }
 
+
+        g.drawRect(x,y,width,height,color,true);
 
         /*
 
@@ -51,6 +45,10 @@ public class SolidTile extends  Tile{
 
     }
 
+    @Override
+    public void init() {
+
+    }
 
 
 }

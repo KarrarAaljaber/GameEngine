@@ -36,8 +36,8 @@ public class TestPlayer extends Entity {
 
 
     private ArrayList<Node> path;
-    public TestPlayer(int x, int y, int width, int height, Sprite sprite) {
-        super(x, y, width, height, sprite);
+    public TestPlayer(int x, int y, int width, int height, boolean isSolid, Sprite sprite) {
+        super(x, y, width, height, isSolid,sprite);
         walkUpSprites = new BufferedImage[3];
         walkUpSprites[0] = sprite.getSpriteImage(1,1);
         walkUpSprites[1] = sprite.getSpriteImage(2,1);
@@ -67,8 +67,10 @@ public class TestPlayer extends Entity {
         walkLeft = new Animation(300, walkLeftSprites);
         walkRight = new Animation(300, walkRightSprites);
     }
+    @Override
+    public void init() {
 
-
+    }
     @Override
     public void render(EngineGraphics g) {
      //   g.drawString("X:  " + pos.getX() + "   Y:" + pos.getY(), Color.WHITE , new Vector2f(getPos().getX() , getPos().getY() + 10 ) ,"Arial", 16);
@@ -116,4 +118,6 @@ public class TestPlayer extends Entity {
 
 
     }
+
+
 }
