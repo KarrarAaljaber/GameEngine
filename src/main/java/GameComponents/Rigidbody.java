@@ -7,7 +7,7 @@ public class Rigidbody extends GameComponent{
 
 
     private float velocityX = 0, velocityY = 0;
-    private float gravity = 0.98f;
+    private float gravity = 1.98f;
 
     public Rigidbody(GameObject parent) {
         super(parent);
@@ -48,6 +48,7 @@ public class Rigidbody extends GameComponent{
     public float getVelocityX() {
         return velocityX;
     }
+
 
     public void setVelocityX(float velocityX) {
         this.velocityX = velocityX;

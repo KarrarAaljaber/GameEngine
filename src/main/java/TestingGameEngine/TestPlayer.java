@@ -3,6 +3,7 @@ package TestingGameEngine;
 import Entities.Entity;
 import GameComponents.Collision;
 import GameComponents.Input;
+import GameComponents.Rigidbody;
 import Graphics.Animation;
 import Graphics.EngineGraphics;
 import Graphics.Sprite;
@@ -119,7 +120,10 @@ public class TestPlayer extends Entity {
         walkDown.update(delta);
         Input input = (Input) getComponent(Input.class);
 
-
+        //  move(delta);
+        Collision col = (Collision) getComponent(Collision.class);
+        Rigidbody rigidbody = (Rigidbody) getComponent(Rigidbody.class);
+        rigidbody.setGravity(0);
 
         if(input.KeyDown(KeyEvent.VK_W) ){
             setUp(true);
@@ -161,13 +165,13 @@ public class TestPlayer extends Entity {
 
 
         if(input.KeyUp( KeyEvent.VK_W)) {
-       //     setVelocity(0,0);
+            rigidbody.setVelocity(0,0);
             setUp(false);
 
         }
 
         if(input.KeyUp( KeyEvent.VK_S)) {
-       //     setVelocity(0,0);
+           rigidbody.setVelocity(0,0);
             setDown(false);
 
 
@@ -177,20 +181,27 @@ public class TestPlayer extends Entity {
 
 
         if(input.KeyUp( KeyEvent.VK_A)) {
-        //    setVelocity(0,0);
+            rigidbody.setVelocity(0,0);
             setLeft(false);
 
 
         }
         if(input.KeyUp( KeyEvent.VK_D)) {
-          //  setVelocity(0,0);
+            rigidbody.setVelocity(0,0);
             setRight(false);
         }
 
-      //  move(delta);
-        Collision col = (Collision) getComponent(Collision.class);
 
-
+        if(up){
+            rigidbody.setVelocityY(-moveSpeed * (float)delta);
+        }
+        if(down){
+            rigidbody.setVelocityY(moveSpeed * (float)delta);
+        }  if(left){
+            rigidbody.setVelocityX(-moveSpeed * (float)delta);
+        }  if(right){
+            rigidbody.setVelocityX(moveSpeed * (float)delta);
+        }
 
 
     }

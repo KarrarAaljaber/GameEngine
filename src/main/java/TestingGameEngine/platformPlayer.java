@@ -34,6 +34,7 @@ public class platformPlayer extends Entity {
 
     }
 
+    private boolean jumping = false;
     @Override
     public void update(double delta) {
         Input input = (Input) getComponent(Input.class);
@@ -45,8 +46,9 @@ public class platformPlayer extends Entity {
         if( input.KeyDown(KeyEvent.VK_A)){
             left = true;
         }
-        if( input.KeyDown(KeyEvent.VK_SPACE)){
-           rigidbody.setVelocityY(-5);
+        if( input.KeyDown(KeyEvent.VK_SPACE) && !jumping){
+           jumping = true;
+            rigidbody.setVelocityY(-10);
 
         }
 
@@ -61,8 +63,10 @@ public class platformPlayer extends Entity {
 
         }
         if( input.KeyUp(KeyEvent.VK_SPACE)){
-            rigidbody.setVelocityY(5);
+            rigidbody.setVelocityY(10);
+
         }
+
 
 
         if(right){
