@@ -37,34 +37,9 @@ public abstract class Entity extends GameObject {
     }
 
 
-    public void placeEntityAtTile(int col, int row, int tilesWidth, int tilesHeight) {
-        this.setX(col * tilesWidth);
-        this.setY(row * tilesHeight);
-    }
-
-
-    public void move(double delta) {
-
-        Collision coll = (Collision)this.getComponent(Collision.class);
-
-            x += getVelX();
-            y += getVelY();
 
 
 
-        if (up) {
-            setVelY((float) (-moveSpeed));
-        } else if (down) {
-            setVelY((float) (moveSpeed));
-        } else if (left) {
-            setVelX((float) (-moveSpeed));
-
-        } else if (right) {
-            setVelX((float) (moveSpeed));
-        }
-
-
-    }
 
     public boolean isUp() {
         return up;

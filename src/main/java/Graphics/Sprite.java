@@ -15,7 +15,7 @@ public class Sprite {
         this.sheet = sheet;
     }
 
-    public Sprite(SpriteSheet sheet, int col , int row, int width, int height){
+    public Sprite(SpriteSheet sheet, int row , int col, int width, int height){
         this.width = width;
         this.height = height;
         this.col = col;
@@ -29,7 +29,7 @@ public class Sprite {
         BufferedImage sprite = sheet.getImg().getSubimage(col * width, row * height, width, height );
         return  sprite;
     }
-    public BufferedImage getSpriteImage(int col, int row) {
+    public BufferedImage getSpriteImage(int row, int col) {
         BufferedImage sprite = sheet.getImg().getSubimage((col * width) - width, (row * height) - height, width, height);
         return sprite;
     }

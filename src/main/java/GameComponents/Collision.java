@@ -22,12 +22,12 @@ public class Collision extends GameComponent{
                 GameObject obj = Renderer.getGch().getObjects().get(i);
                 Collider parentCollider = (Collider) parent.getComponent(Collider.class);
                 Collider objCollider = (Collider) obj.getComponent(Collider.class);
-
+                Rigidbody rigidbodyParent = (Rigidbody) parent.getComponent(Rigidbody.class);
                 if (parentCollider != objCollider) {
                     if (RectInRect(parentCollider.getCollLeft(), objCollider.getCollRight())) {
                         collided = true;
-                        if (parent.getVelX() < 0) {
-                            parent.setVelX(0);
+                        if (rigidbodyParent.getVelocityX() < 0) {
+                            rigidbodyParent.setVelocityX(0);
 
                         }
                     }
@@ -35,26 +35,25 @@ public class Collision extends GameComponent{
 
                     if (parentCollider.getCollRight().intersects(objCollider.getCollLeft())) {
                         collided = true;
-                        if (parent.getVelX() > 0) {
-                            parent.setVelX(0);
+                        if (rigidbodyParent.getVelocityX() > 0) {
+                            rigidbodyParent.setVelocityX(0);
                         }
-                        System.out.println("dddd");
 
                     }
 
                     if (parentCollider.getCollUp().intersects(objCollider.getCollDown())) {
                         collided = true;
-                        if (parent.getVelY() < 0) {
-                            parent.setVelY(0);
+                        if (rigidbodyParent.getVelocityY() < 0) {
+                            rigidbodyParent.setVelocityY(0);
                         }
 
                     }
 
                     if (parentCollider.getCollDown().intersects(objCollider.getCollUp())) {
                         collided = true;
-                        if (parent.getVelY() > 0) {
-                            parent.setVelY(0);
-                            parent.setY(parent.getY() - 2);
+                        if (rigidbodyParent.getVelocityY() > 0) {
+                            rigidbodyParent.setVelocityY(0);
+                            parent.setY( obj.getY() - 32);
                         }
 
                     }

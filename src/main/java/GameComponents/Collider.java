@@ -25,10 +25,10 @@ public class Collider extends GameComponent {
     }
 
     public Rectangle getCollUp() {
-        return new Rectangle(parent.getX() + 4, parent.getY(), width - 6, 2);
+        return new Rectangle(parent.getX() + 4, parent.getY(), width - 6, height/2);
     }
     public Rectangle getCollDown() {
-        return new Rectangle(parent.getX() + 4, parent.getY() +height - 2, width - 6, 2);
+        return new Rectangle(parent.getX() + 4, parent.getY() +height/2 - 2, width - 6, height/2);
     }
 
 

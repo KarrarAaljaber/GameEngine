@@ -161,13 +161,13 @@ public class TestPlayer extends Entity {
 
 
         if(input.KeyUp( KeyEvent.VK_W)) {
-            setVelocity(0,0);
+       //     setVelocity(0,0);
             setUp(false);
 
         }
 
         if(input.KeyUp( KeyEvent.VK_S)) {
-            setVelocity(0,0);
+       //     setVelocity(0,0);
             setDown(false);
 
 
@@ -177,17 +177,17 @@ public class TestPlayer extends Entity {
 
 
         if(input.KeyUp( KeyEvent.VK_A)) {
-            setVelocity(0,0);
+        //    setVelocity(0,0);
             setLeft(false);
 
 
         }
         if(input.KeyUp( KeyEvent.VK_D)) {
-            setVelocity(0,0);
+          //  setVelocity(0,0);
             setRight(false);
         }
 
-        move(delta);
+      //  move(delta);
         Collision col = (Collision) getComponent(Collision.class);
 
 

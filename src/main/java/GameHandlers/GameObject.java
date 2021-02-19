@@ -19,7 +19,7 @@ public abstract class GameObject {
     protected int y;
     private ArrayList<GameComponent> components;
     protected Color color;
-    protected float velX = 0f, velY =0f;
+
 
 
 
@@ -61,6 +61,10 @@ public abstract class GameObject {
         return isSolid;
     }
 
+    public void placeGameObjectAtTile(int col, int row, int tilesWidth, int tilesHeight) {
+        this.setX(col * tilesWidth);
+        this.setY(row * tilesHeight);
+    }
 
 
     public void setSolid(boolean solid) {
@@ -96,26 +100,8 @@ public abstract class GameObject {
         this.height = height;
     }
 
-    public float getVelX() {
-        return velX;
-    }
 
-    public void setVelX(float velX) {
-        this.velX = velX;
-    }
 
-    public float getVelY() {
-        return velY;
-    }
-
-    public void setVelY(float velY) {
-        this.velY = velY;
-    }
-
-    public void setVelocity(float x, float y){
-        this.velX = x;
-        this.velY = y;
-    }
 
 
 
