@@ -24,6 +24,45 @@ public class Collision extends GameComponent{
                 Collider objCollider = (Collider) obj.getComponent(Collider.class);
                 Rigidbody rigidbodyParent = (Rigidbody) parent.getComponent(Rigidbody.class);
                 if (parentCollider != objCollider) {
+                    if(RectInRect(obj)) {
+                        collided = true;
+                        if (Math.abs(parentCollider.getCenterX() - objCollider.getCenterX()) < Math.abs(parentCollider.getCenterY() - objCollider.getCenterY())) {
+
+                            //onTop of object
+                            if (parentCollider.getCenterY() < objCollider.getCenterY()) {
+
+                                if (rigidbodyParent.getVelocityY() > 0) {
+                                    rigidbodyParent.setVelocityY(0);
+                                    parent.setY(obj.getY() - parent.getHeight() +6);
+                                }
+
+                            }//hitting object above
+                            if (parentCollider.getCenterY() > objCollider.getCenterY()) {
+                                if (rigidbodyParent.getVelocityY() < 0) {
+                                    rigidbodyParent.setVelocityY(0);
+                                    parent.setY(obj.getY() + parent.getHeight());
+                                }
+                            }
+                            //Side collision
+                        }else{
+                            //right
+                            if (parentCollider.getCenterX() < objCollider.getCenterX()) {
+
+                                if (rigidbodyParent.getVelocityX() > 0) {
+                                    rigidbodyParent.setVelocityX(0);
+                                    parent.setX(obj.getX() - parent.getWidth() +6);
+                                }
+
+                            }//left
+                            if (parentCollider.getCenterX() > objCollider.getCenterX()) {
+                                if (rigidbodyParent.getVelocityX() < 0) {
+                                    rigidbodyParent.setVelocityX(0);
+                                    parent.setX(obj.getX() + parent.getWidth());
+                                }
+                            }
+                        }
+                    }
+                    /*
                     if (RectInRect(parentCollider.getCollLeft(), objCollider.getCollRight())) {
                         collided = true;
                         if (rigidbodyParent.getVelocityX() < 0) {
@@ -58,6 +97,8 @@ public class Collision extends GameComponent{
                         }
 
                     }
+
+                     */
                 }
             }
 
@@ -74,9 +115,18 @@ public class Collision extends GameComponent{
         && x < rect.x + rect.width && y < rect.y + rect.width);
 
     }
-    public boolean RectInRect(Rectangle rect ,Rectangle rect2){
-        return(rect.x < rect2.x + rect2.width && rect.x + 32 > rect2.x
-        && rect.y < rect2.y + rect2.height && rect.y + 32 > rect2.y);
+    public boolean RectInRect(GameObject collidedWith){
+        boolean collided = false;
+        Collider objCollider = (Collider) collidedWith.getComponent(Collider.class);
+        Collider parentCollider = (Collider) parent.getComponent(Collider.class);
+
+        if(Math.abs(parentCollider.getCenterX() - objCollider.getCenterX()) < parentCollider.getHalfWidth() + objCollider.getHalfWidth()){
+            if(Math.abs(parentCollider.getCenterY() - objCollider.getCenterY())<parentCollider.getHalfHeight() + objCollider.getHalfHeight() ){
+                collided = true;
+            }
+
+        }
+        return  collided;
     }
 
 

@@ -37,10 +37,6 @@ public abstract class Entity extends GameObject {
     }
 
 
-    public void placeEntityAtTile(int col, int row, int tilesWidth, int tilesHeight) {
-        this.setX(col * tilesWidth);
-        this.setY(row * tilesHeight);
-    }
 
 
 

@@ -123,7 +123,6 @@ public class TestPlayer extends Entity {
         //  move(delta);
         Collision col = (Collision) getComponent(Collision.class);
         Rigidbody rigidbody = (Rigidbody) getComponent(Rigidbody.class);
-        rigidbody.setGravity(0);
 
         if(input.KeyDown(KeyEvent.VK_W) ){
             setUp(true);

@@ -27,7 +27,7 @@ public class SolidTile extends  Tile{
     @Override
     public void render(EngineGraphics g) {
         Collider collider = (Collider) getComponent(Collider.class);
-       // g.drawGameObject(this);
+        g.drawGameObject(this);
         if (Renderer.showLayers) {
             g.drawRect(x,y, width, height, Color.RED, false);
 
@@ -35,9 +35,10 @@ public class SolidTile extends  Tile{
 
 
 
+        /*
         g.drawRect(x,y,width,height,color,true);
         g.drawRect(x,y,width,height,Color.WHITE,false);
-
+*/
 
 
         /*
