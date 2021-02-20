@@ -21,7 +21,7 @@ public class NonSolidTile extends Tile{
     public void render(EngineGraphics g) {
         g.drawGameObject(this);
         if (Renderer.showLayers) {
-            g.drawRect(x,y, width, height, Color.WHITE, false);
+            g.drawRect(getX(), getY(), width, height, Color.WHITE, false);
 
         }
     }

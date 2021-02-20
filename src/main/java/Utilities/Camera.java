@@ -23,8 +23,8 @@ public class Camera extends GameObject {
         if(obj == null){
             System.out.println("Obj is null cant follow player");
         }
-        setX((int)(-(obj.getX() - width/ 2) * (float)camSpeed)) ;
-        setY((int)(-(obj.getY() - height / 2) * (float) camSpeed));
+        getPosition().setX((int)(-(obj.getX() - width/ 2) * (float)camSpeed)) ;
+        getPosition(). setY((int)(-(obj.getY() - height / 2) * (float) camSpeed));
     }
 
     public void setCamSpeed(double camSpeed) {

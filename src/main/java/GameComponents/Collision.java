@@ -4,6 +4,7 @@ import Entities.Entity;
 import GameHandlers.GameObject;
 import Graphics.EngineGraphics;
 import Graphics.Renderer;
+import Utilities.Vector2f;
 
 import java.awt.*;
 
@@ -31,16 +32,16 @@ public class Collision extends GameComponent{
                             //onTop of object
                             if (parentCollider.getCenterY() < objCollider.getCenterY()) {
 
-                                if (rigidbodyParent.getVelocityY() > 0) {
-                                    rigidbodyParent.setVelocityY(0);
-                                    parent.setY(obj.getY() - parent.getHeight() +6);
+                                if (rigidbodyParent.getVelocity().getY() > 0) {
+                                    rigidbodyParent.setVelocity(new Vector2f(0,0));
+                                    parent.getPosition().setY(obj.getY() - parent.getHeight() +6);
                                 }
 
                             }//hitting object above
                             if (parentCollider.getCenterY() > objCollider.getCenterY()) {
-                                if (rigidbodyParent.getVelocityY() < 0) {
-                                    rigidbodyParent.setVelocityY(0);
-                                    parent.setY(obj.getY() + parent.getHeight());
+                                if (rigidbodyParent.getVelocity().getY() < 0) {
+                                    rigidbodyParent.setVelocity( new Vector2f(0,0));
+                                    parent.getPosition().setY(obj.getY() + parent.getHeight());
                                 }
                             }
                             //Side collision
@@ -48,16 +49,16 @@ public class Collision extends GameComponent{
                             //right
                             if (parentCollider.getCenterX() < objCollider.getCenterX()) {
 
-                                if (rigidbodyParent.getVelocityX() > 0) {
-                                    rigidbodyParent.setVelocityX(0);
-                                    parent.setX(obj.getX() - parent.getWidth() +6);
+                                if (rigidbodyParent.getVelocity().getX() > 0) {
+                                    rigidbodyParent.setVelocity(new Vector2f(0,0));
+                                    parent.getPosition().setX(obj.getX() - parent.getWidth() +6);
                                 }
 
                             }//left
                             if (parentCollider.getCenterX() > objCollider.getCenterX()) {
-                                if (rigidbodyParent.getVelocityX() < 0) {
-                                    rigidbodyParent.setVelocityX(0);
-                                    parent.setX(obj.getX() + parent.getWidth());
+                                if (rigidbodyParent.getVelocity().getX() < 0) {
+                                    rigidbodyParent.setVelocity(new Vector2f(0,0));
+                                    parent.getPosition().setX(obj.getX() + parent.getWidth());
                                 }
                             }
                         }

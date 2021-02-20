@@ -3,17 +3,21 @@ package TestingGameEngine;
 import Entities.Entity;
 import GameComponents.Collision;
 import GameComponents.Input;
+import GameComponents.ParticleSystem;
 import GameComponents.Rigidbody;
 import Graphics.Animation;
 import Graphics.EngineGraphics;
 import Graphics.Sprite;
+import Particles.Particle;
 import Utilities.Node;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import Graphics.SpriteSheet;
+import Utilities.Vector2f;
 
 public class TestPlayer extends Entity {
 
@@ -34,10 +38,12 @@ public class TestPlayer extends Entity {
     private SpriteSheet sheet;
 
 
-    private ArrayList<Node> path;
-    private float gravity = 0.9f;
     private boolean jump = false;
     private boolean falling = true;
+
+
+    private ParticleSystem particleSystem;
+
 
     public TestPlayer(int x, int y, int width, int height, Sprite sprite) {
         super(x, y, width, height,sprite);
@@ -69,6 +75,13 @@ public class TestPlayer extends Entity {
         walkDown = new Animation(300, walkDownSprites);
         walkLeft = new Animation(300, walkLeftSprites);
         walkRight = new Animation(300, walkRightSprites);
+
+        Particle particle = new Particle(new Rectangle(x,y,5,5), Color.RED,255);
+        particleSystem = new ParticleSystem(this);
+        addComponent(particleSystem);
+        particleSystem.addParticles(particle, 50);
+
+
     }
     @Override
     public void init() {
@@ -78,18 +91,19 @@ public class TestPlayer extends Entity {
     public void render(EngineGraphics g) {
      //   g.drawString("X:  " + pos.getX() + "   Y:" + pos.getY(), Color.WHITE , new Vector2f(getPos().getX() , getPos().getY() + 10 ) ,"Arial", 16);
         if(isUp()){
-            g.drawImage(walkUp.getCurrentFrame(),x, y, width, height);
+            particleSystem.RenderParticles(g);
+            g.drawImage(walkUp.getCurrentFrame(),getX(), getY(), width, height);
         }else if(isDown()){
-            g.drawImage(walkDown.getCurrentFrame(),x,y, width, height);
+            g.drawImage(walkDown.getCurrentFrame(),getX(),getY(), width, height);
 
         }else if( isLeft()){
-            g.drawImage(walkLeft.getCurrentFrame(),x,y, width, height);
+            g.drawImage(walkLeft.getCurrentFrame(),getX(),getY(), width, height);
 
         }else if(isRight()){
-            g.drawImage(walkRight.getCurrentFrame(),x,y,width, height);
+            g.drawImage(walkRight.getCurrentFrame(),getX(),getY(),width, height);
 
         }else{
-            g.drawImage(walkDownSprites[0],x,y, width, height);
+            g.drawImage(walkDownSprites[0],getX(),getY(), width, height);
 
         }
 
@@ -129,7 +143,7 @@ public class TestPlayer extends Entity {
             setDown(false);
             setLeft(false);
             setRight(false);
-
+            particleSystem.updateParticles(delta);
         }
 
 
@@ -164,42 +178,38 @@ public class TestPlayer extends Entity {
 
 
         if(input.KeyUp( KeyEvent.VK_W)) {
-            rigidbody.setVelocity(0,0);
+            rigidbody.setVelocity(new Vector2f(0,0));
             setUp(false);
 
         }
 
         if(input.KeyUp( KeyEvent.VK_S)) {
-           rigidbody.setVelocity(0,0);
+           rigidbody.setVelocity(new Vector2f(0,0));
             setDown(false);
 
 
 
         }
-
-
-
         if(input.KeyUp( KeyEvent.VK_A)) {
-            rigidbody.setVelocity(0,0);
+            rigidbody.setVelocity(new Vector2f(0,0));
             setLeft(false);
-
 
         }
         if(input.KeyUp( KeyEvent.VK_D)) {
-            rigidbody.setVelocity(0,0);
+            rigidbody.setVelocity(new Vector2f(0,0));
             setRight(false);
         }
 
 
         if(up){
-            rigidbody.setVelocityY(-moveSpeed * (float)delta);
+            rigidbody.setVelocity(new Vector2f(0,-moveSpeed * (float)delta));
         }
         if(down){
-            rigidbody.setVelocityY(moveSpeed * (float)delta);
+            rigidbody.setVelocity(new Vector2f(0,moveSpeed * (float)delta));
         }  if(left){
-            rigidbody.setVelocityX(-moveSpeed * (float)delta);
+            rigidbody.setVelocity(new Vector2f(-moveSpeed * (float)delta,0));
         }  if(right){
-            rigidbody.setVelocityX(moveSpeed * (float)delta);
+            rigidbody.setVelocity(new Vector2f(moveSpeed * (float)delta,0));
         }
 
 

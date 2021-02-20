@@ -6,6 +6,7 @@ import GameComponents.Rigidbody;
 import Graphics.Animation;
 import Graphics.EngineGraphics;
 import Graphics.Sprite;
+import Utilities.Vector2f;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -29,8 +30,8 @@ public class platformPlayer extends Entity {
     @Override
     public void render(EngineGraphics g) {
 
-        g.drawRect(x, y, width,height, color, true);
-        g.drawRect(x, y, width,height, Color.WHITE, false);
+        g.drawRect(getX(), getY(), width,height, color, true);
+        g.drawRect(getX(), getY(),width,height, Color.WHITE, false);
 
     }
 
@@ -48,32 +49,32 @@ public class platformPlayer extends Entity {
         }
         if( input.KeyDown(KeyEvent.VK_SPACE)){
            jumping = true;
-            rigidbody.setVelocityY(-10);
+            rigidbody.setVelocity(new Vector2f(0, -10));
 
         }
 
         if(input.KeyUp(KeyEvent.VK_D)){
             right = false;
-            rigidbody.setVelocityX(0);
+            rigidbody.setVelocity(new Vector2f(0,0));
 
         }
         if( input.KeyUp(KeyEvent.VK_A)){
             left = false;
-            rigidbody.setVelocityX(0);
+            rigidbody.setVelocity(new Vector2f(0,0));
 
         }
         if( input.KeyUp(KeyEvent.VK_SPACE)){
-            rigidbody.setVelocityY(10);
+            rigidbody.setVelocity( new Vector2f(0,10));
 
         }
 
 
 
         if(right){
-            rigidbody.setVelocityX((float) (moveSpeed * delta));
+            rigidbody.setVelocity(new Vector2f((float) (moveSpeed * delta),0));
         }
         if(left){
-            rigidbody.setVelocityX(-(float) (moveSpeed * delta));
+            rigidbody.setVelocity(new Vector2f(-(float) (moveSpeed * delta),0));
         }
     }
 

@@ -23,7 +23,7 @@ public class GroundTile extends  Tile{
 
         g.drawGameObject(this);
         if (Renderer.showLayers) {
-            g.drawRect(x,y, width, height, Color.GREEN, false);
+            g.drawRect(getX(), getY(), width, height, Color.GREEN, false);
 
         }
 

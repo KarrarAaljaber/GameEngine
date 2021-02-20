@@ -29,7 +29,7 @@ public class SolidTile extends  Tile{
         Collider collider = (Collider) getComponent(Collider.class);
         g.drawGameObject(this);
         if (Renderer.showLayers) {
-            g.drawRect(x,y, width, height, Color.RED, false);
+            g.drawRect(getX(), getY(), width, height, Color.RED, false);
 
         }
 

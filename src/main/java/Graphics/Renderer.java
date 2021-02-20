@@ -84,6 +84,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
 
         EngineGraphics engineGraphics = new EngineGraphics(g2d);
+
         g2d.translate(camera.getX(), camera.getY());
 
 

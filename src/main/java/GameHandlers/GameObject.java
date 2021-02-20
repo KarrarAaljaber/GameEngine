@@ -15,8 +15,7 @@ public abstract class GameObject {
     protected Sprite sprite;
     private boolean isSolid = false;
 
-    protected int x;
-    protected int y;
+    protected Vector2f position;
     private ArrayList<GameComponent> components;
     protected Color color;
 
@@ -24,8 +23,7 @@ public abstract class GameObject {
 
 
     public GameObject(int x,int y, int width, int height){
-        this.x  = x;
-        this.y = y;
+        position = new Vector2f(x,y);
         this.width = width;
         this.isSolid = isSolid;
         this.height = height;
@@ -34,8 +32,7 @@ public abstract class GameObject {
 
     }
     public GameObject(int x, int y, int width, int height, Color color){
-        this.x  = x;
-        this.y = y;
+        position = new Vector2f(x,y);
         this.width = width;
         this.height = height;
         this.color = color;
@@ -47,8 +44,7 @@ public abstract class GameObject {
 
 
     public GameObject(int x, int y, int width, int height, Sprite sprite){
-        this.x  = x;
-        this.y = y;
+        position = new Vector2f(x,y);
         this.width = width;
         this.height = height;
         this.sprite = sprite;
@@ -99,8 +95,8 @@ public abstract class GameObject {
 
 
     public void placeGameObjectAtTile(int col, int row, int tilesWidth, int tilesHeight) {
-        this.setX(col * tilesWidth);
-        this.setY(row * tilesHeight);
+        this.position.setX(col * tilesWidth);
+        this.position.setY(row * tilesHeight);
     }
 
 
@@ -152,19 +148,20 @@ public abstract class GameObject {
         this.color = color;
     }
 
-    public int getX() {
-        return x;
+    public Vector2f getPosition(){
+        return position;
+    }
+    public void setPosition(Vector2f position){
+        this.position = position;
+    }
+    public int getX(){
+        return  (int) position.getX();
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
 
     public int getY() {
-        return y;
+        return (int) position.getY();
     }
 
-    public void setY(int y) {
-        this.y = y;
-    }
+
 }

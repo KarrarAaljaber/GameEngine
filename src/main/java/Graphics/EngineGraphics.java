@@ -64,6 +64,15 @@ public class EngineGraphics {
         g2d.drawString(text, x,y );
     }
 
+    public void drawShape(Shape shape, boolean isFilled, Color color){
+        if(!isFilled) {
+            g2d.setColor(color);
+            g2d.draw(shape);
+        }else{
+            g2d.setColor(color);
+            g2d.fill(shape);
+        }
+    }
 
     public void drawSprite(Sprite sprite, int x, int y,int col, int row, int width, int height){
         g2d.drawImage(sprite.getSpriteImage(col, row), x, y, width, height, null );
