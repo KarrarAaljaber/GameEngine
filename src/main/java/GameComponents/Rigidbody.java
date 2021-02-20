@@ -7,8 +7,8 @@ public class Rigidbody extends GameComponent{
 
 
     private float velocityX = 0, velocityY = 0;
-    private float gravity = 1.98f;
-
+    private float gravity = 0.1f;
+    private Collision collision;
     public Rigidbody(GameObject parent) {
         super(parent);
     }
@@ -18,18 +18,17 @@ public class Rigidbody extends GameComponent{
 
     }
 
-    Collision collision = (Collision) parent.getComponent(Collision.class);
-
     @Override
     public void update(double delta) {
+        collision = (Collision)  parent.getComponent(Collision.class);
 
-        if(!collision.isCollided()){
+
+        parent.setX((int) (parent.getX() + getVelocityX()));
+        parent.setY((int) (parent.getY() + getVelocityY()));
+
+        if(!collision.isCollided()) {
             velocityY += 2 * delta + gravity;
         }
-
-
-        parent.setX((int) (parent.getX() + getVelocityX() * delta));
-        parent.setY((int) (parent.getY() + getVelocityY() * delta));
     }
 
     @Override
@@ -48,7 +47,6 @@ public class Rigidbody extends GameComponent{
     public float getVelocityX() {
         return velocityX;
     }
-
 
     public void setVelocityX(float velocityX) {
         this.velocityX = velocityX;

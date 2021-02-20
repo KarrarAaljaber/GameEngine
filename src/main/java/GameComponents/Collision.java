@@ -53,7 +53,8 @@ public class Collision extends GameComponent{
                         collided = true;
                         if (rigidbodyParent.getVelocityY() > 0) {
                             rigidbodyParent.setVelocityY(0);
-                            parent.setY( obj.getY() - 32);
+                            parent.setY( obj.getY() - parent.getHeight());
+
                         }
 
                     }

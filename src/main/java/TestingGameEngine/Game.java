@@ -33,7 +33,7 @@ public class Game extends GameState {
     private ImageLoader loader;
 
     //GameObjects
-    private TestPlayer player;
+    private platformPlayer player;
     private TileLayers tileMap;
 
     //SpriteSheets
@@ -70,6 +70,7 @@ public class Game extends GameState {
     @Override
     public void init() {
 
+        /*
 
         //sheets
         playersheet = new SpriteSheet("playersheet.png");
@@ -77,7 +78,8 @@ public class Game extends GameState {
         tileMapSheet = new SpriteSheet("tilset.png");
 
         tileHandler = new TileHandler("tilemap2.tmx", 32,32,tileMapSheet );
-
+*/
+        /*
 
 
 
@@ -86,15 +88,27 @@ public class Game extends GameState {
 
         Sprite s =  new Sprite(playersheet, 1,1,24,32);
         player = new TestPlayer((WIDTH / 3),(HEIGHT / 2), 32,32, s);
-        player.placeGameObjectAtTile(6,9,32,32);
+        player.placeEntityAtTile(6,9,32,32);
         //components
 
         player.addComponent(new Collider(player, player.getWidth() - 6, player.getHeight() - 6));
         player.addComponent(new Collision(player));
         player.addComponent(new Input(player));
-        player.addComponent(new Rigidbody(player));
         cam = new Camera(player,0,0, WIDTH ,HEIGHT,1);
 
+        */
+
+
+        player = new platformPlayer((WIDTH / 3),(HEIGHT / 2), 32,32, Color.BLUE);
+        player.placeEntityAtTile(6,9,32,32);
+        //components
+        player.addComponent(new Rigidbody(player));
+        player.addComponent(new Collision(player));
+        player.addComponent(new Collider(player, player.getWidth() - 6, player.getHeight() - 6));
+        player.addComponent(new Input(player));
+        cam = new Camera(player,0,0, WIDTH ,HEIGHT,1);
+
+       // tileHandler = new TileHandler("platformer.tmx", 31,31,tilesheet );
 
 
 
@@ -103,13 +117,12 @@ public class Game extends GameState {
         screen = new Screen(player,cam,WIDTH,HEIGHT, SCALE,false, new Color(0,0,0));
         Renderer.getGch().getGameCases().add(this);
 
-
-        Renderer.addObject(cam);
-        tileHandler.render();
         Renderer.addObject(player);
 
+        Renderer.addObject(cam);
+      //  tileHandler.render();
 
-        /*
+
         SolidTile[] solidTile = new SolidTile[32];
         for(int i=0; i < solidTile.length; i++)
         {
@@ -123,7 +136,7 @@ public class Game extends GameState {
         }
 
         Renderer.addObjecArray(solidTile);
-        */
+
 
 
 

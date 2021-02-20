@@ -61,10 +61,6 @@ public abstract class GameObject {
         return isSolid;
     }
 
-    public void placeGameObjectAtTile(int col, int row, int tilesWidth, int tilesHeight) {
-        this.setX(col * tilesWidth);
-        this.setY(row * tilesHeight);
-    }
 
 
     public void setSolid(boolean solid) {

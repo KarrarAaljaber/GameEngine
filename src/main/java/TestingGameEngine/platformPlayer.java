@@ -46,7 +46,7 @@ public class platformPlayer extends Entity {
         if( input.KeyDown(KeyEvent.VK_A)){
             left = true;
         }
-        if( input.KeyDown(KeyEvent.VK_SPACE) && !jumping){
+        if( input.KeyDown(KeyEvent.VK_SPACE)){
            jumping = true;
             rigidbody.setVelocityY(-10);
 
