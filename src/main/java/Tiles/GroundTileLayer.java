@@ -18,7 +18,7 @@ public class GroundTileLayer extends  TileLayers {
             int temp = Integer.parseInt(tile[i].replaceAll("\\s+", ""));
             if (temp != 0) {
                 tiles.add(new GroundTile((int) (i % w) * tileWidth, (int) (i / h) * tileHeight, tileWidth, tileHeight,new Sprite(SpriteSheet
-                        .getSpriteImageFromSpriteSHeet( spriteSheet,(int) ((temp - 1) % tilecols), (int) ((temp - 1) / tilecols), 32, 32))));
+                        .getSpriteImageFromSpriteSheet( spriteSheet,  (int) (temp - 1) / tilecols,(int) (temp - 1) % tilecols))));
             }
 
         }

@@ -17,9 +17,10 @@ public class NonSolidTileLayer extends  TileLayers{
         String[] tile = Data.split(",");
         for(int i=0; i < (w*h); i++){
             int temp = Integer.parseInt(tile[i].replaceAll("\\s+",  ""));
-            if(temp !=0){
-                tiles.add(new NonSolidTile((int) (i % w) * tileWidth, (int) (i / h) * tileHeight, tileWidth, tileHeight,new Sprite(SpriteSheet
-                        .getSpriteImageFromSpriteSHeet( spriteSheet,(int) ((temp - 1) % tilecols), (int) ((temp - 1) / tilecols), 32, 32))));            }
+            if(temp !=0) {
+                tiles.add(new NonSolidTile((int) (i % w) * tileWidth, (int) (i / h) * tileHeight, tileWidth, tileHeight, new Sprite(SpriteSheet
+                        .getSpriteImageFromSpriteSheet( spriteSheet,  (int) (temp - 1) / tilecols,(int) (temp - 1) % tilecols))));
+            }
 
         }
     }

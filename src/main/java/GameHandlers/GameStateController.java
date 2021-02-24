@@ -6,6 +6,7 @@ import Graphics.Renderer;
 import Graphics.EngineGraphics;
 
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
 public class GameStateController {
@@ -43,10 +44,13 @@ public class GameStateController {
 
         gameStates.get(currentState).render(g);
         for (int i = 0; i < objects.size(); i++) {
+
+
                 if( !((objects.get(i).getX() + 64   <= player.getX() - ( renderer.getWIDTH() /renderer.getSCALE() )/2|| (objects.get(i).getX() -64   >=player.getX()  + (renderer.getWIDTH() /renderer.getSCALE()) / 2 )
                         || (objects.get(i).getY() + 64  <= player.getY() - (renderer.getHEIGHT() /renderer.getSCALE()) / 2))|| (objects.get(i).getY() -64  >=player.getY() +(renderer.getHEIGHT() /renderer.getSCALE()) / 2))) {
-                    objects.get(i).render(g);
+                    g.renderWithTransformations(objects.get(i));
                     objects.get(i).renderAllComponents(objects.get(i), g);
+
 
 
                 }
@@ -66,15 +70,15 @@ public class GameStateController {
 
     }
 
-    public void update(double delta) {
+    public void update() {
 
 
         for (int i = 0; i < objects.size(); i++) {
-            objects.get(i).update(delta);
-            objects.get(i).updateAllComponents( objects.get(i),delta);
+            objects.get(i).update();
+            objects.get(i).updateAllComponents( objects.get(i));
         }
 
-        gameStates.get(currentState).update(delta);
+        gameStates.get(currentState).update();
 
     }
 

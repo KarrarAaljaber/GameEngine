@@ -20,8 +20,7 @@ public abstract class GameObject {
     protected Color color;
 
 
-
-
+    private float rotationAngle;
     public GameObject(int x,int y, int width, int height){
         position = new Vector2f(x,y);
         this.width = width;
@@ -41,7 +40,13 @@ public abstract class GameObject {
 
     }
 
+    public float getRotationAngle() {
+        return rotationAngle;
+    }
 
+    public void rotate(float angle) {
+        this.rotationAngle = angle;
+    }
 
     public GameObject(int x, int y, int width, int height, Sprite sprite){
         position = new Vector2f(x,y);
@@ -65,7 +70,7 @@ public abstract class GameObject {
 
 
     public abstract void render(EngineGraphics g);
-    public abstract void update(double delta);
+    public abstract void update();
     public abstract void init();
 
     public Sprite getSprite() {
@@ -125,9 +130,9 @@ public abstract class GameObject {
         }
     }
 
-    public void updateAllComponents( GameObject obj,double delta){
+    public void updateAllComponents( GameObject obj){
         for(int i=0; i < components.size(); i++){
-            components.get(i).update(delta);
+            components.get(i).update();
         }
     }
     public ArrayList<GameComponent> getComponents() {

@@ -173,8 +173,9 @@ public class Chessboard implements  Runnable {
                     //backtracking
                     playerPos = new ArrayList<Vector2f>();
 
-                    //  board[nextMoveX][nextMoveY] = 0;
+                      board[nextMoveX / 32][nextMoveY / 32].setCounter(0);
                     empty[nextMoveX / 32][nextMoveY /32] = true;
+
 
                 }
             }

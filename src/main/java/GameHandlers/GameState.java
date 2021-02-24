@@ -31,7 +31,7 @@ public abstract class GameState {
     }
 
     public abstract void init();
-    public abstract void update(double delta);
+    public abstract void update();
     public abstract void render(EngineGraphics g);
     public abstract void keyPressed(int key);
     public abstract void keyReleased(int key);

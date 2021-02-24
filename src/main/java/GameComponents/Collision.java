@@ -140,7 +140,7 @@ public class Collision extends GameComponent{
     }
 
     @Override
-    public void update(double delta) {
+    public void update() {
         collision();
 
     }

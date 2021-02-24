@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.Graphics;
 
 import GameHandlers.GameObject;
+import TestingGameEngine.Game;
 import Tiles.Tile;
 import Utilities.Camera;
 
@@ -14,6 +15,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.NoninvertibleTransformException;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -69,13 +72,24 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
     }
 
     public void renderToScreen() {
+
         Graphics g = (Graphics) this.getGraphics();
 
         g.drawImage(img, 0, 0, getWidth(), getHeight(), null);
         g.dispose();
+
+
     }
 
+    Rectangle rect = new Rectangle(100,100,50,50);
+    Rectangle rect2 = new Rectangle(400,100,20,50);
+
+
     public void render() {
+        fps++;
+
+        AffineTransform oldAT = g2d.getTransform();
+
 
 
 
@@ -83,8 +97,14 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
         g2d.fillRect( 0, 0, WIDTH, HEIGHT);
 
 
+
         EngineGraphics engineGraphics = new EngineGraphics(g2d);
 
+
+
+
+
+        //g2d.scale(camera.getZoomscale(), camera.getZoomscale());
         g2d.translate(camera.getX(), camera.getY());
 
 
@@ -97,8 +117,9 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
 
     }
-    public void update(double delta) {
-        gch.update(delta);
+    public void update() {
+        ups++;
+        gch.update();
     }
 
 
@@ -109,56 +130,44 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
         thread.start();
         isRunning = true;
     }
-
+    private final double updateRate = 1.0d/60.0d;
+    private int fps, ups;
+    private long nextStateTime;
     @Override
     public void run() {
-        long initialTime = System.nanoTime();
-        final double timeU = 1000000000 / FPS;
-        final double timeF = 1000000000 / FPS;
-        double deltaU = 0, deltaF = 0;
-        int ticks = 0;
-        long timer = System.currentTimeMillis();
-        boolean RENDER_TIME = false;
+        long currentTime, lastUpdate = System.currentTimeMillis();
+        double counter =0;
+         nextStateTime = System.currentTimeMillis() + 1000;
+
         while (isRunning) {
+            currentTime = System.currentTimeMillis();
+            double lastRender = (currentTime - lastUpdate) / 1000d;
+            counter += lastRender;
+            lastUpdate = currentTime;
 
-            long currentTime = System.nanoTime();
-            deltaU += (currentTime - initialTime) / timeU;
-            deltaF += (currentTime - initialTime) / timeF;
-            initialTime = currentTime;
+            while(counter > updateRate){
+                update();
 
-            if (deltaU >= 1) {
-                update(deltaU);
-                ticks++;
-                deltaU--;
+                counter -= updateRate;
+
             }
-
-            if (deltaF >= 1) {
-                RENDER_TIME = true;
-
                 render();
                 renderToScreen();
-
-                frames++;
-                deltaF--;
-
-
+                printRendererStats();
 
             }
 
-            if (System.currentTimeMillis() - timer > 1000) {
 
-                if (RENDER_TIME) {
-                    System.out.println(String.format("UPS: %s, FPS: %s", ticks, frames));
-
-
-                }
-
-
-                frames = 0;
-                ticks = 0;
-                timer += 1000;
-            }
+    }
+    public void printRendererStats(){
+        if(System.currentTimeMillis() > nextStateTime){
+            System.out.println(String.format("FPS : %d, UPS: %d", fps, ups));
+            fps =0;
+            ups = 0;
+            nextStateTime = System.currentTimeMillis() + 1000;
         }
+
+
     }
 
     public static GameStateController getGch() {

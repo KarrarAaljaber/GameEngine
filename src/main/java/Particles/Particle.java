@@ -23,7 +23,7 @@ public class Particle {
         acceleration = new Vector2f(0,0);
     }
 
-    public void update(GameObject parent,double delta){
+    public void update(GameObject parent){
         velocity.addVec(acceleration);
         position.addVec(velocity);
 

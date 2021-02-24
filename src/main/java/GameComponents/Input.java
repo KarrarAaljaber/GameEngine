@@ -28,7 +28,7 @@ public class Input extends GameComponent{
     }
 
     @Override
-    public void update(double delta) {
+    public void update() {
         for(int i=0; i < 256; i++){
             lastKeys[i] = keys[i];
         }

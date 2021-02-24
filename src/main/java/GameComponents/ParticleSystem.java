@@ -31,9 +31,9 @@ public class ParticleSystem extends GameComponent {
     }
 
     @Override
-    public void update(double delta){
+    public void update(){
         for(int i=0; i < particles.size(); i++){
-            particles.get(i).update(parent, delta);
+            particles.get(i).update(parent);
 
 
         }

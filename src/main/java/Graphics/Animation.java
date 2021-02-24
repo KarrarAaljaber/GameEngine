@@ -19,7 +19,7 @@ public class Animation {
         lastTime = System.currentTimeMillis();
     }
 
-    public void update(double delta){
+    public void update( ){
         Timer += System.currentTimeMillis() - lastTime;
         lastTime = System.currentTimeMillis();
 

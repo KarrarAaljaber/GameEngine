@@ -16,7 +16,7 @@ public class ChessPlayer extends Entity {
     }
 
     @Override
-    public void update(double delta) {
+    public void update() {
 
     }
 

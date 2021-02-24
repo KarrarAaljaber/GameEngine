@@ -1,32 +1,26 @@
 package TestingGameEngine;
 
-import Entities.Entity;
 import GameComponents.Collider;
 import GameComponents.Collision;
 import GameComponents.Input;
 import GameComponents.Rigidbody;
 import GameHandlers.GameState;
+import Graphics.ImageLoader;
 import Graphics.Screen;
-
-import Graphics.EngineGraphics;
-import Tiles.SolidTile;
+import Graphics.SpriteSheet;
 import Tiles.TileHandler;
 import Tiles.TileLayers;
-import Utilities.Node;
 import Utilities.Camera;
-
+import Utilities.Node;
+import Graphics.EngineGraphics;
+import Graphics.Sprite;
+import Graphics.Renderer;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import Graphics.Renderer;
-import Graphics.ImageLoader;
-import Graphics.Sprite;
-
-import Graphics.SpriteSheet;
-
-public class Game extends GameState {
+public class Game2 extends GameState {
 
 
     private static Screen screen;
@@ -53,14 +47,14 @@ public class Game extends GameState {
     private Camera cam;
 
 
-    private  TileHandler tileHandler;
+    private TileHandler tileHandler;
 
-    public Game( Screen screen) {
+    public Game2( Screen screen) {
         super( screen);
     }
 
     public static void main(String[]args){
-        Game run = new Game(screen);
+        Game2 run = new Game2(screen);
     }
 
 
@@ -75,69 +69,52 @@ public class Game extends GameState {
 
 
 
-        //sheets
-        /*
-        playersheet = new SpriteSheet("2dplayersheet.png");
-        tilesheet = new SpriteSheet("blocksheet.png");
-        tileMapSheet = new SpriteSheet("tilset.png");
-*/
-
-      //  tileHandler = new TileHandler("tilemap2.tmx", 32,32,tileMapSheet );
-
-
 
 
         //objects
         // tileMap = new TileMap(500, 500, 32,32, tilesheet);
+        SpriteSheet spriteSheet = new SpriteSheet("playersheet.png",24,32);
 
-        //Sprite s =  new Sprite(, 1,1,77,77);
-        BufferedImage chessplayer = ImageLoader.loadImage("chessplayer.png");
-        Sprite chess = new Sprite(chessplayer, 32,32);
-        p = new ChessPlayer(0,0,32,32,chess);
-        p.addComponent(new Rigidbody(p));
-        board = new Chessboard(4,p,1,1);
-       // board.start();
-       // board.findRoute();
+        BufferedImage image = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,1,1);
+        Sprite s =  new Sprite(image);
 
-        if(board.getBoard() == null){
-            System.out.println("fffsss");
-        }
-        /*
+
+
+
         player = new TestPlayer((WIDTH / 3),(HEIGHT / 2), 32,32, s);
         player.placeGameObjectAtTile(6,9,32,32);
         //components
-        /*
+
         player.addComponent(new Rigidbody(player));
         player.addComponent(new Collider(player, player.getWidth() - 6, player.getHeight() - 6));
         player.addComponent(new Collision(player));
         player.addComponent(new Input(player));
 
-         */
-        cam = new Camera(p,WIDTH / 2,HEIGHT /2, WIDTH ,HEIGHT,1);
+
+
+        cam = new Camera(player,WIDTH / 2,HEIGHT /2, WIDTH ,HEIGHT,1);
 
         cam.setZoomscale(1f);
 
 
 
-        /*
-        tilesheet = new SpriteSheet("tilset.png");
+        tilesheet = new SpriteSheet("tilset.png",32,32);
 
 
         tileHandler = new TileHandler("tilemap2.tmx", 32,32,tilesheet );
-*/
+
 
 
 
         //Screen stuff
-        screen = new Screen(p,cam,WIDTH,HEIGHT, SCALE,false, new Color(4,200,200));
+        screen = new Screen(player,cam,WIDTH,HEIGHT, SCALE,false, new Color(4,200,200));
         Renderer.getGch().getGameCases().add(this);
 
-       // tileHandler.render();
-      //  Renderer.addObject(player);
-        board.renderBoard();
+        //  Renderer.addObject(player);
 
         Renderer.addObject(cam);
-        Renderer.addObject(p);
+        tileHandler.render();
+        Renderer.addObject(player);
 
         ///
         /*
@@ -163,16 +140,16 @@ public class Game extends GameState {
     }
 
 
-    private float angle = 0.0f;
     @Override
-    public void update() {
-        angle += 0.1f;
-        p.rotate(angle);
+    public void update( ) {
+
     }
+
+
 
     @Override
     public void render(EngineGraphics g) {
-    //    g.drawRect(new Vector2f(22,22), 50,500, Color.RED,false);
+        //    g.drawRect(new Vector2f(22,22), 50,500, Color.RED,false);
 
 
     }

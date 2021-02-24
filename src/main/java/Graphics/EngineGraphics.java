@@ -3,7 +3,9 @@ package Graphics;
 import GameHandlers.GameObject;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class EngineGraphics {
 
@@ -12,6 +14,16 @@ public class EngineGraphics {
         this.g2d = g2d;
     }
 
+
+    public void renderWithTransformations(GameObject gb){
+        AffineTransform oldAT = g2d.getTransform();
+
+        AffineTransform transform = new AffineTransform();
+        transform.rotate(gb.getRotationAngle(), gb.getX() + gb.getWidth()/2, gb.getY() + gb.getHeight()/2);
+        g2d.transform(transform);
+        gb.render(this);
+        g2d.setTransform(oldAT);
+    }
     public void drawCircle(int x, int y, int radius, Color color, boolean isFilled){
         if(!isFilled) {
             g2d.setColor(color);
@@ -48,7 +60,7 @@ public class EngineGraphics {
         if(obj == null){
             System.out.println("NULLLL");
         }
-        BufferedImage sprite = SpriteSheet.getSpriteImageFromSpriteSHeet(sp,spritecol, spriterow,width, height);
+        BufferedImage sprite = SpriteSheet.getSpriteImageFromSpriteSheet(sp,spritecol, spriterow);
         g2d.drawImage(sprite,(int)obj.getX(), (int) obj.getY(), obj.getWidth(), obj.getHeight() , null);
     }
     public void drawGameObject(GameObject obj){

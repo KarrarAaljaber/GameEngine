@@ -49,62 +49,40 @@ public class TestPlayer extends Entity {
 
     public TestPlayer(int x, int y, int width, int height, Sprite sprite) {
         super(x, y, width, height,sprite);
-        spriteSheet = new SpriteSheet("playersheet.png");
+        spriteSheet = new SpriteSheet("playersheet.png",24,32);
+
+
+        walkUpSprites = new BufferedImage[3];
 
 
 
-        walkDownSprites = new BufferedImage[8];
-        walkDownSprites[0] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,1,1,width,height);
-        walkDownSprites[1] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,2,1,width,height);
-        walkDownSprites[2] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,3,1,width,height);
-        walkDownSprites[3] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,4,1,width,height);
-        walkDownSprites[4] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,5,1,width,height);
-        walkDownSprites[5] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,6,1,width,height);
-        walkDownSprites[6] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,7,1,width,height);
-        walkDownSprites[7] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,8,1,width,height);
+        walkUpSprites[0] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,0,0);
+        walkUpSprites[1] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,0,1);
+        walkUpSprites[2] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,0,2);
 
-        walkLeftSprites = new BufferedImage[8];
-        walkLeftSprites[0] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,1,2,width,height);
-        walkLeftSprites[1] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,2,2,width,height);
-        walkLeftSprites[2] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,3,2,width,height);
-        walkLeftSprites[3] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,4,2,width,height);
-        walkLeftSprites[4] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,5,2,width,height);
-        walkLeftSprites[5] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,6,2,width,height);
-        walkLeftSprites[6] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,7,2,width,height);
-        walkLeftSprites[7] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,8,2,width,height);
+        walkRightSprites = new BufferedImage[3];
 
+        walkRightSprites[0] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,1,0);
+        walkRightSprites[1] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,1,1);
+        walkRightSprites[2] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,1,2);
 
+        walkDownSprites = new BufferedImage[3];
 
-        walkRightSprites = new BufferedImage[8];
-        walkRightSprites[0] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,1,3,width,height);
-        walkRightSprites[1] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,2,3,width,height);
-        walkRightSprites[2] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,3,3,width,height);
-        walkRightSprites[3] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,4,3,width,height);
-        walkRightSprites[4] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,5,3,width,height);
-        walkRightSprites[5] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,6,3,width,height);
-        walkRightSprites[6] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,7,3,width,height);
-        walkRightSprites[7] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,8,3,width,height);
+        walkDownSprites[0] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,2,0);
+        walkDownSprites[1] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,2,1);
+        walkDownSprites[2] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,2,2);
 
+        walkLeftSprites = new BufferedImage[3];
 
-        walkUpSprites = new BufferedImage[8];
-        walkUpSprites[0] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,1,4,width,height);
-        walkUpSprites[1] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,2,4,width,height);
-        walkUpSprites[2] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,3,4,width,height);
-        walkUpSprites[3] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,4,4,width,height);
-        walkUpSprites[4] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,5,4,width,height);
-        walkUpSprites[5] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,6,4,width,height);
-        walkUpSprites[6] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,7,4,width,height);
-        walkUpSprites[7] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,8,4,width,height);
+        walkLeftSprites[0] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,3,0);
+        walkLeftSprites[1] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,3,1);
+        walkLeftSprites[2] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,3,2);
 
 
 
 
-
-
-
-
-  //      sheet = new SpriteSheet("blocksheet.png");
-//        health = new Sprite(sheet,32,32);
+  //    sheet = new SpriteSheet("blocksheet.png");
+//      health = new Sprite(sheet,32,32);
 
         walkUp = new Animation(300, walkUpSprites);
         walkDown = new Animation(300, walkDownSprites);
@@ -163,12 +141,12 @@ public class TestPlayer extends Entity {
     }
 
     @Override
-    public void update(double delta) {
+    public void update() {
 
-        walkUp.update(delta);
-        walkRight.update(delta);
-        walkLeft.update(delta);
-        walkDown.update(delta);
+        walkUp.update();
+        walkRight.update();
+        walkLeft.update();
+        walkDown.update();
         Input input = (Input) getComponent(Input.class);
 
         //  move(delta);
@@ -238,14 +216,14 @@ public class TestPlayer extends Entity {
 
 
         if(up){
-            rigidbody.setVelocity(new Vector2f(0,-moveSpeed * (float)delta));
+            rigidbody.setVelocity(new Vector2f(0,-moveSpeed ));
         }
         if(down){
-            rigidbody.setVelocity(new Vector2f(0,moveSpeed * (float)delta));
+            rigidbody.setVelocity(new Vector2f(0,moveSpeed ));
         }  if(left){
-            rigidbody.setVelocity(new Vector2f(-moveSpeed * (float)delta,0));
+            rigidbody.setVelocity(new Vector2f(-moveSpeed ,0));
         }  if(right){
-            rigidbody.setVelocity(new Vector2f(moveSpeed * (float)delta,0));
+            rigidbody.setVelocity(new Vector2f(moveSpeed ,0));
         }
 
 
