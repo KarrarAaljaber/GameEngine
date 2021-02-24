@@ -184,7 +184,7 @@ public class Chessboard implements  Runnable {
     }
     public void movePlayer(){
         try{
-        thread.sleep(1000);
+        thread.sleep(500);
         for(int i=0; i < playerPos.size(); i++) {
             player.setPosition(playerPos.get(i));
         }

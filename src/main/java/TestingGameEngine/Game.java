@@ -96,7 +96,7 @@ public class Game extends GameState {
         p = new ChessPlayer(0,0,32,32,chess);
         p.addComponent(new Rigidbody(p));
 
-        board = new Chessboard(6,p,1,1);
+        board = new Chessboard(4,p,1,1);
         board.start();
        // board.findRoute();
 

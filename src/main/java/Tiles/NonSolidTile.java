@@ -28,7 +28,7 @@ public class NonSolidTile extends Tile{
     public void render(EngineGraphics g) {
        // g.drawGameObject(this);
         g.drawRect(getX(),getY(),width,height,color,true);
-        g.drawString(String.valueOf(counter), Color.GREEN,getX() + width / 2,getY() + height /2,"arial",20);
+        g.drawString(String.valueOf(counter), Color.GREEN,getX() + width / 2,getY() + height /2,"arial",15);
 
         if (Renderer.showLayers) {
             g.drawRect(getX(), getY(), width, height, Color.WHITE, false);
