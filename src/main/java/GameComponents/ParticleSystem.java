@@ -34,18 +34,12 @@ public class ParticleSystem extends GameComponent {
     public void update(double delta){
         for(int i=0; i < particles.size(); i++){
             particles.get(i).update(parent, delta);
+
+
         }
-    }
-    public void updateParticles(double delta) {
-        for(int i=0; i < particles.size(); i++){
-                particles.get(i).setAcceleration(new Vector2f(0,0.05f));
-                particles.get(i).setVelocity(new Vector2f(randomFloat(-1,1),randomFloat(-1,0)));
-                if(particles.get(i).getTimeToLive() <=0){
-                    particles.remove(particles.get(i));
-                }
-            }
 
     }
+
 
     public float randomFloat(int min, int max){
         float random = min + rand.nextFloat() * (max - min);
@@ -59,7 +53,7 @@ public class ParticleSystem extends GameComponent {
 
     public void RenderParticles(EngineGraphics g){
         for(int i=0; i < particles.size(); i++){
-            g.drawShape(particles.get(i).getParticleShape(),true,particles.get(i).getColor());
+            particles.get(i).render(g);
         }
     }
 }

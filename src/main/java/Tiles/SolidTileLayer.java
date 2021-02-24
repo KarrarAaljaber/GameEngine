@@ -18,8 +18,10 @@ public class SolidTileLayer extends TileLayers{
         for(int i=0; i < (w*h); i++){
             int temp = Integer.parseInt(tile[i].replaceAll("\\s+",  ""));
             if(temp !=0){
-                SolidTile t = new SolidTile((int)(i%w) * tileWidth,(int) (i/ h) *tileHeight , tileWidth, tileHeight,new Sprite(spriteSheet,(int) ((temp -1) % tilecols ), (int) ((temp -1 ) /tilecols) ,tileWidth,tileHeight ) );
+                SolidTile t = new SolidTile((int) (i % w) * tileWidth, (int) (i / h) * tileHeight, tileWidth, tileHeight,new Sprite(SpriteSheet
+                        .getSpriteImageFromSpriteSHeet( spriteSheet,(int) ((temp - 1) % tilecols), (int) ((temp - 1) / tilecols), 32, 32)));
                 tiles.add(t);
+
                 t.addComponent(new Collider(t,t.getWidth(), t.getHeight()));
 
 

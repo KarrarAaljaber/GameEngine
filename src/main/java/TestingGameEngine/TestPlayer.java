@@ -9,6 +9,8 @@ import Graphics.Animation;
 import Graphics.EngineGraphics;
 import Graphics.Sprite;
 import Particles.Particle;
+import Graphics.ImageLoader;
+
 import Utilities.Node;
 
 import java.awt.*;
@@ -43,33 +45,66 @@ public class TestPlayer extends Entity {
 
 
     private ParticleSystem particleSystem;
-
+    private SpriteSheet spriteSheet;
 
     public TestPlayer(int x, int y, int width, int height, Sprite sprite) {
         super(x, y, width, height,sprite);
-        walkUpSprites = new BufferedImage[3];
-        walkUpSprites[0] = sprite.getSpriteImage(1,1);
-        walkUpSprites[1] = sprite.getSpriteImage(2,1);
-        walkUpSprites[2] = sprite.getSpriteImage(3,1);
-
-        walkRightSprites = new BufferedImage[3];
-        walkRightSprites[0] = sprite.getSpriteImage(1,2);
-        walkRightSprites[1] = sprite.getSpriteImage(2,2);
-        walkRightSprites[2] = sprite.getSpriteImage(3,2);
-
-        walkDownSprites = new BufferedImage[3];
-        walkDownSprites[0] = sprite.getSpriteImage(1,3);
-        walkDownSprites[1] = sprite.getSpriteImage(2,3);
-        walkDownSprites[2] = sprite.getSpriteImage(3,3);
-
-        walkLeftSprites = new BufferedImage[3];
-        walkLeftSprites[0] = sprite.getSpriteImage(1,4);
-        walkLeftSprites[1] = sprite.getSpriteImage(2,4);
-        walkLeftSprites[2] = sprite.getSpriteImage(3,4);
+        spriteSheet = new SpriteSheet("playersheet.png");
 
 
-        sheet = new SpriteSheet("blocksheet.png");
-        health = new Sprite(sheet,32,32);
+
+        walkDownSprites = new BufferedImage[8];
+        walkDownSprites[0] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,1,1,width,height);
+        walkDownSprites[1] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,2,1,width,height);
+        walkDownSprites[2] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,3,1,width,height);
+        walkDownSprites[3] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,4,1,width,height);
+        walkDownSprites[4] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,5,1,width,height);
+        walkDownSprites[5] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,6,1,width,height);
+        walkDownSprites[6] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,7,1,width,height);
+        walkDownSprites[7] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,8,1,width,height);
+
+        walkLeftSprites = new BufferedImage[8];
+        walkLeftSprites[0] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,1,2,width,height);
+        walkLeftSprites[1] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,2,2,width,height);
+        walkLeftSprites[2] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,3,2,width,height);
+        walkLeftSprites[3] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,4,2,width,height);
+        walkLeftSprites[4] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,5,2,width,height);
+        walkLeftSprites[5] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,6,2,width,height);
+        walkLeftSprites[6] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,7,2,width,height);
+        walkLeftSprites[7] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,8,2,width,height);
+
+
+
+        walkRightSprites = new BufferedImage[8];
+        walkRightSprites[0] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,1,3,width,height);
+        walkRightSprites[1] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,2,3,width,height);
+        walkRightSprites[2] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,3,3,width,height);
+        walkRightSprites[3] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,4,3,width,height);
+        walkRightSprites[4] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,5,3,width,height);
+        walkRightSprites[5] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,6,3,width,height);
+        walkRightSprites[6] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,7,3,width,height);
+        walkRightSprites[7] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,8,3,width,height);
+
+
+        walkUpSprites = new BufferedImage[8];
+        walkUpSprites[0] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,1,4,width,height);
+        walkUpSprites[1] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,2,4,width,height);
+        walkUpSprites[2] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,3,4,width,height);
+        walkUpSprites[3] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,4,4,width,height);
+        walkUpSprites[4] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,5,4,width,height);
+        walkUpSprites[5] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,6,4,width,height);
+        walkUpSprites[6] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,7,4,width,height);
+        walkUpSprites[7] = SpriteSheet.getSpriteImageFromSpriteSHeet(spriteSheet,8,4,width,height);
+
+
+
+
+
+
+
+
+  //      sheet = new SpriteSheet("blocksheet.png");
+//        health = new Sprite(sheet,32,32);
 
         walkUp = new Animation(300, walkUpSprites);
         walkDown = new Animation(300, walkDownSprites);
@@ -90,8 +125,9 @@ public class TestPlayer extends Entity {
     @Override
     public void render(EngineGraphics g) {
      //   g.drawString("X:  " + pos.getX() + "   Y:" + pos.getY(), Color.WHITE , new Vector2f(getPos().getX() , getPos().getY() + 10 ) ,"Arial", 16);
+        particleSystem.RenderParticles(g);
+
         if(isUp()){
-            particleSystem.RenderParticles(g);
             g.drawImage(walkUp.getCurrentFrame(),getX(), getY(), width, height);
         }else if(isDown()){
             g.drawImage(walkDown.getCurrentFrame(),getX(),getY(), width, height);
@@ -107,6 +143,7 @@ public class TestPlayer extends Entity {
 
         }
 
+        /*
         for(int i=1; i < 5; i++){
             g.drawSprite(health, (this.getX() - 8 ) + i * 8 ,this.getY(),3,1,8,8  );
         }
@@ -143,7 +180,6 @@ public class TestPlayer extends Entity {
             setDown(false);
             setLeft(false);
             setRight(false);
-            particleSystem.updateParticles(delta);
         }
 
 

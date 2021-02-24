@@ -10,15 +10,15 @@ import java.awt.*;
 public class Particle {
 
     private Vector2f acceleration, velocity, position;
-    private Shape particleShape;
+    private Rectangle rectangle;
     private Color color;
     private int timeToLive;
 
-    public Particle( Shape particleShape, Color color, int timeToLive){
-        this.particleShape = particleShape;
+    public Particle( Rectangle rectangle, Color color, int timeToLive){
+        this.rectangle = rectangle;
         this.color = color;
         this.timeToLive = timeToLive;
-        position = new Vector2f((float)particleShape.getBounds().getX(), (float)particleShape.getBounds().getY());
+        position = new Vector2f(0,0);
         velocity  = new Vector2f(0,0);
         acceleration = new Vector2f(0,0);
     }
@@ -26,14 +26,20 @@ public class Particle {
     public void update(GameObject parent,double delta){
         velocity.addVec(acceleration);
         position.addVec(velocity);
-        particleShape.getBounds().setLocation(parent.getX(), parent.getY());
+
+        position.setX(parent.getX());
+        position.setY(parent.getY());
+
+        rectangle.setLocation((int)position.getX(), (int)position.getY());
         timeToLive--;
+
+        position.setX(position.getX() +1);
 
     }
 
     public void render(EngineGraphics g){
 
-        g.drawShape(particleShape, true, new Color(color.getRed(),color.getGreen(),color.getBlue(),timeToLive));
+        g.drawShape(rectangle, true, new Color(color.getRed(),color.getGreen(),color.getBlue()));
 
     }
 
@@ -61,12 +67,12 @@ public class Particle {
         this.position = position;
     }
 
-    public Shape getParticleShape() {
-        return particleShape;
+    public Rectangle getRectangle() {
+        return rectangle;
     }
 
-    public void setParticleShape(Shape particleShape) {
-        this.particleShape = particleShape;
+    public void setRectangle(Rectangle rectangle) {
+        this.rectangle = rectangle;
     }
 
     public Color getColor() {

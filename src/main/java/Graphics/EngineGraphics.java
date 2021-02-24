@@ -44,17 +44,21 @@ public class EngineGraphics {
         g2d.drawImage(img, x,y,width,height, null);
     }
 
-    public void drawGameObject(GameObject obj, int spritecol, int spriterow){
+    public void drawGameObject(GameObject obj, int spritecol, int spriterow, int width ,int height, SpriteSheet sp){
         if(obj == null){
             System.out.println("NULLLL");
         }
-        g2d.drawImage(obj.getSprite().getSpriteImage(spritecol, spriterow),(int)obj.getX(), (int) obj.getY(), obj.getWidth(), obj.getHeight() , null);
+        BufferedImage sprite = SpriteSheet.getSpriteImageFromSpriteSHeet(sp,spritecol, spriterow,width, height);
+        g2d.drawImage(sprite,(int)obj.getX(), (int) obj.getY(), obj.getWidth(), obj.getHeight() , null);
     }
     public void drawGameObject(GameObject obj){
         if(obj == null){
             System.out.println("NULLLL");
         }
-        g2d.drawImage(obj.getSprite().getSpriteImage(),(int)obj.getX(), (int) obj.getY(), obj.getWidth(), obj.getHeight() , null);
+        BufferedImage sprite = obj.getSprite().getSpriteBufferImage();
+
+            g2d.drawImage(sprite, (int) obj.getX(), (int) obj.getY(), obj.getWidth(), obj.getHeight(), null);
+
     }
 
     public void drawString(String text, Color color, int x, int y, String fontname, int fontSize ){
@@ -74,8 +78,8 @@ public class EngineGraphics {
         }
     }
 
-    public void drawSprite(Sprite sprite, int x, int y,int col, int row, int width, int height){
-        g2d.drawImage(sprite.getSpriteImage(col, row), x, y, width, height, null );
+    public void drawSprite(Sprite sprite, int x, int y, int width, int height){
+        g2d.drawImage(sprite.getSpriteBufferImage(), x, y, width, height, null );
     }
     public void drawAnim(BufferedImage curImg, int x, int y, int width, int height) {
         g2d.drawImage(curImg, x, y, width, height, null);

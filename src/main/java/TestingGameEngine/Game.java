@@ -17,6 +17,7 @@ import Utilities.Camera;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import Graphics.Renderer;
@@ -66,18 +67,22 @@ public class Game extends GameState {
 
     private static final Color transparency = new Color(0, 0, 0, 0);
 
+    private Chessboard board;
     private ArrayList<Node> moveSteps;
+    private     ChessPlayer p;
     @Override
     public void init() {
 
 
 
         //sheets
-        playersheet = new SpriteSheet("playersheet.png");
+        /*
+        playersheet = new SpriteSheet("2dplayersheet.png");
         tilesheet = new SpriteSheet("blocksheet.png");
         tileMapSheet = new SpriteSheet("tilset.png");
+*/
 
-        tileHandler = new TileHandler("tilemap2.tmx", 32,32,tileMapSheet );
+      //  tileHandler = new TileHandler("tilemap2.tmx", 32,32,tileMapSheet );
 
 
 
@@ -85,36 +90,53 @@ public class Game extends GameState {
         //objects
         // tileMap = new TileMap(500, 500, 32,32, tilesheet);
 
-        Sprite s =  new Sprite(playersheet, 1,1,24,32);
+        //Sprite s =  new Sprite(, 1,1,77,77);
+        BufferedImage chessplayer = ImageLoader.loadImage("chessplayer.png");
+        Sprite chess = new Sprite(chessplayer, 32,32);
+        p = new ChessPlayer(0,0,32,32,chess);
+        p.addComponent(new Rigidbody(p));
+
+        board = new Chessboard(6,p,1,1);
+        board.start();
+       // board.findRoute();
+
+        if(board.getBoard() == null){
+            System.out.println("fffsss");
+        }
+        /*
         player = new TestPlayer((WIDTH / 3),(HEIGHT / 2), 32,32, s);
         player.placeGameObjectAtTile(6,9,32,32);
         //components
-
+        /*
         player.addComponent(new Rigidbody(player));
         player.addComponent(new Collider(player, player.getWidth() - 6, player.getHeight() - 6));
         player.addComponent(new Collision(player));
         player.addComponent(new Input(player));
-        cam = new Camera(player,0,0, WIDTH ,HEIGHT,1);
+
+         */
+        cam = new Camera(p,0,0, WIDTH ,HEIGHT,1);
 
 
 
-        playersheet = new SpriteSheet("playersheet.png");
+        /*
         tilesheet = new SpriteSheet("tilset.png");
 
 
         tileHandler = new TileHandler("tilemap2.tmx", 32,32,tilesheet );
-
+*/
 
 
 
         //Screen stuff
-        screen = new Screen(player,cam,WIDTH,HEIGHT, SCALE,false, new Color(0,0,0));
+        screen = new Screen(p,cam,WIDTH,HEIGHT, SCALE,false, new Color(4,200,200));
         Renderer.getGch().getGameCases().add(this);
 
-        tileHandler.render();
-        Renderer.addObject(player);
+       // tileHandler.render();
+      //  Renderer.addObject(player);
+        board.renderBoard();
 
         Renderer.addObject(cam);
+        Renderer.addObject(p);
 
         ///
         /*

@@ -9,30 +9,27 @@ public class Sprite {
     private SpriteSheet sheet;
 
     private int col,row;
-    public Sprite(SpriteSheet sheet, int width, int height){
+    private BufferedImage sprite;
+    public Sprite(BufferedImage sprite, int width, int height){
         this.width = width;
         this.height = height;
-        this.sheet = sheet;
+        this.sprite = sprite;
     }
 
-    public Sprite(SpriteSheet sheet, int col , int row, int width, int height){
-        this.width = width;
-        this.height = height;
-        this.col = col;
-        this.row = row;
-        this.sheet = sheet;
+    public Sprite(BufferedImage sprite){
 
-        getSpriteImage();
+        this.sprite = sprite;
     }
 
-    public BufferedImage getSpriteImage(){
-        BufferedImage sprite = sheet.getImg().getSubimage(col * width, row * height, width, height );
-        return  sprite;
-    }
-    public BufferedImage getSpriteImage(int col, int row) {
-        BufferedImage sprite = sheet.getImg().getSubimage((col * width) - width, (row * height) - height, width, height);
+    public BufferedImage getSpriteBufferImage() {
         return sprite;
     }
+
+    public void setSpriteImage(BufferedImage sprite) {
+        this.sprite = sprite;
+    }
+
+
     public SpriteSheet getSheet() {
         return sheet;
     }

@@ -2,6 +2,7 @@ package Entities;
 import GameComponents.Collider;
 import GameComponents.Collision;
 import GameComponents.GameComponent;
+import GameComponents.Rigidbody;
 import GameHandlers.GameObject;
 import Graphics.Sprite;
 import Utilities.APathfinding;
@@ -10,12 +11,13 @@ import Utilities.Node;
 import java.awt.*;
 import java.util.ArrayList;
 import Graphics.Renderer;
+import Utilities.Vector2f;
+
 public abstract class Entity extends GameObject {
 
-    private final int UP = 0, DOWN = 1, RIGHT = 2, LEFT = 3;
 
     //abilities
-    protected boolean up, down, right, left;
+    protected boolean up, down, right, left, idle;
     protected float moveSpeed;
 
 
@@ -38,7 +40,11 @@ public abstract class Entity extends GameObject {
 
 
 
+    public void moveTo(int x, int y){
+        Rigidbody rigidbody = (Rigidbody) getComponent(Rigidbody.class);
+        rigidbody.setVelocity(new Vector2f(0.001f, 0.001f));
 
+    }
 
 
     public boolean isUp() {
