@@ -123,9 +123,9 @@ public class Game2 extends GameState {
         Renderer.addObject(cam);
         tileHandler.render();
         Renderer.addObject(player);
-        this.addLight(new Light(100,100, 100, new float[]  {0,0.2f,0}, getBrightvalue()));
+        this.addLight(new Light(100,100, 100, new float[]  {0,1,1}, getBrightvalue()));
         this.addLight(new Light(300,300, 100, new float[] {0,1,0}, getBrightvalue()));
-        this.addLight(new Light(300,2, 100, new float[] {1,0,0}, getBrightvalue()));
+        this.addLight(new Light(300,2, 100, new float[] {2,0,0}, getBrightvalue()));
         this.addLight(new Light(500,100, 100, new float[]  {0,0.2f,0}, getBrightvalue()));
         this.addLight(new Light(700,600, 100, new float[] {0,1,0}, getBrightvalue()));
         this.addLight(new Light(200,900, 100, new float[] {1,0,0}, getBrightvalue()));
