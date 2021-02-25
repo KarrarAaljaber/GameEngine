@@ -20,6 +20,8 @@ import java.awt.geom.NoninvertibleTransformException;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import static java.awt.RenderingHints.*;
+
 public class Renderer extends Canvas implements  Runnable, KeyListener , MouseListener{
 
     private Thread thread;
@@ -75,18 +77,36 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
         Graphics g = (Graphics) this.getGraphics();
 
+
         g.drawImage(img, 0, 0, getWidth(), getHeight(), null);
         g.dispose();
 
 
     }
 
-    Rectangle rect = new Rectangle(100,100,50,50);
-    Rectangle rect2 = new Rectangle(400,100,20,50);
 
 
     public void render() {
         fps++;
+        g2d.setRenderingHint(KEY_ANTIALIASING,
+                VALUE_ANTIALIAS_ON);
+
+        g2d.setRenderingHint(KEY_ALPHA_INTERPOLATION,
+                VALUE_ALPHA_INTERPOLATION_QUALITY);
+
+        g2d.setRenderingHint(KEY_RENDERING,	VALUE_RENDER_QUALITY);
+        g2d.setRenderingHint(KEY_COLOR_RENDERING,
+                VALUE_COLOR_RENDER_QUALITY);
+
+        g2d.setRenderingHint(KEY_DITHERING,
+                VALUE_DITHER_ENABLE);
+
+        g2d.setRenderingHint(KEY_INTERPOLATION,
+               VALUE_INTERPOLATION_BILINEAR);
+
+
+        g2d.setRenderingHint(KEY_TEXT_ANTIALIASING,VALUE_TEXT_ANTIALIAS_ON);
+
 
         AffineTransform oldAT = g2d.getTransform();
 
@@ -103,13 +123,12 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
 
 
-
         //g2d.scale(camera.getZoomscale(), camera.getZoomscale());
         g2d.translate(camera.getX(), camera.getY());
 
 
-
         gch.render(engineGraphics);
+
 
         g2d.translate(-camera.getX(), -camera.getY());
 

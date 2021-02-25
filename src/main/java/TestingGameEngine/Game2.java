@@ -64,6 +64,8 @@ public class Game2 extends GameState {
     private Chessboard board;
     private ArrayList<Node> moveSteps;
     private     ChessPlayer p;
+
+
     @Override
     public void init() {
 
@@ -116,6 +118,7 @@ public class Game2 extends GameState {
         tileHandler.render();
         Renderer.addObject(player);
 
+
         ///
         /*
         SolidTile[] solidTile = new SolidTile[32];
@@ -140,8 +143,11 @@ public class Game2 extends GameState {
     }
 
 
+    private float angle = 0.0f;
     @Override
     public void update( ) {
+        angle +=0.01f;
+
 
     }
 
@@ -150,7 +156,6 @@ public class Game2 extends GameState {
     @Override
     public void render(EngineGraphics g) {
         //    g.drawRect(new Vector2f(22,22), 50,500, Color.RED,false);
-
 
     }
 

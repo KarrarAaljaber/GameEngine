@@ -7,6 +7,8 @@ import Graphics.Renderer;
 import Utilities.Vector2f;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.RescaleOp;
 
 public class Collision extends GameComponent{
 
@@ -26,7 +28,9 @@ public class Collision extends GameComponent{
                 Rigidbody rigidbodyParent = (Rigidbody) parent.getComponent(Rigidbody.class);
                 if (parentCollider != objCollider) {
                     if(RectInRect(obj)) {
+
                         collided = true;
+
                         if (Math.abs(parentCollider.getCenterX() - objCollider.getCenterX()) < Math.abs(parentCollider.getCenterY() - objCollider.getCenterY())) {
 
                             //onTop of object
@@ -105,6 +109,12 @@ public class Collision extends GameComponent{
 
         }
 
+    }
+
+    public static boolean CircleContainsRect(int circleX, int circleY, int radius, int RectX, int RectY, int width, int height){
+        int dx = Math.max(Math.abs(circleX - RectX), Math.abs(RectX + width - circleX));
+        int dy = Math.max(Math.abs(circleY - RectY + height), Math.abs(RectY - circleY));
+        return (radius * radius) >= (dx * dx) + (dy * dy);
     }
 
     public boolean isCollided() {

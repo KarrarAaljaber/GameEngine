@@ -21,6 +21,16 @@ public abstract class GameObject {
 
 
     private float rotationAngle;
+    public GameObject(int x,int y, int width, int height, float rotationAngle){
+        position = new Vector2f(x,y);
+        this.rotationAngle = rotationAngle;
+        this.width = width;
+        this.isSolid = isSolid;
+        this.height = height;
+        components = new ArrayList<>();
+
+
+    }
     public GameObject(int x,int y, int width, int height){
         position = new Vector2f(x,y);
         this.width = width;
@@ -39,6 +49,16 @@ public abstract class GameObject {
         components = new ArrayList<>();
 
     }
+    public GameObject(int x, int y, int width, int height, float rotationAngle, Color color){
+        position = new Vector2f(x,y);
+        this.rotationAngle = rotationAngle;
+        this.width = width;
+        this.height = height;
+        this.color = color;
+        this.isSolid = isSolid;
+        components = new ArrayList<>();
+
+    }
 
     public float getRotationAngle() {
         return rotationAngle;
@@ -50,6 +70,16 @@ public abstract class GameObject {
 
     public GameObject(int x, int y, int width, int height, Sprite sprite){
         position = new Vector2f(x,y);
+        this.width = width;
+        this.height = height;
+        this.sprite = sprite;
+        this.isSolid = isSolid;
+        components = new ArrayList<>();
+
+    }
+    public GameObject(int x, int y, int width, int height, float rotationAngle, Sprite sprite){
+        position = new Vector2f(x,y);
+        this.rotationAngle = rotationAngle;
         this.width = width;
         this.height = height;
         this.sprite = sprite;

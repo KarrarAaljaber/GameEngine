@@ -5,7 +5,6 @@ import GameHandlers.GameObject;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public class EngineGraphics {
 
@@ -23,7 +22,9 @@ public class EngineGraphics {
         g2d.transform(transform);
         gb.render(this);
         g2d.setTransform(oldAT);
+
     }
+
     public void drawCircle(int x, int y, int radius, Color color, boolean isFilled){
         if(!isFilled) {
             g2d.setColor(color);
