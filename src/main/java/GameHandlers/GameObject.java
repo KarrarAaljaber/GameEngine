@@ -19,8 +19,12 @@ public abstract class GameObject {
     private ArrayList<GameComponent> components;
     protected Color color;
 
+    protected float[] colorFilter = {1,1,1};
+
 
     private float rotationAngle;
+    private float scale = 1.0f;
+
     public GameObject(int x,int y, int width, int height, float rotationAngle){
         position = new Vector2f(x,y);
         this.rotationAngle = rotationAngle;
@@ -31,7 +35,16 @@ public abstract class GameObject {
 
 
     }
-    public GameObject(int x,int y, int width, int height){
+
+    public float[] getColorFilter() {
+        return colorFilter;
+    }
+
+    public void setColorFilter(float[] colorFilter) {
+        this.colorFilter = colorFilter;
+    }
+
+    public GameObject(int x, int y, int width, int height){
         position = new Vector2f(x,y);
         this.width = width;
         this.isSolid = isSolid;
@@ -60,6 +73,12 @@ public abstract class GameObject {
 
     }
 
+    public float getScale(){
+        return  scale;
+    }
+    public void scale(float scale){
+        this.scale = scale;
+    }
     public float getRotationAngle() {
         return rotationAngle;
     }

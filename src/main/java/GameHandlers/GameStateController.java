@@ -31,6 +31,8 @@ public class GameStateController {
         currentState = 0;
 
 
+
+
     }
 
 
@@ -41,14 +43,18 @@ public class GameStateController {
 
 
     public void render(EngineGraphics g) {
-
-        gameStates.get(currentState).render(g);
+        GameState state = gameStates.get(currentState);
+        state.render(g);
         for (int i = 0; i < objects.size(); i++) {
 
 
                 if( !((objects.get(i).getX() + 64   <= player.getX() - ( renderer.getWIDTH() /renderer.getSCALE() )/2|| (objects.get(i).getX() -64   >=player.getX()  + (renderer.getWIDTH() /renderer.getSCALE()) / 2 )
                         || (objects.get(i).getY() + 64  <= player.getY() - (renderer.getHEIGHT() /renderer.getSCALE()) / 2))|| (objects.get(i).getY() -64  >=player.getY() +(renderer.getHEIGHT() /renderer.getSCALE()) / 2))) {
                     g.renderWithTransformations(objects.get(i));
+
+                        g.lighting(state.getLights(), objects.get(i), state.getDarkestvalue(), state.getBrightvalue());
+
+
                     objects.get(i).renderAllComponents(objects.get(i), g);
 
 

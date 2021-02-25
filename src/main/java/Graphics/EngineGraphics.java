@@ -1,30 +1,73 @@
 package Graphics;
 
+import Entities.Light;
+import GameComponents.Collision;
 import GameHandlers.GameObject;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.awt.image.RescaleOp;
+import java.util.*;
 
 public class EngineGraphics {
 
     private Graphics2D g2d;
     public EngineGraphics(Graphics2D g2d){
         this.g2d = g2d;
+
     }
 
+    private boolean lighting = false;
 
     public void renderWithTransformations(GameObject gb){
         AffineTransform oldAT = g2d.getTransform();
 
         AffineTransform transform = new AffineTransform();
-        transform.rotate(gb.getRotationAngle(), gb.getX() + gb.getWidth()/2, gb.getY() + gb.getHeight()/2);
+
+        transform.translate(gb.getX() - gb.getWidth() /2, gb.getY() - gb.getHeight() /2);
+        transform.scale(gb.getScale(), gb.getScale());
+        transform.rotate(gb.getRotationAngle());
+
+        transform.translate(-(gb.getX() + gb.getWidth() /2), -(gb.getY() + gb.getHeight() /2));
+
+
         g2d.transform(transform);
         gb.render(this);
         g2d.setTransform(oldAT);
 
     }
 
+    public void setLighting(boolean lighting){
+        this.lighting = lighting;
+    }
+    public void lighting(ArrayList<Light> lights, GameObject gb, float darkestvalue, float brightvalue){
+
+        ArrayList<GameObject> gbs = new ArrayList<>();
+        ArrayList<float[]> colors = new ArrayList<>();
+
+            if(lighting ) {
+                for (int i = 0; i < lights.size(); i++) {
+                    if (Collision.CircleContainsRect(lights.get(i).getX(), lights.get(i).getY(), lights.get(i).getRadius(), gb.getX(), gb.getY(), gb.getWidth(), gb.getHeight())) {
+                        gbs.add(gb);
+                        colors.add(lights.get(i).getColor());
+                    }
+
+
+                    gb.setColorFilter(new float[]{darkestvalue,darkestvalue,darkestvalue});
+
+                }
+               for(int i=0; i < gbs.size(); i++){
+
+                   gb.setColorFilter(colors.get(i));
+               }
+
+
+
+            }
+
+
+    }
     public void drawCircle(int x, int y, int radius, Color color, boolean isFilled){
         if(!isFilled) {
             g2d.setColor(color);
@@ -71,6 +114,19 @@ public class EngineGraphics {
         BufferedImage sprite = obj.getSprite().getSpriteBufferImage();
 
             g2d.drawImage(sprite, (int) obj.getX(), (int) obj.getY(), obj.getWidth(), obj.getHeight(), null);
+
+    }
+
+    public void drawGameObject(GameObject obj, float []colorfilter){
+        BufferedImage sprite = obj.getSprite().getSpriteBufferImage();
+
+
+        g2d.drawImage(sprite,
+                new RescaleOp(
+                        colorfilter,
+                        new float[]{0,0,0,0},
+                        null),(int) obj.getX(), (int) obj.getY());
+
 
     }
 

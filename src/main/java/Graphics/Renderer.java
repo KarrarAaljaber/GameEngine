@@ -47,6 +47,9 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
     public static boolean showLayers;
     public static  boolean toggle;
 
+
+
+
     public Renderer(GameObject player, int WIDTH, int HEIGHT, int SCALE, Color backgroundcolor, Camera camera){
         this.WIDTH = WIDTH;
         this.SCALE = SCALE;
@@ -62,6 +65,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
         System.out.println(getWIDTH());
 
     }
+
 
     public void init() {
 
