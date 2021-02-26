@@ -76,13 +76,13 @@ public class Game2 extends GameState {
     @Override
     public void init() {
 
-
+        /*
         AudioPlayer audioPlayer = new AudioPlayer();
         Clip clip = AudioPlayer.getClip("gatti.wav");
         MusicClip musicClip = new MusicClip(clip);
         musicClip.setMusicVolume(0.9f);
         audioPlayer.playMusic(musicClip);
-
+*/
 
         //objects
         // tileMap = new TileMap(500, 500, 32,32, tilesheet);
@@ -138,6 +138,7 @@ public class Game2 extends GameState {
         this.addLight(new Light(500,100, 100, new float[]  {0,0.2f,0}, getBrightvalue()));
         this.addLight(new Light(700,600, 100, new float[] {0,1,0}, getBrightvalue()));
         this.addLight(new Light(200,900, 100, new float[] {1,0,0}, getBrightvalue()));
+        */
         light = new Light(player.getX(),player.getY(), 100, new float[]{1,1,1}, getBrightvalue());
         this.addLight(light);
 
@@ -145,7 +146,6 @@ public class Game2 extends GameState {
 
         ///
 
-         */
         /*
         SolidTile[] solidTile = new SolidTile[32];
         for(int i=0; i < solidTile.length; i++)
@@ -173,8 +173,8 @@ public class Game2 extends GameState {
     @Override
     public void update( ) {
         angle +=0.01f;
-        //light.setY(player.getY()    );
-        //light.setX(player.getX());
+        light.setY(player.getY()    );
+        light.setX(player.getX());
 
     }
 
@@ -183,7 +183,7 @@ public class Game2 extends GameState {
     @Override
     public void render(EngineGraphics g) {
         //    g.drawRect(new Vector2f(22,22), 50,500, Color.RED,false);
-        //g.setLighting(true);
+        g.setLighting(true);
 
     }
 

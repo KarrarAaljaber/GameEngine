@@ -21,10 +21,9 @@ public class GroundTile extends  Tile{
     @Override
     public void render(EngineGraphics g) {
 
-        g.drawGameObject(this);
+        g.drawGameObject(this, getColorFilter());
         if (Renderer.showLayers) {
             g.drawRect(getX(), getY(), width, height, Color.GREEN, false);
-
         }
 
     }
