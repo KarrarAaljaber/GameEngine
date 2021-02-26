@@ -17,13 +17,23 @@ public abstract class AudioClip {
         musicVolume = 0;
         soundVolume = 0;
     }
-    public void update(){
+    public void updatemusikk(){
         final FloatControl control = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        control.setValue();
+        control.setValue(getMusicVolume());
+    }
+    public void updateSound(){
+        final FloatControl control = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        control.setValue(getSoundVolume());
     }
 
+    // sjekke om at audio filen er ferdig runnne
+    public boolean finishedrunning(){
+        return !clip.isRunning();
+    }
 
-
+    public void cleanup(){
+        clip.close();
+    }
 
 
 

@@ -13,21 +13,44 @@ public class AudioPlayer {
         public AudioPlayer(){
             audioclips = new ArrayList<>();
         }
+        public void updateMusikk(){
+            audioclips.forEach(audioClip -> audioClip.updatemusikk());
+            List.copyOf(audioclips).forEach(audioClip -> {
+                if(audioClip.finishedrunning()){
+                    audioClip.cleanup();
+                    audioclips.remove(audioClip);
+                }
+            });
 
+        }
+    public void updateSound(){
+        audioclips.forEach(audioClip -> audioClip.updateSound());
+
+        List.copyOf(audioclips).forEach(audioClip -> {
+            if(audioClip.finishedrunning()){
+                audioClip.cleanup();
+                audioclips.remove(audioClip);
+            }
+        });
+
+
+    }
         public void playMusic(String filename){
             final Clip clip = getClip(filename);
+            audioclips.add(new MusicClip(clip));
 
         }
 
         public void playSound(String filename){
-
+            final Clip clip = getClip(filename);
+            audioclips.add(new SoundClip(clip));
         }
 
 
         // methode som skal laste ned audioclipen
         public Clip getClip(String fileName){
             //nå må vi åpne audio inputstream der vi kan lese data
-            final URL soundFile = AudioPlayer.class.getResource("/sounds/" + fileName);
+            final URL soundFile = AudioPlayer.class.getResource("/Sound/" + fileName);
             try (AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile)){
                 //lager en empty clip
                 final Clip clip = AudioSystem.getClip();

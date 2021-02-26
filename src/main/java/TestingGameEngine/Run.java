@@ -1,5 +1,6 @@
 package TestingGameEngine;
 
+import Audio.AudioPlayer;
 import GameHandlers.GameCase;
 import GameHandlers.GameObject;
 import Graphics.Screen;
@@ -23,6 +24,7 @@ public class Run extends GameCase  {
     private SpriteSheet spriteSheet;
     private ImageLoader loader;
 
+
     //GameObjects
     private TestPlayer player;
     public Run(Screen screen) {
@@ -38,7 +40,10 @@ public class Run extends GameCase  {
 
     public static void main(String[]args){
         Run run = new Run(screen);
+        AudioPlayer audioPlayer = new AudioPlayer();
+        audioPlayer.playMusic("isobubbler.wav");
     }
+
 
 
 
