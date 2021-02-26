@@ -19,6 +19,7 @@ public class AudioPlayer {
         List.copyOf(audioclips).forEach(audioClip -> {
             if(audioClip.finishedrunning()){
                 audioClip.cleanup();
+
                 audioclips.remove(audioClip);
             }
         });
