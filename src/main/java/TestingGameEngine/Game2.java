@@ -123,7 +123,7 @@ public class Game2 extends GameState {
         Renderer.addObject(cam);
         tileHandler.render();
         Renderer.addObject(player);
-
+        /*
         this.addLight(new Light(100,100, 100, new float[]  {0,1,1}, getBrightvalue()));
         this.addLight(new Light(300,300, 100, new float[] {0,1,0}, getBrightvalue()));
         this.addLight(new Light(300,2, 100, new float[] {2,0,0}, getBrightvalue()));
@@ -163,8 +163,8 @@ public class Game2 extends GameState {
     @Override
     public void update( ) {
         angle +=0.01f;
-        light.setY(player.getY()    );
-        light.setX(player.getX());
+        //light.setY(player.getY()    );
+        //light.setX(player.getX());
 
     }
 
@@ -173,7 +173,7 @@ public class Game2 extends GameState {
     @Override
     public void render(EngineGraphics g) {
         //    g.drawRect(new Vector2f(22,22), 50,500, Color.RED,false);
-        g.setLighting(true);
+        //g.setLighting(true);
 
     }
 

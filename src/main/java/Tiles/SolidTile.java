@@ -27,7 +27,7 @@ public class SolidTile extends  Tile{
 
     @Override
     public void render(EngineGraphics g) {
-        g.drawGameObject(this, getColorFilter());
+        g.drawGameObject(this);
         if (Renderer.showLayers) {
             g.drawRect(getX(), getY(), width, height, Color.RED, false);
 
