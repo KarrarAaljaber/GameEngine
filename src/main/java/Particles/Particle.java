@@ -6,41 +6,46 @@ import TestingGameEngine.Game;
 import Utilities.Vector2f;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Particle {
 
     private Vector2f acceleration, velocity, position;
     private Rectangle rectangle;
+    private int width, height;
     private Color color;
     private int timeToLive;
+    private Random rand = new Random();
 
-    public Particle( Rectangle rectangle, Color color, int timeToLive){
-        this.rectangle = rectangle;
+    public Particle( Vector2f position, int width, int height, Color color, int timeToLive){
+        this.position = position;
+        this.width = width;
+        this.height = height;
         this.color = color;
         this.timeToLive = timeToLive;
-        position = new Vector2f(0,0);
         velocity  = new Vector2f(0,0);
         acceleration = new Vector2f(0,0);
     }
 
     public void update(GameObject parent){
-        velocity.addVec(acceleration);
-        position.addVec(velocity);
-
-        position.setX(parent.getX());
-        position.setY(parent.getY());
-
-        rectangle.setLocation((int)position.getX(), (int)position.getY());
         timeToLive--;
 
-        position.setX(position.getX() +1);
+        acceleration.setX(randomFloat(0,1) * 0.0001f);
+        acceleration.setY(randomFloat(0,1) * 0.0001f);
+
+        velocity.addVec(acceleration );
+        position.addVec(velocity);
 
     }
 
     public void render(EngineGraphics g){
 
-        g.drawShape(rectangle, true, new Color(color.getRed(),color.getGreen(),color.getBlue()));
+        g.drawRect((int)position.getX(),(int) position.getY(), height,width,color,true);
 
+    }
+    public float randomFloat(int min, int max){
+        float random = min + rand.nextFloat() * (max - min);
+        return  random;
     }
 
     public Vector2f getAcceleration() {

@@ -1,6 +1,7 @@
 package Tiles;
 
 import GameComponents.Collider;
+import GameComponents.ParticleSystem;
 import GameHandlers.GameState;
 import Graphics.Sprite;
 import Graphics.SpriteSheet;
@@ -20,9 +21,11 @@ public class SolidTileLayer extends TileLayers{
             if(temp !=0){
                 SolidTile t = new SolidTile((int) (i % w) * tileWidth, (int) (i / h) * tileHeight, tileWidth, tileHeight,new Sprite(SpriteSheet
                         .getSpriteImageFromSpriteSheet( spriteSheet,  (int) (temp - 1) / tilecols,(int) (temp - 1) % tilecols)));
-                tiles.add(t);
+
+                t.addComponent(new ParticleSystem(t));
 
                 t.addComponent(new Collider(t,t.getWidth(), t.getHeight()));
+                tiles.add(t);
 
 
             }

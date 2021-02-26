@@ -11,11 +11,12 @@ import java.awt.*;
 
 public class SolidTile extends  Tile{
 
+    Collider collider;
 
     public SolidTile(int x, int y, int width, int height, Color color) {
         super(x, y, width, height,color);
 
-
+        collider  = (Collider) getComponent(Collider.class);
 
     }
 
@@ -26,8 +27,7 @@ public class SolidTile extends  Tile{
 
     @Override
     public void render(EngineGraphics g) {
-        Collider collider = (Collider) getComponent(Collider.class);
-        g.drawGameObject(this,getColorFilter());
+        g.drawGameObject(this, getColorFilter());
         if (Renderer.showLayers) {
             g.drawRect(getX(), getY(), width, height, Color.RED, false);
 

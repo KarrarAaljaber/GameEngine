@@ -89,10 +89,8 @@ public class TestPlayer extends Entity {
         walkLeft = new Animation(300, walkLeftSprites);
         walkRight = new Animation(300, walkRightSprites);
 
-        Particle particle = new Particle(new Rectangle(x,y,5,5), Color.RED,255);
         particleSystem = new ParticleSystem(this);
         addComponent(particleSystem);
-        particleSystem.addParticles(particle, 50);
 
 
     }
@@ -106,15 +104,22 @@ public class TestPlayer extends Entity {
         particleSystem.RenderParticles(g);
 
         if(isUp()){
+
             g.drawImage(walkUp.getCurrentFrame(),getX(), getY(), width, height);
+            particleSystem.addParticles(new Particle(new Vector2f(getX() + width / 2, getY() + height),3,3, new Color(65, 234, 65),500),50);
+
         }else if(isDown()){
             g.drawImage(walkDown.getCurrentFrame(),getX(),getY(), width, height);
+            particleSystem.addParticles(new Particle(new Vector2f(getX() + width / 2, getY() + height),3,3, new Color(65, 234, 65),500),50);
+
 
         }else if( isLeft()){
             g.drawImage(walkLeft.getCurrentFrame(),getX(),getY(), width, height);
+            particleSystem.addParticles(new Particle(new Vector2f(getX() + width / 2, getY() + height),3,3, new Color(65, 234, 65),500),50);
 
         }else if(isRight()){
             g.drawImage(walkRight.getCurrentFrame(),getX(),getY(),width, height);
+            particleSystem.addParticles(new Particle(new Vector2f(getX() + width / 2, getY() + height),3,3, new Color(65, 234, 65),500),50);
 
         }else{
             g.drawImage(walkDownSprites[0],getX(),getY(), width, height);
@@ -150,7 +155,6 @@ public class TestPlayer extends Entity {
         Input input = (Input) getComponent(Input.class);
 
         //  move(delta);
-        Collision col = (Collision) getComponent(Collision.class);
         Rigidbody rigidbody = (Rigidbody) getComponent(Rigidbody.class);
 
         if(input.KeyDown(KeyEvent.VK_W) ){
@@ -158,6 +162,9 @@ public class TestPlayer extends Entity {
             setDown(false);
             setLeft(false);
             setRight(false);
+
+
+
         }
 
 

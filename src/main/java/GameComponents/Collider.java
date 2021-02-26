@@ -11,6 +11,7 @@ public class Collider extends GameComponent {
     private int width, height;
     private int halfWidth, halfHeight;
     private int centerX, centerY;
+
     public Collider(GameObject parent, int width, int height){
         super(parent);
         this.parent  = parent;
@@ -23,6 +24,9 @@ public class Collider extends GameComponent {
     @Override
     public void init() {
     }
+
+
+
 
     @Override
     public void update( ) {

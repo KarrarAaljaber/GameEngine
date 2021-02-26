@@ -34,17 +34,16 @@ public class ParticleSystem extends GameComponent {
     public void update(){
         for(int i=0; i < particles.size(); i++){
             particles.get(i).update(parent);
-
+            if(particles.get(i).getTimeToLive() <=0){
+                particles.remove(i);
+            }
 
         }
 
     }
 
 
-    public float randomFloat(int min, int max){
-        float random = min + rand.nextFloat() * (max - min);
-        return  random;
-    }
+
 
     @Override
     public void render(EngineGraphics g) {

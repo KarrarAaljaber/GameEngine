@@ -112,7 +112,7 @@ public class Game2 extends GameState {
 
 
         //Screen stuff
-        screen = new Screen(player,cam,WIDTH,HEIGHT, SCALE,false, new Color(4,200,200));
+        screen = new Screen(player,cam,WIDTH,HEIGHT, SCALE,false, new Color(0,0,0));
         Renderer.getGch().getGameCases().add(this);
 
         //  Renderer.addObject(player);
@@ -123,6 +123,7 @@ public class Game2 extends GameState {
         Renderer.addObject(cam);
         tileHandler.render();
         Renderer.addObject(player);
+
         this.addLight(new Light(100,100, 100, new float[]  {0,1,1}, getBrightvalue()));
         this.addLight(new Light(300,300, 100, new float[] {0,1,0}, getBrightvalue()));
         this.addLight(new Light(300,2, 100, new float[] {2,0,0}, getBrightvalue()));
@@ -131,6 +132,7 @@ public class Game2 extends GameState {
         this.addLight(new Light(200,900, 100, new float[] {1,0,0}, getBrightvalue()));
         light = new Light(player.getX(),player.getY(), 100, new float[]{1,1,1}, getBrightvalue());
         this.addLight(light);
+
 
 
         ///

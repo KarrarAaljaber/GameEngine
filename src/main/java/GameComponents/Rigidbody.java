@@ -23,7 +23,6 @@ public class Rigidbody extends GameComponent{
 
     @Override
     public void update() {
-        collision = (Collision)  parent.getComponent(Collision.class);
 
         parent.getPosition().addVec(velocity);
 

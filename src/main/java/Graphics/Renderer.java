@@ -51,6 +51,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
 
     public Renderer(GameObject player, int WIDTH, int HEIGHT, int SCALE, Color backgroundcolor, Camera camera){
+
         this.WIDTH = WIDTH;
         this.SCALE = SCALE;
         this.player = player;
@@ -91,6 +92,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
 
     public void render() {
+        // activate opengl
         fps++;
         g2d.setRenderingHint(KEY_ANTIALIASING,
                 VALUE_ANTIALIAS_ON);

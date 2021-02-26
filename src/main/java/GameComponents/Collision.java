@@ -4,6 +4,7 @@ import Entities.Entity;
 import GameHandlers.GameObject;
 import Graphics.EngineGraphics;
 import Graphics.Renderer;
+import Particles.Particle;
 import Utilities.Vector2f;
 
 import java.awt.*;
@@ -26,6 +27,7 @@ public class Collision extends GameComponent{
                 Collider parentCollider = (Collider) parent.getComponent(Collider.class);
                 Collider objCollider = (Collider) obj.getComponent(Collider.class);
                 Rigidbody rigidbodyParent = (Rigidbody) parent.getComponent(Rigidbody.class);
+
                 if (parentCollider != objCollider) {
                     if(RectInRect(obj)) {
 
