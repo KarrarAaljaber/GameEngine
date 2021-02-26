@@ -1,5 +1,7 @@
 package TestingGameEngine;
 
+import Audio.AudioPlayer;
+import Audio.MusicClip;
 import Entities.Light;
 import GameComponents.Collider;
 import GameComponents.Collision;
@@ -16,6 +18,8 @@ import Utilities.Node;
 import Graphics.EngineGraphics;
 import Graphics.Sprite;
 import Graphics.Renderer;
+
+import javax.sound.sampled.Clip;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -73,7 +77,11 @@ public class Game2 extends GameState {
     public void init() {
 
 
-
+        AudioPlayer audioPlayer = new AudioPlayer();
+        Clip clip = AudioPlayer.getClip("gatti.wav");
+        MusicClip musicClip = new MusicClip(clip);
+        musicClip.setMusicVolume(0.9f);
+        audioPlayer.playMusic(musicClip);
 
 
         //objects
@@ -136,6 +144,8 @@ public class Game2 extends GameState {
 
 
         ///
+
+         */
         /*
         SolidTile[] solidTile = new SolidTile[32];
         for(int i=0; i < solidTile.length; i++)
