@@ -5,11 +5,11 @@ import java.awt.image.BufferedImage;
 
 public class ImageLoader {
 
-    private BufferedImage img;
-    public BufferedImage loadImage(String path) {
+    private static BufferedImage img;
+    public static BufferedImage loadImage(String path) {
 
         try {
-            img = ImageIO.read(getClass().getClassLoader().getResourceAsStream(path));
+            img = ImageIO.read(ImageLoader.class.getClassLoader().getResourceAsStream(path));
             System.out.println("loaded img ! : " + path );
         }catch(Exception e) {
             e.printStackTrace();

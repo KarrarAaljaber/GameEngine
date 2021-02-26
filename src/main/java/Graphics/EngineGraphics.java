@@ -1,51 +1,158 @@
 package Graphics;
 
+import Entities.Light;
+import GameComponents.Collision;
 import GameHandlers.GameObject;
-import Utilities.Vector2f;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.awt.image.RescaleOp;
+import java.util.*;
 
 public class EngineGraphics {
 
     private Graphics2D g2d;
     public EngineGraphics(Graphics2D g2d){
         this.g2d = g2d;
+
     }
 
-    public void drawCircle(Vector2f pos, int radius, Color color, boolean isFilled){
+    private boolean lighting = false;
+
+    public void renderWithTransformations(GameObject gb){
+        AffineTransform oldAT = g2d.getTransform();
+
+        AffineTransform transform = new AffineTransform();
+
+        transform.translate(gb.getX() - gb.getWidth() /2, gb.getY() - gb.getHeight() /2);
+        transform.scale(gb.getScale(), gb.getScale());
+        transform.rotate(gb.getRotationAngle());
+
+        transform.translate(-(gb.getX() + gb.getWidth() /2), -(gb.getY() + gb.getHeight() /2));
+
+
+        g2d.transform(transform);
+        gb.render(this);
+        g2d.setTransform(oldAT);
+
+    }
+
+    public void setLighting(boolean lighting){
+        this.lighting = lighting;
+    }
+    public void lighting(ArrayList<Light> lights, GameObject gb, float darkestvalue, float brightvalue){
+
+        ArrayList<GameObject> gbs = new ArrayList<>();
+        ArrayList<float[]> colors = new ArrayList<>();
+
+            if(lighting ) {
+                for (int i = 0; i < lights.size(); i++) {
+                    if (Collision.CircleContainsRect(lights.get(i).getX(), lights.get(i).getY(), lights.get(i).getRadius(), gb.getX(), gb.getY(), gb.getWidth(), gb.getHeight())) {
+                        gbs.add(gb);
+                        colors.add(lights.get(i).getColor());
+                    }
+
+
+                    gb.setColorFilter(new float[]{darkestvalue,darkestvalue,darkestvalue});
+
+                }
+               for(int i=0; i < gbs.size(); i++){
+
+                   gb.setColorFilter(colors.get(i));
+               }
+
+
+
+            }
+
+
+    }
+    public void drawCircle(int x, int y, int radius, Color color, boolean isFilled){
         if(!isFilled) {
             g2d.setColor(color);
-            g2d.drawOval((int) pos.getX(), (int) pos.getY(), radius, radius);
+            g2d.drawOval(x, y, radius, radius);
         }else{
             g2d.setColor(color);
-            g2d.fillOval((int) pos.getX(), (int) pos.getY(), radius, radius);
+            g2d.fillOval((int) x, y, radius, radius);
+        }
+    }
+    public void drawRect(Rectangle rectangle, Color color, boolean isFilled){
+        if(!isFilled) {
+            g2d.setColor(color);
+            g2d.draw(rectangle);
+        }else{
+            g2d.setColor(color);
+            g2d.fill(rectangle);
         }
     }
 
-    public void drawRect(Vector2f pos, int width, int height, Color color, boolean isFilled){
+    public void drawRect(int x, int y, int width, int height, Color color, boolean isFilled){
         if(!isFilled) {
             g2d.setColor(color);
-            g2d.drawRect((int) pos.getX(), (int) pos.getY(), width, height);
+            g2d.drawRect(x, y, width, height);
         }else{
             g2d.setColor(color);
-            g2d.fillRect((int) pos.getX(), (int) pos.getY(), width, height);
+            g2d.fillRect(x, (int) y, width, height);
         }
     }
+    public void drawImage(BufferedImage img, int x, int y, int width, int height){
+        g2d.drawImage(img, x,y,width,height, null);
+    }
 
-    public void drawGameObject(GameObject obj, int spritecol, int spriterow){
+    public void drawGameObject(GameObject obj, int spritecol, int spriterow, int width ,int height, SpriteSheet sp){
         if(obj == null){
             System.out.println("NULLLL");
         }
-        g2d.drawImage(obj.getSprite().getSprite(spritecol, spriterow) ,(int)obj.getPos().getX(), (int) obj.getPos().getY(), obj.getWidth(), obj.getHeight() , null);
+        BufferedImage sprite = SpriteSheet.getSpriteImageFromSpriteSheet(sp,spritecol, spriterow);
+        g2d.drawImage(sprite,(int)obj.getX(), (int) obj.getY(), obj.getWidth(), obj.getHeight() , null);
+    }
+    public void drawGameObject(GameObject obj){
+        if(obj == null){
+            System.out.println("NULLLL");
+        }
+        BufferedImage sprite = obj.getSprite().getSpriteBufferImage();
+
+            g2d.drawImage(sprite, (int) obj.getX(), (int) obj.getY(), obj.getWidth(), obj.getHeight(), null);
+
     }
 
-    public void drawString(String text, Vector2f pos, String fontname, int fontSize ){
+    public void drawGameObject(GameObject obj, float []colorfilter){
+        BufferedImage sprite = obj.getSprite().getSpriteBufferImage();
+
+
+        g2d.drawImage(sprite,
+                new RescaleOp(
+                        colorfilter,
+                        new float[]{0,0,0,0},
+                        null),(int) obj.getX(), (int) obj.getY());
+
+
+    }
+
+    public void drawString(String text, Color color, int x, int y, String fontname, int fontSize ){
         Font font = new Font(fontname, 0, fontSize);
         g2d.setFont(font);
-        g2d.drawString(text, pos.getX(), pos.getY() );
+        g2d.setColor(color);
+        g2d.drawString(text, x,y );
     }
 
+    public void drawShape(Shape shape, boolean isFilled, Color color){
+        if(!isFilled) {
+            g2d.setColor(color);
+            g2d.draw(shape);
+        }else{
+            g2d.setColor(color);
+            g2d.fill(shape);
+        }
+    }
 
+    public void drawSprite(Sprite sprite, int x, int y, int width, int height){
+        g2d.drawImage(sprite.getSpriteBufferImage(), x, y, width, height, null );
+    }
+    public void drawAnim(BufferedImage curImg, int x, int y, int width, int height) {
+        g2d.drawImage(curImg, x, y, width, height, null);
+    }
 
 
 

@@ -17,6 +17,12 @@ public abstract class AudioClip {
         musicVolume = 0;
         soundVolume = 0;
     }
+    public void setVolume(float volume){
+        if (volume < 0f || volume > 1f)
+            throw new IllegalArgumentException("Volume not valid: " + volume);
+        FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(20f * (float) Math.log10(volume));
+    }
     public void updatemusikk(){
         final FloatControl control = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
         control.setValue(getMusicVolume());
