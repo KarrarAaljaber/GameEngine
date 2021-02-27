@@ -123,9 +123,9 @@ public class Collision extends GameComponent{
         return collided;
     }
 
-    public boolean PointInRect(Rectangle rect, int x, int y){
-        return (x >= rect.x && y >=rect.y
-        && x < rect.x + rect.width && y < rect.y + rect.width);
+    public static boolean PointInRect(int x, int y, int width, int height, int x2, int y2){
+        return (x2 >= x && y2 >=y
+        && x2 < x + width && y2 < y + height);
 
     }
     public boolean RectInRect(GameObject collidedWith){

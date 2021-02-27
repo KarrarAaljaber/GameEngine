@@ -1,6 +1,7 @@
 package Graphics;
 
 import Entities.Entity;
+import GameComponents.Input;
 import GameHandlers.GameStateController;
 
 import java.awt.*;
@@ -13,10 +14,7 @@ import UI.UIContainer;
 import UI.UIController;
 import Utilities.Camera;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.image.BufferedImage;
@@ -24,7 +22,7 @@ import java.util.ArrayList;
 
 import static java.awt.RenderingHints.*;
 
-public class Renderer extends Canvas implements  Runnable, KeyListener , MouseListener{
+public class Renderer extends Canvas implements  Runnable, KeyListener , MouseListener, MouseMotionListener {
 
     private Thread thread;
     private boolean isRunning = false;
@@ -51,27 +49,38 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
     private static UIController uiController;
 
 
+    private static Input input;
 
 
     public Renderer(GameObject player, int WIDTH, int HEIGHT, int SCALE, Color backgroundcolor, Camera camera){
-
         this.WIDTH = WIDTH;
         this.SCALE = SCALE;
         this.player = player;
         this.HEIGHT = HEIGHT;
         this.backgroundcolor = backgroundcolor;
         this.camera = camera;
+        setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
+        setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
+        setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
         this.addKeyListener(this);
         this.addMouseListener(this);
+        this.addMouseMotionListener(this);
         gch = new GameStateController(this, player);
         uiController = new UIController();
+
+
         init();
+        requestFocus();
 
         System.out.println(getWIDTH());
+        input = new Input() ;
 
     }
 
 
+    public static Input getInput(){
+        return input;
+    }
     public void init() {
 
         img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -153,6 +162,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
         ups++;
         uiController.update();
         gch.update();
+        input.update();
     }
 
 
@@ -261,9 +271,9 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
+        input.keyPressed(key);
 
 
-        gch.keyPressed(key);
         if (key == KeyEvent.VK_G && !toggle) {
             showLayers = !showLayers;
             toggle = true;
@@ -278,7 +288,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
 
-        gch.keyReleased(key);
+        input.keyReleased(key);
     }
 
     public static UIController getUiController() {
@@ -293,12 +303,12 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
     @Override
     public void mousePressed(MouseEvent e) {
-        gch.mousePressed(e);
+        input.mousePressed(e);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        gch.mouseReleased(e);
+        input.mouseReleased(e);
     }
 
     @Override
@@ -308,6 +318,18 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
     @Override
     public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        input.setMouseX(e.getX() / SCALE );
+        input.setMouseY(e.getY() / SCALE);
 
     }
 }

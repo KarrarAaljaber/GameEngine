@@ -1,8 +1,10 @@
 package UI;
 
+import GameComponents.Input;
 import Graphics.EngineGraphics;
 
 import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class UIContainer {
@@ -13,6 +15,9 @@ public class UIContainer {
     private int borderThickness = 0;
     private Color borderColor = Color.WHITE;
     private boolean isVisiable = true;
+
+
+
 
     public UIContainer(int x, int y, int width, int height){
         uiComponents = new ArrayList<UIComponent>();
@@ -66,7 +71,11 @@ public class UIContainer {
         for(int i=0; i < uiComponents.size(); i++){
             uiComponents.get(i).update();
         }
+
+
     }
+
+
 
     public int getWidth() {
         return width;
@@ -132,4 +141,6 @@ public class UIContainer {
     public void setBorderColor(Color borderColor) {
         this.borderColor = borderColor;
     }
+
+
 }

@@ -177,23 +177,5 @@ public class Game extends GameState {
 
     }
 
-    @Override
-    public void keyPressed(int key) {
 
-    }
-
-    @Override
-    public void keyReleased(int key) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
 }

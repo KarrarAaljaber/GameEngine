@@ -10,6 +10,7 @@ import Graphics.Animation;
 import Graphics.EngineGraphics;
 import Graphics.Sprite;
 import Particles.Particle;
+import Graphics.Renderer;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -96,7 +97,6 @@ public class TestPlayer extends Entity {
         particleSystem = new ParticleSystem(this);
         addComponent(particleSystem);
 
-
         audio.setSoundVolume(-25);
 
     }
@@ -157,12 +157,11 @@ public class TestPlayer extends Entity {
         walkRight.update();
         walkLeft.update();
         walkDown.update();
-        Input input = (Input) getComponent(Input.class);
 
         //  move(delta);
         Rigidbody rigidbody = (Rigidbody) getComponent(Rigidbody.class);
-
-        if(input.KeyDown(KeyEvent.VK_W) ){
+        rigidbody.getVelocity().limitVector(0.01f);
+        if(Renderer.getInput().KeyDown(KeyEvent.VK_W) ){
 
             setUp(true);
             setDown(false);
@@ -175,7 +174,7 @@ public class TestPlayer extends Entity {
         }
 
 
-        if(input.KeyDown(KeyEvent.VK_S)) {
+        if(Renderer.getInput().KeyDown(KeyEvent.VK_S)) {
             setUp(false);
             setDown(true);
             setLeft(false);
@@ -185,7 +184,7 @@ public class TestPlayer extends Entity {
         }
 
 
-        if(input.KeyDown(KeyEvent.VK_A) ){
+        if(Renderer.getInput().KeyDown(KeyEvent.VK_A) ){
             setUp(false);
             setDown(false);
             setLeft(true);
@@ -193,7 +192,7 @@ public class TestPlayer extends Entity {
             audioPlayer.playSound(audio);
 
         }
-        if(input.KeyDown(KeyEvent.VK_D) ){
+        if(Renderer.getInput().KeyDown(KeyEvent.VK_D) ){
             setUp(false);
             setDown(false);
             setLeft(false);
@@ -201,49 +200,49 @@ public class TestPlayer extends Entity {
             audioPlayer.playSound(audio);
 
         }
-        if(input.KeyDown(KeyEvent.VK_SPACE) ){
+        if(Renderer.getInput().KeyDown(KeyEvent.VK_SPACE) ){
             jump = true;
         }
-        if(input.KeyUp(KeyEvent.VK_SPACE) ){
+        if(Renderer.getInput().KeyUp(KeyEvent.VK_SPACE) ){
             jump = false;
         }
 
 
 
 
-        if(input.KeyUp( KeyEvent.VK_W)) {
+        if(Renderer.getInput().KeyUp( KeyEvent.VK_W)) {
             rigidbody.setVelocity(new Vector2f(0,0));
             setUp(false);
 
         }
 
-        if(input.KeyUp( KeyEvent.VK_S)) {
+        if(Renderer.getInput().KeyUp( KeyEvent.VK_S)) {
            rigidbody.setVelocity(new Vector2f(0,0));
             setDown(false);
 
 
 
         }
-        if(input.KeyUp( KeyEvent.VK_A)) {
+        if(Renderer.getInput().KeyUp( KeyEvent.VK_A)) {
             rigidbody.setVelocity(new Vector2f(0,0));
             setLeft(false);
 
         }
-        if(input.KeyUp( KeyEvent.VK_D)) {
+        if(Renderer.getInput().KeyUp( KeyEvent.VK_D)) {
             rigidbody.setVelocity(new Vector2f(0,0));
             setRight(false);
         }
 
 
         if(up){
-            rigidbody.setVelocity(new Vector2f(0,-moveSpeed ));
+            rigidbody.setVelocity(new Vector2f(0,-1f));
         }
         if(down){
-            rigidbody.setVelocity(new Vector2f(0,moveSpeed ));
+            rigidbody.setVelocity(new Vector2f(0,1f ));
         }  if(left){
-            rigidbody.setVelocity(new Vector2f(-moveSpeed ,0));
+            rigidbody.setVelocity(new Vector2f(-1f ,0));
         }  if(right){
-            rigidbody.setVelocity(new Vector2f(moveSpeed ,0));
+            rigidbody.setVelocity(new Vector2f(1f ,0));
         }
 
 

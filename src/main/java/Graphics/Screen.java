@@ -18,7 +18,6 @@ public class Screen  {
     private int sizeScale;
     private boolean fullscreen;
     public Screen(GameObject player,Camera camera, int WIDTH, int HEIGHT, int sizeScale, boolean resizable, boolean fullscreen, Color Backgroundcolor){
-
         this.camera = camera;
         this.player = player;
         this.sizeScale = sizeScale;
@@ -29,9 +28,11 @@ public class Screen  {
         frame.setMinimumSize(new Dimension( WIDTH * sizeScale, HEIGHT * sizeScale));
         frame.setMaximumSize(new Dimension( WIDTH * sizeScale, HEIGHT * sizeScale));
         frame.setResizable(resizable);
+
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(renderer);
+        frame.requestFocus();
 
 
         if(fullscreen){

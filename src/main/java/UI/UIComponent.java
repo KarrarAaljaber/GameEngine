@@ -4,7 +4,7 @@ import GameHandlers.GameObject;
 import Graphics.EngineGraphics;
 
 import java.awt.*;
-
+import Graphics.Renderer;
 public abstract class UIComponent {
 
     protected UIContainer parent;
@@ -80,7 +80,21 @@ public abstract class UIComponent {
         this.height = height;
     }
 
+    public boolean mouseInsideComponent(){
+        if ((!(Renderer.getInput().getMouseX() > getX() + getWidth()) && !(Renderer.getInput().getMouseX() < getX()) &&
+                !(Renderer.getInput().getMouseY() > getY() + getHeight()) && !(Renderer.getInput().getMouseY() < getY()))) {
+                return true;
+        }else
+            return  false;
 
+    }
+    public boolean clicked() {
+        if (mouseInsideComponent() && Renderer.getInput().mouseButtonDown(1)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public String getText() {
         return text;

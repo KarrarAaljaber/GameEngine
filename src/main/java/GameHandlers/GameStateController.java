@@ -104,47 +104,11 @@ public class GameStateController {
 
     }
 
-
-    public void mousePressed(MouseEvent e) {
-        gameStates.get(currentState).mousePressed(e);
-        for (int i = 0; i < objects.size(); i++) {
-            if((Input) objects.get(i).getComponent(Input.class) != null){
-                ((Input) objects.get(i).getComponent(Input.class)).mousePressed(e);
-            }
-        }
-    }
-
-    public void mouseReleased(MouseEvent e) {
-        gameStates.get(currentState).mouseReleased(e);
-
-        for (int i = 0; i < objects.size(); i++) {
-            if((Input) objects.get(i).getComponent(Input.class) != null){
-                ((Input) objects.get(i).getComponent(Input.class)).mouseReleased(e);
-            }
-        }
-
-    }
-
-    public void keyPressed(int key) {
-        gameStates.get(currentState).keyPressed(key);
-        for (int i = 0; i < objects.size(); i++) {
-            if((Input) objects.get(i).getComponent(Input.class) != null){
-                ((Input) objects.get(i).getComponent(Input.class)).keyPressed(key);
-            }
-        }
+    public void mouseMoved(MouseEvent e){
 
     }
 
 
-    public void keyReleased(int key) {
-        gameStates.get(currentState).keyReleased(key);
-        for (int i = 0; i < objects.size(); i++) {
-            if((Input) objects.get(i).getComponent(Input.class) != null){
-                ((Input) objects.get(i).getComponent(Input.class)).keyReleased(key);
-            }
-        }
-
-    }
 
     public ArrayList<GameObject> getObjects() {
         return objects;

@@ -18,18 +18,16 @@ public abstract class Entity extends GameObject {
 
     //abilities
     protected boolean up, down, right, left, idle;
-    protected float moveSpeed;
+    protected float moveSpeed = 0.01f;
 
 
     public Entity(int x, int y, int width, int height, Sprite sprite) {
         super(x, y, width, height, sprite);
-        moveSpeed = 2;
 
     }
 
     public Entity(int x, int y, int width, int height, Color color) {
         super(x, y, width, height, color);
-        moveSpeed = 2;
 
     }
 

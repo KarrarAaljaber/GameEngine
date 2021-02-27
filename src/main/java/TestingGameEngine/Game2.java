@@ -142,7 +142,6 @@ public class Game2 extends GameState {
         player.addComponent(playerbody);
         player.addComponent(new Collider(player, player.getWidth() - 6, player.getHeight() - 6));
         player.addComponent(new Collision(player));
-        player.addComponent(new Input(player));
         player.setMoveSpeed(2f);
 
         Random random = new Random();
@@ -176,10 +175,10 @@ public class Game2 extends GameState {
 
 
         //Screen stuff
-        screen = new Screen(player,cam,WIDTH,HEIGHT, SCALE,true,false, new Color(0,0,0));
+        screen = new Screen(player,cam,WIDTH,HEIGHT, 2,false,false, new Color(0,0,0));
         Renderer.getGch().getGameCases().add(this);
 
-        //  Renderer.addObject(player);
+        Renderer.addObject(player);
 
         setDarkestvalue(0.2f);
         setBrightvalue(0.5f);
@@ -260,33 +259,5 @@ public class Game2 extends GameState {
        //  g.setLighting(true);
     }
 
-    @Override
-    public void keyPressed(int key) {
-        if(key == KeyEvent.VK_ESCAPE){
-            System.exit(0);
-        }
-        if(key == KeyEvent.VK_L){
-            uiContainer.setVisiable(false);
-        }else if(key == KeyEvent.VK_K){
-            uiContainer.setVisiable(true);
 
-        }
-
-
-    }
-
-    @Override
-    public void keyReleased(int key) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
 }
