@@ -95,8 +95,8 @@ public class Game extends GameState {
         Sprite chess = new Sprite(chessplayer, 32,32);
         p = new ChessPlayer(0,0,32,32,chess);
         p.addComponent(new Rigidbody(p));
-        board = new Chessboard(4,p,1,1);
-       // board.start();
+        board = new Chessboard(6,p,1,1);
+        board.start();
        // board.findRoute();
 
         if(board.getBoard() == null){
@@ -167,7 +167,7 @@ public class Game extends GameState {
     @Override
     public void update() {
         angle += 0.1f;
-        p.rotate(angle);
+     //   p.rotate(angle);
     }
 
     @Override

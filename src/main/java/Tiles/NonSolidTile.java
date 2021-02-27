@@ -26,7 +26,7 @@ public class NonSolidTile extends Tile{
 
     @Override
     public void render(EngineGraphics g) {
-        g.drawGameObject(this, getColorFilter());
+       g.drawGameObject(this);
 
         /*
         g.drawRect(getX(),getY(),width,height,color,true);

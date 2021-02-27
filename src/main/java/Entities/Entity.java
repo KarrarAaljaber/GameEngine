@@ -33,6 +33,9 @@ public abstract class Entity extends GameObject {
 
     }
 
+    public float getMoveSpeed() {
+        return moveSpeed;
+    }
 
     public void setMoveSpeed(float moveSpeed) {
         this.moveSpeed = moveSpeed;
