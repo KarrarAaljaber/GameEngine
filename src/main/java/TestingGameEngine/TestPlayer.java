@@ -1,25 +1,24 @@
 package TestingGameEngine;
 
+import Audio.AudioPlayer;
+import Audio.SoundClip;
 import Entities.Entity;
-import GameComponents.Collision;
 import GameComponents.Input;
-import GameComponents.ParticleSystem;
+import Particles.ParticleSystem;
 import GameComponents.Rigidbody;
 import Graphics.Animation;
 import Graphics.EngineGraphics;
 import Graphics.Sprite;
 import Particles.Particle;
-import Graphics.ImageLoader;
-
-import Utilities.Node;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 import Graphics.SpriteSheet;
 import Utilities.Vector2f;
+
+import javax.sound.sampled.Clip;
 
 public class TestPlayer extends Entity {
 
@@ -46,6 +45,11 @@ public class TestPlayer extends Entity {
 
     private ParticleSystem particleSystem;
     private SpriteSheet spriteSheet;
+
+
+    private AudioPlayer audioPlayer = new AudioPlayer();
+    Clip clip = AudioPlayer.getClip("walk.wav");
+    SoundClip audio = new SoundClip(clip);
 
     public TestPlayer(int x, int y, int width, int height, Sprite sprite) {
         super(x, y, width, height,sprite);
@@ -93,6 +97,8 @@ public class TestPlayer extends Entity {
         addComponent(particleSystem);
 
 
+        audio.setSoundVolume(-25);
+
     }
     @Override
     public void init() {
@@ -101,29 +107,28 @@ public class TestPlayer extends Entity {
     @Override
     public void render(EngineGraphics g) {
      //   g.drawString("X:  " + pos.getX() + "   Y:" + pos.getY(), Color.WHITE , new Vector2f(getPos().getX() , getPos().getY() + 10 ) ,"Arial", 16);
-        particleSystem.RenderParticles(g);
 
         if(isUp()){
-
+          //  particleSystem.addParticles(new Particle(new Vector2f(getX()  - width / 2, getY() ),3,3, new Color(65, 234, 65),10),3);
             g.drawImage(walkUp.getCurrentFrame(),getX(), getY(), width, height);
-            particleSystem.addParticles(new Particle(new Vector2f(getX() + width / 2, getY() + height),3,3, new Color(65, 234, 65),500),50);
 
         }else if(isDown()){
+            //  particleSystem.addParticles(new Particle(new Vector2f(getX()  - width / 2, getY() ),3,3, new Color(65, 234, 65),10),3);
+
             g.drawImage(walkDown.getCurrentFrame(),getX(),getY(), width, height);
-            particleSystem.addParticles(new Particle(new Vector2f(getX() + width / 2, getY() + height),3,3, new Color(65, 234, 65),500),50);
 
 
         }else if( isLeft()){
             g.drawImage(walkLeft.getCurrentFrame(),getX(),getY(), width, height);
-            particleSystem.addParticles(new Particle(new Vector2f(getX() + width / 2, getY() + height),3,3, new Color(65, 234, 65),500),50);
+            //  particleSystem.addParticles(new Particle(new Vector2f(getX()  - width / 2, getY() ),3,3, new Color(65, 234, 65),10),3);
 
         }else if(isRight()){
             g.drawImage(walkRight.getCurrentFrame(),getX(),getY(),width, height);
-            particleSystem.addParticles(new Particle(new Vector2f(getX() + width / 2, getY() + height),3,3, new Color(65, 234, 65),500),50);
+            //  particleSystem.addParticles(new Particle(new Vector2f(getX()  - width / 2, getY() ),3,3, new Color(65, 234, 65),10),3);
 
         }else{
             g.drawImage(walkDownSprites[0],getX(),getY(), width, height);
-
+            audioPlayer.stopSound(audio);
         }
 
         /*
@@ -158,11 +163,13 @@ public class TestPlayer extends Entity {
         Rigidbody rigidbody = (Rigidbody) getComponent(Rigidbody.class);
 
         if(input.KeyDown(KeyEvent.VK_W) ){
+
             setUp(true);
             setDown(false);
             setLeft(false);
             setRight(false);
 
+            audioPlayer.playSound(audio);
 
 
         }
@@ -173,6 +180,8 @@ public class TestPlayer extends Entity {
             setDown(true);
             setLeft(false);
             setRight(false);
+            audioPlayer.playSound(audio);
+
         }
 
 
@@ -181,12 +190,16 @@ public class TestPlayer extends Entity {
             setDown(false);
             setLeft(true);
             setRight(false);
+            audioPlayer.playSound(audio);
+
         }
         if(input.KeyDown(KeyEvent.VK_D) ){
             setUp(false);
             setDown(false);
             setLeft(false);
             setRight(true);
+            audioPlayer.playSound(audio);
+
         }
         if(input.KeyDown(KeyEvent.VK_SPACE) ){
             jump = true;

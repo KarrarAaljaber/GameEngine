@@ -129,7 +129,7 @@ public class Game extends GameState {
 
 
         //Screen stuff
-        screen = new Screen(p,cam,WIDTH,HEIGHT, SCALE,false, new Color(4,200,200));
+        screen = new Screen(p,cam,WIDTH,HEIGHT, SCALE,false,false, new Color(4,200,200));
         Renderer.getGch().getGameCases().add(this);
 
        // tileHandler.render();

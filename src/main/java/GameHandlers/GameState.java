@@ -24,6 +24,8 @@ public abstract class GameState {
 
 
     public GameState(Screen screen) {
+        System.setProperty("sun.java2d.opengl", "True");
+
         this.screen = screen;
         init();
 

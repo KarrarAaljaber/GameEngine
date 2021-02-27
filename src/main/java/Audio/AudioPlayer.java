@@ -14,28 +14,7 @@ public class AudioPlayer {
         audioclips = new ArrayList<>();
     }
 
-    public void updateMusikk(){
-        audioclips.forEach(audioClip -> audioClip.updatemusikk());
-        List.copyOf(audioclips).forEach(audioClip -> {
-            if(audioClip.finishedrunning()){
-                audioClip.cleanup();
-                audioclips.remove(audioClip);
-            }
-        });
 
-    }
-    public void updateSound(){
-        audioclips.forEach(audioClip -> audioClip.updateSound());
-
-        List.copyOf(audioclips).forEach(audioClip -> {
-            if(audioClip.finishedrunning()){
-                audioClip.cleanup();
-                audioclips.remove(audioClip);
-            }
-        });
-
-
-    }
     public void playMusic(String filename){
         final Clip clip = getClip(filename);
         audioclips.add(new MusicClip(clip));
@@ -44,7 +23,7 @@ public class AudioPlayer {
 
     public void playMusic(MusicClip clip){
 
-        audioclips.add(clip);
+            audioclips.add(clip);
 
     }
 
@@ -53,9 +32,18 @@ public class AudioPlayer {
         audioclips.add(new SoundClip(clip));
     }
     public void playSound(AudioClip clip){
-        audioclips.add(clip);
+        clip.setLoopable();
+       clip.startClip();
 
     }
+    public void stopSound(AudioClip clip){
+        clip.stopClip();
+    }
+    public void setLoopable(AudioClip clip){
+        AudioClip c = audioclips.get(audioclips.indexOf(clip));
+
+    }
+
 
 
 

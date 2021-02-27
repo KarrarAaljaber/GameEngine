@@ -36,6 +36,7 @@ public abstract class GameObject {
 
     }
 
+
     public float[] getColorFilter() {
         return colorFilter;
     }

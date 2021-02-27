@@ -16,10 +16,13 @@ public class Screen  {
     private Camera camera;
     private GameObject player;
     private int sizeScale;
-    public Screen(GameObject player,Camera camera, int WIDTH, int HEIGHT, int sizeScale, boolean resizable, Color Backgroundcolor){
+    private boolean fullscreen;
+    public Screen(GameObject player,Camera camera, int WIDTH, int HEIGHT, int sizeScale, boolean resizable, boolean fullscreen, Color Backgroundcolor){
+
         this.camera = camera;
         this.player = player;
         this.sizeScale = sizeScale;
+        this.fullscreen = fullscreen;
 
         renderer = new Renderer(player,WIDTH, HEIGHT, sizeScale, Backgroundcolor, camera);
         frame.setPreferredSize(new Dimension( WIDTH * sizeScale, HEIGHT * sizeScale));
@@ -29,9 +32,35 @@ public class Screen  {
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(renderer);
+
+
+        if(fullscreen){
+            fullscreen();
+        }
         frame.setVisible(true);
 
         renderer.start();
+
+    }
+    public void fullscreen(){
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice device = env.getDefaultScreenDevice();
+            frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            frame.setUndecorated(true);
+            frame.setResizable(false);
+
+            device.setFullScreenWindow(frame);
+    }
+    public void windowed(){
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice device = env.getDefaultScreenDevice();
+
+        frame.setVisible(false);
+        if(device.getFullScreenWindow() != null && frame.isDisplayable())device.getFullScreenWindow().dispose();
+        device.setFullScreenWindow(null);
+        frame.setResizable(false);
+        frame.setUndecorated(false);
+        frame.setVisible(true);
 
     }
 

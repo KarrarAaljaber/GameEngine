@@ -13,16 +13,25 @@ public abstract class AudioClip {
 
     public AudioClip(Clip clip) {
         this.clip = clip;
-        clip.start();
         musicVolume = 0;
         soundVolume = 0;
     }
-    public void setVolume(float volume){
-        if (volume < 0f || volume > 1f)
-            throw new IllegalArgumentException("Volume not valid: " + volume);
-        FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue(20f * (float) Math.log10(volume));
+
+    public int frameLength(){
+        return  clip.getFrameLength();
     }
+    public void setStartFrame(int frame){
+        clip.setFramePosition(frame);
+    }
+
+
+    public void startClip(){
+        updateSound();
+        clip.start();
+    }
+
+
+
     public void updatemusikk(){
         final FloatControl control = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
         control.setValue(getMusicVolume());
@@ -30,6 +39,16 @@ public abstract class AudioClip {
     public void updateSound(){
         final FloatControl control = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
         control.setValue(getSoundVolume());
+    }
+    public void setLoopable(){
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
+    }
+    public void setLoopable(int loopCount){
+        clip.loop(loopCount);
+    }
+
+    public void stopClip(){
+        clip.stop();
     }
 
     // sjekke om at audio filen er ferdig runnne

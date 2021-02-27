@@ -1,8 +1,7 @@
 package Tiles;
 
 import GameComponents.Collider;
-import GameComponents.ParticleSystem;
-import GameHandlers.GameState;
+import Particles.ParticleSystem;
 import Graphics.Sprite;
 import Graphics.SpriteSheet;
 

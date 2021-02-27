@@ -9,6 +9,8 @@ import java.awt.Graphics;
 import GameHandlers.GameObject;
 import TestingGameEngine.Game;
 import Tiles.Tile;
+import UI.UIContainer;
+import UI.UIController;
 import Utilities.Camera;
 
 import java.awt.event.KeyEvent;
@@ -46,6 +48,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
     public static boolean showLayers;
     public static  boolean toggle;
+    private static UIController uiController;
 
 
 
@@ -61,6 +64,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
         this.addKeyListener(this);
         this.addMouseListener(this);
         gch = new GameStateController(this, player);
+        uiController = new UIController();
         init();
 
         System.out.println(getWIDTH());
@@ -73,7 +77,24 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
         img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         g2d = (Graphics2D) img.getGraphics();
 
+        g2d.setRenderingHint(KEY_ANTIALIASING,
+                VALUE_ANTIALIAS_ON);
 
+        g2d.setRenderingHint(KEY_ALPHA_INTERPOLATION,
+                VALUE_ALPHA_INTERPOLATION_QUALITY);
+
+        g2d.setRenderingHint(KEY_RENDERING,	VALUE_RENDER_QUALITY);
+        g2d.setRenderingHint(KEY_COLOR_RENDERING,
+                VALUE_COLOR_RENDER_QUALITY);
+
+        g2d.setRenderingHint(KEY_DITHERING,
+                VALUE_DITHER_ENABLE);
+
+        g2d.setRenderingHint(KEY_INTERPOLATION,
+                VALUE_INTERPOLATION_BILINEAR);
+
+
+        g2d.setRenderingHint(KEY_TEXT_ANTIALIASING,VALUE_TEXT_ANTIALIAS_ON);
 
 
     }
@@ -94,24 +115,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
     public void render() {
         // activate opengl
         fps++;
-        g2d.setRenderingHint(KEY_ANTIALIASING,
-                VALUE_ANTIALIAS_ON);
 
-        g2d.setRenderingHint(KEY_ALPHA_INTERPOLATION,
-                VALUE_ALPHA_INTERPOLATION_QUALITY);
-
-        g2d.setRenderingHint(KEY_RENDERING,	VALUE_RENDER_QUALITY);
-        g2d.setRenderingHint(KEY_COLOR_RENDERING,
-                VALUE_COLOR_RENDER_QUALITY);
-
-        g2d.setRenderingHint(KEY_DITHERING,
-                VALUE_DITHER_ENABLE);
-
-        g2d.setRenderingHint(KEY_INTERPOLATION,
-               VALUE_INTERPOLATION_BILINEAR);
-
-
-        g2d.setRenderingHint(KEY_TEXT_ANTIALIASING,VALUE_TEXT_ANTIALIAS_ON);
 
 
         AffineTransform oldAT = g2d.getTransform();
@@ -130,25 +134,35 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
 
         //g2d.scale(camera.getZoomscale(), camera.getZoomscale());
-        g2d.translate(camera.getX(), camera.getY());
 
+        AffineTransform transform = new AffineTransform();
+        transform.translate(camera.getX(), camera.getY());
 
+        g2d.setTransform(transform);
         gch.render(engineGraphics);
 
 
-        g2d.translate(-camera.getX(), -camera.getY());
+        g2d.setTransform(oldAT);
 
 
+        uiController.render(engineGraphics);
 
 
     }
     public void update() {
         ups++;
+        uiController.update();
         gch.update();
     }
 
 
+    public Graphics2D getG2d() {
+        return g2d;
+    }
 
+    public void setG2d(Graphics2D g2d) {
+        this.g2d = g2d;
+    }
 
     public void start() {
         thread = new Thread(this, "mainThread");
@@ -205,10 +219,16 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
     public static void addObjects(ArrayList<GameObject> object) {
         getGch().getObjects().addAll(object);
     }
-    public static void addTiles(ArrayList<Tile> object) {
+    public static void addEntities(ArrayList<Entity> object) {
         getGch().getObjects().addAll(object);
     }
 
+    public static void addTiles(ArrayList<Tile> object) {
+        getGch().getObjects().addAll(object);
+    }
+    public static void addUIContainer(UIContainer container){
+        getUiController().addUIContainer(container);
+    }
 
     public static void add2DObjectArray(GameObject[][] objectz) {
         for (int i = 0; i < objectz.length; i++) {
@@ -259,6 +279,10 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
         int key = e.getKeyCode();
 
         gch.keyReleased(key);
+    }
+
+    public static UIController getUiController() {
+        return uiController;
     }
 
     @Override

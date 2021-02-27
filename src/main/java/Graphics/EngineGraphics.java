@@ -43,6 +43,8 @@ public class EngineGraphics {
     }
     public void lighting(ArrayList<Light> lights, GameObject gb, float darkestvalue, float brightvalue){
 
+
+
         ArrayList<GameObject> gbs = new ArrayList<>();
         ArrayList<float[]> colors = new ArrayList<>();
 
@@ -65,6 +67,9 @@ public class EngineGraphics {
 
 
             }
+
+
+
 
 
     }
@@ -107,28 +112,31 @@ public class EngineGraphics {
         BufferedImage sprite = SpriteSheet.getSpriteImageFromSpriteSheet(sp,spritecol, spriterow);
         g2d.drawImage(sprite,(int)obj.getX(), (int) obj.getY(), obj.getWidth(), obj.getHeight() , null);
     }
+
+
     public void drawGameObject(GameObject obj){
-        if(obj == null){
-            System.out.println("NULLLL");
-        }
-        BufferedImage sprite = obj.getSprite().getSpriteBufferImage();
+
+
+
+        if(lighting){
+            BufferedImage sprite = obj.getSprite().getSpriteBufferImage();
+
+            g2d.drawImage(sprite,
+                    new RescaleOp(
+                            obj.getColorFilter(),
+                            new float[]{0,0,0,0},
+                            null),(int) obj.getX(), (int) obj.getY());
+        }else{
+            BufferedImage sprite = obj.getSprite().getSpriteBufferImage();
 
             g2d.drawImage(sprite, (int) obj.getX(), (int) obj.getY(), obj.getWidth(), obj.getHeight(), null);
-
-    }
-
-    public void drawGameObject(GameObject obj, float []colorfilter){
-        BufferedImage sprite = obj.getSprite().getSpriteBufferImage();
+        }
 
 
-        g2d.drawImage(sprite,
-                new RescaleOp(
-                        colorfilter,
-                        new float[]{0,0,0,0},
-                        null),(int) obj.getX(), (int) obj.getY());
 
 
     }
+
 
     public void drawString(String text, Color color, int x, int y, String fontname, int fontSize ){
         Font font = new Font(fontname, 0, fontSize);
@@ -152,6 +160,14 @@ public class EngineGraphics {
     }
     public void drawAnim(BufferedImage curImg, int x, int y, int width, int height) {
         g2d.drawImage(curImg, x, y, width, height, null);
+    }
+    public void drawBorder(int x, int y, int width, int height, int borderThickness, Color borderColor){
+        Stroke oldStroke = g2d.getStroke();
+        g2d.setStroke(new BasicStroke(borderThickness));
+        g2d.setColor(borderColor);
+        g2d.drawRect(x,y,width,height);
+        g2d.setStroke(oldStroke);
+
     }
 
 

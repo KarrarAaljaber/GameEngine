@@ -10,6 +10,8 @@ public abstract class GameComponent {
     public GameComponent(GameObject parent) {
         this.parent = parent;
     }
+    public GameComponent( ) {
+    }
 
     public abstract void init();
     public abstract void update( );

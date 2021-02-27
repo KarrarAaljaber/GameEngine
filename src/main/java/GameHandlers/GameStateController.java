@@ -1,9 +1,11 @@
 package GameHandlers;
 
+import GameComponents.GameComponent;
 import GameComponents.Input;
 import Graphics.Renderer;
 
 import Graphics.EngineGraphics;
+import Utilities.Camera;
 
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
@@ -44,7 +46,6 @@ public class GameStateController {
 
     public void render(EngineGraphics g) {
         GameState state = gameStates.get(currentState);
-        state.render(g);
         for (int i = 0; i < objects.size(); i++) {
 
 
@@ -62,6 +63,8 @@ public class GameStateController {
                 }
 
         }
+        state.render(g);
+
     }
 
 
@@ -80,8 +83,21 @@ public class GameStateController {
 
 
         for (int i = 0; i < objects.size(); i++) {
-            objects.get(i).update();
-            objects.get(i).updateAllComponents( objects.get(i));
+            Camera camera = (Camera) getGameObject(Camera.class);
+
+            if(objects.get(i)==camera) {
+                objects.get(i).update();
+                objects.get(i).updateAllComponents(objects.get(i));
+            }
+            if (!((objects.get(i).getX() + 64 <= player.getX() - (renderer.getWIDTH() / renderer.getSCALE()) / 2 || (objects.get(i).getX() - 64 >= player.getX() + (renderer.getWIDTH() / renderer.getSCALE()) / 2)
+                    || (objects.get(i).getY() + 64 <= player.getY() - (renderer.getHEIGHT() / renderer.getSCALE()) / 2)) || (objects.get(i).getY() - 64 >= player.getY() + (renderer.getHEIGHT() / renderer.getSCALE()) / 2))) {
+
+                    objects.get(i).update();
+                    objects.get(i).updateAllComponents(objects.get(i));
+
+
+
+            }
         }
 
         gameStates.get(currentState).update();
@@ -141,6 +157,16 @@ public class GameStateController {
     public void changeGameState(GameState gameState) {
         currentState = gameStates.indexOf(gameState);
     }
+    public GameObject getGameObject(Class gameObject){
+        for(GameObject gb : objects){
+            if(gb.getClass() == gameObject){
+                return  gb;
+            }
+        }
+        return  null;
+
+    }
+
 
 
     public GameObject getPlayer() {
