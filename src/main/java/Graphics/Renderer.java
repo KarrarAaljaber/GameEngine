@@ -186,7 +186,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
     public void run() {
         long currentTime, lastUpdate = System.currentTimeMillis();
         double counter =0;
-         nextStateTime = System.currentTimeMillis() + 1000;
+        nextStateTime = System.currentTimeMillis() + 1000;
 
         while (isRunning) {
             currentTime = System.currentTimeMillis();
@@ -200,11 +200,11 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
                 counter -= updateRate;
 
             }
-                render();
-                renderToScreen();
-                printRendererStats();
+            render();
+            renderToScreen();
+            printRendererStats();
 
-            }
+        }
 
 
     }

@@ -30,8 +30,7 @@ public class UIButton extends  UIComponent{
         }
 
         if(clicked()){
-            setText("NIGGA");
-            setTextColor(Color.ORANGE);
+            parent.setVisiable(false);
         }
     }
 

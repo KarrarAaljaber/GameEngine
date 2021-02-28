@@ -185,6 +185,7 @@ public class Game2 extends GameState {
 
         Renderer.addObject(cam);
         tileHandler.render();
+
         Renderer.addObject(player);
         Renderer.addEntities(p);
         Renderer.addUIContainer(uiContainer);
@@ -246,8 +247,9 @@ public class Game2 extends GameState {
 
         }
 
-
-
+        if(Renderer.getInput().KeyDown(KeyEvent.VK_L)){
+            uiContainer.setVisiable(true);
+        }
 
     }
 

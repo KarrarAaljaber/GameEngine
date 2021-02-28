@@ -3,6 +3,9 @@
  <tileset firstgid="1" name="terrain" tilewidth="32" tileheight="32" tilecount="483" columns="21">
   <image source="terrain.png" width="672" height="736"/>
  </tileset>
+ <tileset firstgid="484" name="TheLostDungeonGrey" tilewidth="32" tileheight="32" tilecount="20" columns="4">
+  <image source="C:/Users/karra/AppData/Local/Temp/Rar$DRa4672.21274/The Lost Dungeon Free/TheLostDungeonGrey.png" width="128" height="160"/>
+ </tileset>
  <layer id="1" name="ground" width="25" height="25">
   <data encoding="csv">
 175,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,177,

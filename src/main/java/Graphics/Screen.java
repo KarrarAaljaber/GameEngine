@@ -46,11 +46,11 @@ public class Screen  {
     public void fullscreen(){
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice device = env.getDefaultScreenDevice();
-            frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-            frame.setUndecorated(true);
-            frame.setResizable(false);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setUndecorated(true);
+        frame.setResizable(false);
 
-            device.setFullScreenWindow(frame);
+        device.setFullScreenWindow(frame);
     }
     public void windowed(){
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
