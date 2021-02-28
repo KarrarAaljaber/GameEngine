@@ -60,6 +60,7 @@ public class TestPlayer extends Entity {
         walkUpSprites = new BufferedImage[3];
 
 
+        setMoveSpeed(10);
 
         walkUpSprites[0] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,0,0);
         walkUpSprites[1] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,0,1);
@@ -151,7 +152,7 @@ public class TestPlayer extends Entity {
     }
 
     @Override
-    public void update() {
+    public void update(float delta) {
 
         walkUp.update();
         walkRight.update();
@@ -211,38 +212,38 @@ public class TestPlayer extends Entity {
 
 
         if(Renderer.getInput().KeyUp( KeyEvent.VK_W)) {
-            rigidbody.setVelocity(new Vector2f(0,0));
+            rigidbody.setVelocityGoal(new Vector2f(0, 0));
             setUp(false);
 
         }
 
         if(Renderer.getInput().KeyUp( KeyEvent.VK_S)) {
-           rigidbody.setVelocity(new Vector2f(0,0));
+            rigidbody.setVelocityGoal(new Vector2f(0, 0));
             setDown(false);
 
 
 
         }
         if(Renderer.getInput().KeyUp( KeyEvent.VK_A)) {
-            rigidbody.setVelocity(new Vector2f(0,0));
+            rigidbody.setVelocityGoal(new Vector2f(0, 0));
             setLeft(false);
 
         }
         if(Renderer.getInput().KeyUp( KeyEvent.VK_D)) {
-            rigidbody.setVelocity(new Vector2f(0,0));
+            rigidbody.setVelocityGoal(new Vector2f(0, 0));
             setRight(false);
         }
 
 
         if(up){
-            rigidbody.setVelocity(new Vector2f(0,-1f));
+            rigidbody.setVelocityGoal(new Vector2f(0, -moveSpeed));
         }
         if(down){
-            rigidbody.setVelocity(new Vector2f(0,1f ));
+            rigidbody.setVelocityGoal(new Vector2f(0, moveSpeed));
         }  if(left){
-            rigidbody.setVelocity(new Vector2f(-1f ,0));
+            rigidbody.setVelocityGoal(new Vector2f(-moveSpeed, 0));
         }  if(right){
-            rigidbody.setVelocity(new Vector2f(1f ,0));
+            rigidbody.setVelocityGoal(new Vector2f(moveSpeed, 0));
         }
 
 

@@ -29,7 +29,7 @@ public class Collider extends GameComponent {
 
 
     @Override
-    public void update( ) {
+    public void update(float delta ) {
         centerX = (int) parent.getX() +  (width / 2);
         centerY = (int) parent.getY() +  (height / 2);
         halfHeight = height /2;

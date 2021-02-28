@@ -77,7 +77,7 @@ public class Camera extends GameObject {
     }
 
     @Override
-    public void update() {
+    public void update(float delta) {
         followEntity(player);
     }
 

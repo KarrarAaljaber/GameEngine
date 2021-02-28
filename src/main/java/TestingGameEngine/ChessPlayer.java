@@ -96,12 +96,12 @@ public class ChessPlayer extends Entity {
     }
 
 
-    public void shootAt(Entity e, EngineGraphics g){
+    public void shootAt(float delta,Entity e, EngineGraphics g){
         Particle particle = new Particle(new Vector2f(getX() + getWidth() / 2, height), 5,5,Color.RED, 1000);
         Vector2f  vel = Vector2f.minusVectors(e.getPosition(), getPosition());
         vel.multiplyValue(0.001f);
         particle.setVelocity(vel);
-        particle.update(this);
+        particle.update(delta,this);
         particle.render(g);
     }
     @Override
@@ -130,7 +130,7 @@ public class ChessPlayer extends Entity {
     }
 
     @Override
-    public void update() {
+    public void update(float delta) {
         Rigidbody rigidbody = (Rigidbody) getComponent(Rigidbody.class);
         walkLeft.update();
         walkRight.update();

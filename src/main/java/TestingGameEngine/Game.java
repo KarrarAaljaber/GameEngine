@@ -165,7 +165,7 @@ public class Game extends GameState {
 
     private float angle = 0.0f;
     @Override
-    public void update() {
+    public void update(float delta) {
         angle += 0.1f;
      //   p.rotate(angle);
     }

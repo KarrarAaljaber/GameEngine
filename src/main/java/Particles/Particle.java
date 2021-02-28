@@ -27,7 +27,7 @@ public class Particle {
         acceleration = new Vector2f(0,0);
     }
 
-    public void update(GameObject parent){
+    public void update(float delta,GameObject parent){
         timeToLive--;
 
         acceleration.setX(randomFloat(0,1) * 0.0001f);

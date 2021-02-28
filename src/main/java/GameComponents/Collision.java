@@ -152,7 +152,7 @@ public class Collision extends GameComponent{
     }
 
     @Override
-    public void update() {
+    public void update(float delta) {
         collision();
 
     }

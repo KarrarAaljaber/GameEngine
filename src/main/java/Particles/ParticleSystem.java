@@ -41,9 +41,9 @@ public class ParticleSystem extends GameComponent {
     }
 
     @Override
-    public void update(){
+    public void update(float delta){
         for(int i=0; i < particles.size(); i++){
-            particles.get(i).update(parent);
+            particles.get(i).update( delta,parent);
             if(particles.get(i).getTimeToLive() <=0){
                 particles.remove(i);
             }

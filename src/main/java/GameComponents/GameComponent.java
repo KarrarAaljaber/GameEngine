@@ -14,6 +14,6 @@ public abstract class GameComponent {
     }
 
     public abstract void init();
-    public abstract void update( );
+    public abstract void update( float delta);
     public abstract void render(EngineGraphics g);
 }

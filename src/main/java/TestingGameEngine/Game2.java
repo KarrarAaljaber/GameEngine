@@ -234,7 +234,7 @@ public class Game2 extends GameState {
 
     private float angle = 0.0f;
     @Override
-    public void update( ) {
+    public void update(float delta ) {
         uiContainer.update();
         angle +=0.01f;
         light.setY(player.getY());

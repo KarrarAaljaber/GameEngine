@@ -61,7 +61,7 @@ public class SolidTile extends  Tile{
     }
 
     @Override
-    public void update( ) {
+    public void update(float delta) {
 
     }
 

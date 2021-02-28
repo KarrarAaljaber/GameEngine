@@ -30,7 +30,7 @@ public class GroundTile extends  Tile{
     }
 
     @Override
-    public void update( ) {
+    public void update(float delta) {
 
     }
 

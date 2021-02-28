@@ -122,9 +122,6 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
 
     public void render() {
-        // activate opengl
-        fps++;
-
 
 
         AffineTransform oldAT = g2d.getTransform();
@@ -158,11 +155,10 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
 
     }
-    public void update() {
-        ups++;
+    public void update(float deltaTime) {
         uiController.update();
-        gch.update();
-        input.update();
+        gch.update(deltaTime);
+        input.update(deltaTime);
     }
 
 
@@ -179,45 +175,48 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
         thread.start();
         isRunning = true;
     }
-    private final double updateRate = 1.0d/60.0d;
-    private int fps, ups;
-    private long nextStateTime;
+    private final int MAX_FPS = 1000;
+    private final int MAX_UPS = 60;
+
     @Override
     public void run() {
-        long currentTime, lastUpdate = System.currentTimeMillis();
-        double counter =0;
-        nextStateTime = System.currentTimeMillis() + 1000;
+        long timer = System.currentTimeMillis();
+        int fps = 0, ups =  0;
+        double deltaTime =0, deltaRenderTime =0;
+        double optimalUpdateTime = 1000000000/MAX_UPS;
+        double optimalRenderTime = 1000000000/MAX_FPS;
+
+         long startTime = System.nanoTime();
 
         while (isRunning) {
-            currentTime = System.currentTimeMillis();
-            double lastRender = (currentTime - lastUpdate) / 1000d;
-            counter += lastRender;
-            lastUpdate = currentTime;
+            long curTime = System.nanoTime();
+            deltaTime += (curTime - startTime);
+            deltaRenderTime +=(curTime - startTime);
+            startTime = curTime;
 
-            while(counter > updateRate){
-                update();
-
-                counter -= updateRate;
-
+           if(deltaTime >= optimalUpdateTime){
+               update((float)deltaTime/1000000000);
+               ups++;
+               deltaTime -=optimalUpdateTime;
+           }
+            if(deltaRenderTime >= optimalRenderTime){
+                renderToScreen();
+                render();
+                fps++;
+                deltaRenderTime -=optimalRenderTime;
             }
-            render();
-            renderToScreen();
-            printRendererStats();
+            if(System.currentTimeMillis() - timer >= 1000){
+                System.out.println(String.format("FPS : %d, UPS: %d", fps, ups));
+                fps =0;
+                ups = 0;
+                timer += 1000;
+            }
 
         }
 
 
     }
-    public void printRendererStats(){
-        if(System.currentTimeMillis() > nextStateTime){
-            System.out.println(String.format("FPS : %d, UPS: %d", fps, ups));
-            fps =0;
-            ups = 0;
-            nextStateTime = System.currentTimeMillis() + 1000;
-        }
 
-
-    }
 
     public static GameStateController getGch() {
         return gch;

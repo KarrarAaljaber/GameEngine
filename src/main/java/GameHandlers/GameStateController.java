@@ -79,28 +79,28 @@ public class GameStateController {
 
     }
 
-    public void update() {
+    public void update(float delta) {
 
 
         for (int i = 0; i < objects.size(); i++) {
             Camera camera = (Camera) getGameObject(Camera.class);
 
             if(objects.get(i)==camera) {
-                objects.get(i).update();
-                objects.get(i).updateAllComponents(objects.get(i));
+                objects.get(i).update( delta);
+                objects.get(i).updateAllComponents( delta,objects.get(i));
             }
             if (!((objects.get(i).getX() + 64 <= player.getX() - (renderer.getWIDTH() / renderer.getSCALE()) / 2 || (objects.get(i).getX() - 64 >= player.getX() + (renderer.getWIDTH() / renderer.getSCALE()) / 2)
                     || (objects.get(i).getY() + 64 <= player.getY() - (renderer.getHEIGHT() / renderer.getSCALE()) / 2)) || (objects.get(i).getY() - 64 >= player.getY() + (renderer.getHEIGHT() / renderer.getSCALE()) / 2))) {
 
-                    objects.get(i).update();
-                    objects.get(i).updateAllComponents(objects.get(i));
+                    objects.get(i).update(delta);
+                    objects.get(i).updateAllComponents(delta,objects.get(i));
 
 
 
             }
         }
 
-        gameStates.get(currentState).update();
+        gameStates.get(currentState).update(delta);
 
     }
 

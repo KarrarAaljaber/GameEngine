@@ -29,7 +29,7 @@ public class Input {
     }
 
 
-    public void update() {
+    public void update(float delta) {
         for(int i=0; i < 256; i++){
             lastKeys[i] = keys[i];
         }
