@@ -41,18 +41,7 @@ public class Vector2f {
     public static Vector2f divideVectors(Vector2f v1, Vector2f v2){
         return new Vector2f(v1.getX() / v2.getX() , v1.getY() / v2.getY());
     }
-    //smooth movement
-    public static float Lerp(float goal, float current, float deltaTime){
-        float Diff = goal - current;
-        if(Diff > deltaTime) {
-            return current + deltaTime;
-        }
-        if(Diff < -deltaTime){
-            return current - deltaTime;
-        }
-        else
-            return 0;
-    }
+
 
     //length of the vector
     public float magnitude(){

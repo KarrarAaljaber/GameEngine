@@ -327,8 +327,8 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        input.setMouseX(e.getX() / SCALE );
-        input.setMouseY(e.getY() / SCALE);
+        input.setMouseX(e.getX() / SCALE -camera.getX() );
+        input.setMouseY(e.getY() / SCALE -camera.getY());
 
     }
 }

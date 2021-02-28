@@ -30,7 +30,7 @@ public class GameStateController {
         this.renderer = renderer;
         this.player = player;
         gameStates = new ArrayList<GameState>();
-        currentState = 0;
+
 
 
 
@@ -46,6 +46,7 @@ public class GameStateController {
 
     public void render(EngineGraphics g) {
         GameState state = gameStates.get(currentState);
+
         for (int i = 0; i < objects.size(); i++) {
 
 
@@ -80,6 +81,7 @@ public class GameStateController {
     }
 
     public void update(float delta) {
+        gameStates.get(currentState).update(delta);
 
 
         for (int i = 0; i < objects.size(); i++) {
@@ -100,7 +102,6 @@ public class GameStateController {
             }
         }
 
-        gameStates.get(currentState).update(delta);
 
     }
 

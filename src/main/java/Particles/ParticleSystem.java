@@ -1,9 +1,11 @@
 package Particles;
 
 import GameComponents.GameComponent;
+import GameComponents.Rigidbody;
 import GameHandlers.GameObject;
 import Graphics.EngineGraphics;
 import Particles.Particle;
+import Utilities.EngineMath;
 import Utilities.Vector2f;
 
 import java.awt.*;
@@ -34,21 +36,31 @@ public class ParticleSystem extends GameComponent {
 
     }
 
+
     public void addParticles(Particle particle, int amount){
         for(int i=0; i < amount; i++){
             particles.add(particle);
+        }
+    }
+    public void addParticles(ArrayList<Particle> particle){
+        for(int i=0; i < particle.size(); i++){
+            particles.add(particle.get(i));
         }
     }
 
     @Override
     public void update(float delta){
         for(int i=0; i < particles.size(); i++){
-            particles.get(i).update( delta,parent);
+            particles.get(i).update( delta);
+
             if(particles.get(i).getTimeToLive() <=0){
                 particles.remove(i);
             }
 
+
         }
+
+
 
     }
 

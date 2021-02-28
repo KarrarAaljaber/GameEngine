@@ -10,6 +10,7 @@ import Graphics.EngineGraphics;
 import Graphics.Sprite;
 import Graphics.SpriteSheet;
 import Particles.Particle;
+import Utilities.EngineMath;
 import Utilities.Vector2f;
 
 import javax.sound.sampled.Clip;
@@ -37,6 +38,7 @@ public class ChessPlayer extends Entity {
     private AudioPlayer audioPlayer = new AudioPlayer();
     Clip clip = AudioPlayer.getClip("bark.wav");
     SoundClip audio = new SoundClip(clip);
+    private Vector2f velocityGoal;
 
     public ChessPlayer(int x, int y, int width, int height, Sprite sprite) {
         super(x, y, width, height, sprite);
@@ -46,7 +48,7 @@ public class ChessPlayer extends Entity {
         walkDownSprites = new BufferedImage[3];
 
 
-
+        velocityGoal = new Vector2f(0,0);
         walkDownSprites[0] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,0,0);
         walkDownSprites[1] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,0,1);
         walkDownSprites[2] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,0,2);
@@ -96,14 +98,6 @@ public class ChessPlayer extends Entity {
     }
 
 
-    public void shootAt(float delta,Entity e, EngineGraphics g){
-        Particle particle = new Particle(new Vector2f(getX() + getWidth() / 2, height), 5,5,Color.RED, 1000);
-        Vector2f  vel = Vector2f.minusVectors(e.getPosition(), getPosition());
-        vel.multiplyValue(0.001f);
-        particle.setVelocity(vel);
-        particle.update(delta,this);
-        particle.render(g);
-    }
     @Override
     public void render(EngineGraphics g) {
 
@@ -132,6 +126,8 @@ public class ChessPlayer extends Entity {
     @Override
     public void update(float delta) {
         Rigidbody rigidbody = (Rigidbody) getComponent(Rigidbody.class);
+        rigidbody.getVelocity().setX(EngineMath.Lerp(velocityGoal.getX(),rigidbody.getVelocity().getX(), delta * 1));
+        rigidbody.getVelocity().setY(EngineMath.Lerp(velocityGoal.getY(),rigidbody.getVelocity().getY(), delta *1));
         walkLeft.update();
         walkRight.update();
         walkUp.update();
@@ -162,6 +158,14 @@ public class ChessPlayer extends Entity {
         }
 
 
+    }
+
+    public Vector2f getVelocityGoal() {
+        return velocityGoal;
+    }
+
+    public void setVelocityGoal(Vector2f velocityGoal) {
+        this.velocityGoal = velocityGoal;
     }
 
     @Override

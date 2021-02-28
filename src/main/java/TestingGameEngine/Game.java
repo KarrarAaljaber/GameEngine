@@ -9,6 +9,8 @@ import GameHandlers.GameState;
 import Graphics.Screen;
 
 import Graphics.EngineGraphics;
+import Particles.Particle;
+import Particles.ParticleSystem;
 import Tiles.SolidTile;
 import Tiles.TileHandler;
 import Tiles.TileLayers;
@@ -25,6 +27,7 @@ import Graphics.ImageLoader;
 import Graphics.Sprite;
 
 import Graphics.SpriteSheet;
+import Utilities.Vector2f;
 
 public class Game extends GameState {
 
@@ -70,6 +73,8 @@ public class Game extends GameState {
     private Chessboard board;
     private ArrayList<Node> moveSteps;
     private     ChessPlayer p;
+
+
     @Override
     public void init() {
 
@@ -173,8 +178,6 @@ public class Game extends GameState {
     @Override
     public void render(EngineGraphics g) {
     //    g.drawRect(new Vector2f(22,22), 50,500, Color.RED,false);
-
-
     }
 
 

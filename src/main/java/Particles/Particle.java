@@ -1,68 +1,103 @@
 package Particles;
 
+import Entities.Entity;
+import GameComponents.Rigidbody;
 import GameHandlers.GameObject;
 import Graphics.EngineGraphics;
-import TestingGameEngine.Game;
+import Utilities.EngineMath;
 import Utilities.Vector2f;
 
 import java.awt.*;
 import java.util.Random;
+import Graphics.Sprite;
 
-public class Particle {
+public class Particle extends Entity {
 
-    private Vector2f acceleration, velocity, position;
-    private Rectangle rectangle;
-    private int width, height;
-    private Color color;
+
+    private Rigidbody rigidbody;
+
+
+    private Color endColor;
     private int timeToLive;
+    private Color finalColor;
     private Random rand = new Random();
 
-    public Particle( Vector2f position, int width, int height, Color color, int timeToLive){
-        this.position = position;
-        this.width = width;
-        this.height = height;
-        this.color = color;
+
+
+    public Particle(int x, int y, int width, int height, float rotationAngle, Color color, int timeToLive) {
+        super(x, y, width, height, rotationAngle, color);
         this.timeToLive = timeToLive;
-        velocity  = new Vector2f(0,0);
-        acceleration = new Vector2f(0,0);
+        endColor= new Color(0,0,0);
+        finalColor = new Color(0,0,0);
+        rigidbody = new Rigidbody(this);
     }
 
-    public void update(float delta,GameObject parent){
-        timeToLive--;
+    public Particle(int x, int y, int width, int height, Sprite sprite, int timeToLive) {
+        super(x, y, width, height, sprite);
+        this.timeToLive = timeToLive;
+        endColor= new Color(0,0,0);
+        finalColor = new Color(0,0,0);
+        rigidbody = new Rigidbody(this);
+    }
 
-        acceleration.setX(randomFloat(0,1) * 0.0001f);
-        acceleration.setY(randomFloat(0,1) * 0.0001f);
+    public Particle(int x, int y, int width, int height, float rotationAngle, Sprite sprite, int timeToLive) {
+        super(x, y, width, height, rotationAngle, sprite);
+        this.timeToLive = timeToLive;
+        endColor= new Color(0,0,0);
+        finalColor = new Color(0,0,0);
+        rigidbody = new Rigidbody(this);
+    }
 
-        velocity.addVec(acceleration );
-        position.addVec(velocity);
+
+    @Override
+    public void update(float delta){
+        rigidbody.update(delta);
+
+
+        timeToLive-=delta;
+
+        var angleInRadians =(int)getRotationAngle() * Math.PI / 180;
+        rigidbody.getVelocity().setX((float) ( getMoveSpeed()* Math.cos(angleInRadians) * delta));
+        rigidbody.getVelocity().setY((float) (getMoveSpeed()* Math.sin(angleInRadians) * delta));
+
+       finalColor= EngineMath.fadeToColor(color, endColor,delta , timeToLive);
 
     }
 
+    @Override
     public void render(EngineGraphics g){
 
-        g.drawRect((int)position.getX(),(int) position.getY(), height,width,color,true);
+        g.drawRect((int)position.getX(),(int) position.getY(), height,width,getFinalColor(),true);
 
     }
-    public float randomFloat(int min, int max){
-        float random = min + rand.nextFloat() * (max - min);
-        return  random;
+
+    public Rigidbody getRigidbody() {
+        return rigidbody;
     }
 
-    public Vector2f getAcceleration() {
-        return acceleration;
+    @Override
+    public void init() {
+
     }
 
-    public void setAcceleration(Vector2f acceleration) {
-        this.acceleration = acceleration;
+
+    public java.awt.Color getFinalColor() {
+        return finalColor;
     }
 
-    public Vector2f getVelocity() {
-        return velocity;
+    public void setFinalColor(java.awt.Color finalColor) {
+        this.finalColor = finalColor;
     }
 
-    public void setVelocity(Vector2f velocity) {
-        this.velocity = velocity;
+    public Color getEndColor() {
+        return endColor;
     }
+
+    public void setEndColor(Color endColor) {
+        this.endColor = endColor;
+    }
+
+
 
     public Vector2f getPosition() {
         return position;
@@ -72,21 +107,7 @@ public class Particle {
         this.position = position;
     }
 
-    public Rectangle getRectangle() {
-        return rectangle;
-    }
 
-    public void setRectangle(Rectangle rectangle) {
-        this.rectangle = rectangle;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
 
     public int getTimeToLive() {
         return timeToLive;

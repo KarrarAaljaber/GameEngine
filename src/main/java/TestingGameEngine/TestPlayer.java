@@ -4,6 +4,7 @@ import Audio.AudioPlayer;
 import Audio.SoundClip;
 import Entities.Entity;
 import GameComponents.Input;
+import GameHandlers.GameObject;
 import Particles.ParticleSystem;
 import GameComponents.Rigidbody;
 import Graphics.Animation;
@@ -17,6 +18,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import Graphics.SpriteSheet;
+import Utilities.EngineMath;
 import Utilities.Vector2f;
 
 import javax.sound.sampled.Clip;
@@ -52,15 +54,15 @@ public class TestPlayer extends Entity {
     Clip clip = AudioPlayer.getClip("walk.wav");
     SoundClip audio = new SoundClip(clip);
 
+    private Vector2f velocityGoal;
     public TestPlayer(int x, int y, int width, int height, Sprite sprite) {
         super(x, y, width, height,sprite);
         spriteSheet = new SpriteSheet("playersheet.png",24,32);
 
 
         walkUpSprites = new BufferedImage[3];
+        velocityGoal = new Vector2f(0,0);
 
-
-        setMoveSpeed(10);
 
         walkUpSprites[0] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,0,0);
         walkUpSprites[1] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,0,1);
@@ -105,12 +107,14 @@ public class TestPlayer extends Entity {
     public void init() {
 
     }
+
+
     @Override
     public void render(EngineGraphics g) {
      //   g.drawString("X:  " + pos.getX() + "   Y:" + pos.getY(), Color.WHITE , new Vector2f(getPos().getX() , getPos().getY() + 10 ) ,"Arial", 16);
 
         if(isUp()){
-          //  particleSystem.addParticles(new Particle(new Vector2f(getX()  - width / 2, getY() ),3,3, new Color(65, 234, 65),10),3);
+          // particleSystem.addParticles(new Particle(new Vector2f(getX()  - width / 2, getY() ),3,3, new Color(65, 234, 65),10),3);
             g.drawImage(walkUp.getCurrentFrame(),getX(), getY(), width, height);
 
         }else if(isDown()){
@@ -161,7 +165,9 @@ public class TestPlayer extends Entity {
 
         //  move(delta);
         Rigidbody rigidbody = (Rigidbody) getComponent(Rigidbody.class);
-        rigidbody.getVelocity().limitVector(0.01f);
+
+        rigidbody.getVelocity().setX(EngineMath.Lerp(velocityGoal.getX(),rigidbody.getVelocity().getX(), delta * 5));
+        rigidbody.getVelocity().setY(EngineMath.Lerp(velocityGoal.getY(),rigidbody.getVelocity().getY(), delta *5));
         if(Renderer.getInput().KeyDown(KeyEvent.VK_W) ){
 
             setUp(true);
@@ -212,42 +218,48 @@ public class TestPlayer extends Entity {
 
 
         if(Renderer.getInput().KeyUp( KeyEvent.VK_W)) {
-            rigidbody.setVelocityGoal(new Vector2f(0, 0));
+            setVelocityGoal(new Vector2f(0, 0));
             setUp(false);
 
         }
 
         if(Renderer.getInput().KeyUp( KeyEvent.VK_S)) {
-            rigidbody.setVelocityGoal(new Vector2f(0, 0));
+           setVelocityGoal(new Vector2f(0, 0));
             setDown(false);
 
 
 
         }
         if(Renderer.getInput().KeyUp( KeyEvent.VK_A)) {
-            rigidbody.setVelocityGoal(new Vector2f(0, 0));
+            setVelocityGoal(new Vector2f(0, 0));
             setLeft(false);
 
         }
         if(Renderer.getInput().KeyUp( KeyEvent.VK_D)) {
-            rigidbody.setVelocityGoal(new Vector2f(0, 0));
+           setVelocityGoal(new Vector2f(0, 0));
             setRight(false);
         }
 
 
         if(up){
-            rigidbody.setVelocityGoal(new Vector2f(0, -moveSpeed));
+            setVelocityGoal(new Vector2f(0, -moveSpeed));
         }
         if(down){
-            rigidbody.setVelocityGoal(new Vector2f(0, moveSpeed));
+            setVelocityGoal(new Vector2f(0, moveSpeed));
         }  if(left){
-            rigidbody.setVelocityGoal(new Vector2f(-moveSpeed, 0));
+           setVelocityGoal(new Vector2f(-moveSpeed, 0));
         }  if(right){
-            rigidbody.setVelocityGoal(new Vector2f(moveSpeed, 0));
+           setVelocityGoal(new Vector2f(moveSpeed, 0));
         }
 
 
     }
 
+    public Vector2f getVelocityGoal() {
+        return velocityGoal;
+    }
 
+    public void setVelocityGoal(Vector2f velocityGoal) {
+        this.velocityGoal = velocityGoal;
+    }
 }

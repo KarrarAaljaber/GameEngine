@@ -81,6 +81,9 @@ public class Game2 extends GameState {
     private Light light;
     private UIContainer uiContainer;
 
+    //particleSystem testing
+    private ParticleSystem ps = new ParticleSystem();
+
 
     @Override
     public void init() {
@@ -143,6 +146,10 @@ public class Game2 extends GameState {
         player.addComponent(new Collider(player, player.getWidth() - 6, player.getHeight() - 6));
         player.addComponent(new Collision(player));
         player.setMoveSpeed(2f);
+
+        ps = new ParticleSystem();
+
+
 
         Random random = new Random();
         p = new ArrayList<>();
@@ -233,12 +240,14 @@ public class Game2 extends GameState {
     private int counter =0;
 
     private float angle = 0.0f;
+    private Random rand = new Random();
     @Override
     public void update(float delta ) {
-        uiContainer.update();
-        angle +=0.01f;
+        angle ++;
         light.setY(player.getY());
         light.setX(player.getX());
+        ps.update(delta);
+
         for(int i=0; i < p.size(); i++){
             Vector2f v = Vector2f.minusVectors(player.getPosition(),p.get(i).getPosition() );
             v.multiplyValue(p.get(i).getMoveSpeed());
@@ -246,9 +255,21 @@ public class Game2 extends GameState {
             rigidbody.setVelocity(v);
 
         }
+        if(Renderer.getInput().mouseButtonDown(1)){
+
+            for(int i=0; i < 50; i++) {
+                Particle sm = new Particle(Renderer.getInput().getMouseX(),Renderer.getInput().getMouseY(),5,  5,rand.nextInt(180),Color.WHITE, 3000);
+                sm.setMoveSpeed(rand.nextFloat() * 2);
+                sm.rotate(rand.nextInt((int) angle));
+                 ps.addParticles(sm,50);
+
+            }
+
+        }
 
         if(Renderer.getInput().KeyDown(KeyEvent.VK_L)){
             uiContainer.setVisiable(true);
+
         }
 
     }
@@ -257,8 +278,9 @@ public class Game2 extends GameState {
 
     @Override
     public void render(EngineGraphics g) {
-        //    g.drawRect(new Vector2f(22,22), 50,500, Color.RED,false);
+
        //  g.setLighting(true);
+        ps.render(g);
     }
 
 

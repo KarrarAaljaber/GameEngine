@@ -8,14 +8,12 @@ public class Rigidbody extends GameComponent{
 
 
     private Vector2f velocity;
-    private Vector2f velocityGoal;
     private float gravity = 0.001f;
     private Collision collision;
     public Rigidbody(GameObject parent) {
         super(parent);
 
         velocity = new Vector2f(0,0);
-        velocityGoal = new Vector2f(0,0);
     }
 
     @Override
@@ -26,10 +24,8 @@ public class Rigidbody extends GameComponent{
     @Override
     public void update(float delta) {
 
-        getVelocity().setX(Vector2f.Lerp(velocityGoal.getX(),getVelocity().getX(), delta * 80));
-        getVelocity().setY(Vector2f.Lerp(velocityGoal.getY(),getVelocity().getY(), delta *80));
-
         parent.getPosition().addVec(velocity);
+
 
         /*
         parent.getPosition().setX((int) (parent.getX() + getVelocityX()));
@@ -43,13 +39,7 @@ public class Rigidbody extends GameComponent{
 
     }
 
-    public Vector2f getVelocityGoal() {
-        return velocityGoal;
-    }
 
-    public void setVelocityGoal(Vector2f velocityGoal) {
-        this.velocityGoal = velocityGoal;
-    }
 
     public Collision getCollision() {
         return collision;

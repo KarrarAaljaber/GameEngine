@@ -30,6 +30,14 @@ public abstract class Entity extends GameObject {
         super(x, y, width, height, color);
 
     }
+    public Entity(int x, int y, int width, int height, float rotationAngle, Color color) {
+        super(x, y, width, height, rotationAngle, color);
+    }
+
+
+    public Entity(int x, int y, int width, int height, float rotationAngle, Sprite sprite) {
+        super(x, y, width, height, rotationAngle, sprite);
+    }
 
     public float getMoveSpeed() {
         return moveSpeed;
