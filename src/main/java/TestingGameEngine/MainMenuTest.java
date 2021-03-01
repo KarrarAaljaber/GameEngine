@@ -33,11 +33,11 @@ public class MainMenuTest extends GameState {
         play.setTextColor(Color.BLACK);
         play.setBorderThickness(5);
         play.setBorderColor(Color.white);
-       oldX = play.getX();
 
         container.placeUIComponentAtCenterX(play);
         container.placeUIComponentAtCenterY(play);
         container.addUIComponent(play);
+        oldX = play.getX();
 
         Renderer.addUIContainer(container);
         ps = new ParticleSystem();
@@ -59,22 +59,17 @@ public class MainMenuTest extends GameState {
             Renderer.getGch().changeGameState(new Game2(getScreen()));
         }
 
-        if(play.mouseInsideComponent()) {
-            play.setX(play.getX() + 20);
-        }else{
-            play.setX(oldX);
 
-        }
 
         if (Renderer.getInput().isMouseMoved()) {
-            for (int i = 0; i < 20; i++) {
-                Particle p = (new Particle(Renderer.getInput().getMouseX(), Renderer.getInput().getMouseY(), 15, 15, EngineMath.rand.nextInt(360),
+            for (int i = 0; i < 2; i++) {
+                Particle p = (new Particle(Renderer.getInput().getMouseX(), Renderer.getInput().getMouseY(), 50, 50, EngineMath.rand.nextInt(360),
                         new Color(EngineMath.rand.nextInt(255), 83, 83), 1000));
                 var angleInRadians = (int) p.getRotationAngle() * Math.PI / 180;
                 p.setMoveSpeed(0.01f);
                 p.getRigidbody().getVelocity().setX((float) (p.getMoveSpeed() * Math.cos(angleInRadians) * delta));
                 p.getRigidbody().getVelocity().setY((float) (p.getMoveSpeed() * Math.sin(angleInRadians) * delta));
-                ps.addParticles(p, 10);
+                ps.addParticles(p, 2);
 
             }
 

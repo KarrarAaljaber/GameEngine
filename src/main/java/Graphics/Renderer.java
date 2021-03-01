@@ -150,7 +150,6 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
 
 
-        uiController.render(engineGraphics);
 
         //g2d.scale(camera.getZoomscale(), camera.getZoomscale());
 
@@ -170,6 +169,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
 
         g2d.setTransform(oldAT);
+        uiController.render(engineGraphics);
 
 
 

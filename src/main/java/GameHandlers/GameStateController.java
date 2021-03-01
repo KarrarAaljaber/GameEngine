@@ -47,6 +47,7 @@ public class GameStateController {
 
     public void render(EngineGraphics g) {
         GameState state = gameStates.get(currentState);
+        state.render(g);
 
         for (int i = 0; i < objects.size(); i++) {
 
@@ -68,7 +69,6 @@ public class GameStateController {
 
         }
       //fix for lighting move up
-        state.render(g);
 
 
     }
