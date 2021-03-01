@@ -60,18 +60,18 @@ public class MainMenuTest extends GameState {
         }
 
 
-
-        if (Renderer.getInput().isMouseMoved()) {
-            for (int i = 0; i < 2; i++) {
-                Particle p = (new Particle(Renderer.getInput().getMouseX(), Renderer.getInput().getMouseY(), 50, 50, EngineMath.rand.nextInt(360),
-                        new Color(EngineMath.rand.nextInt(255), 83, 83), 1000));
-                var angleInRadians = (int) p.getRotationAngle() * Math.PI / 180;
-                p.setMoveSpeed(0.01f);
-                p.getRigidbody().getVelocity().setX((float) (p.getMoveSpeed() * Math.cos(angleInRadians) * delta));
-                p.getRigidbody().getVelocity().setY((float) (p.getMoveSpeed() * Math.sin(angleInRadians) * delta));
-                ps.addParticles(p, 2);
+        if(Renderer.getInput().isMouseMoved()){
+            for(int i=0; i < 2; i++){
+                Particle p = (new Particle(Renderer.getInput().getMouseX(), Renderer.getInput().getMouseY(), 25,25,EngineMath.rand.nextInt(180),
+                        new Color(EngineMath.rand.nextInt(255), 83, 83),1000));
+                var angleInRadians =(int)p.getRotationAngle() * Math.PI / 180;
+                p.setMoveSpeed(1);
+                p.getRigidbody().getVelocity().setX((float) ( p.getMoveSpeed()* Math.cos(angleInRadians) * delta));
+                p.getRigidbody().getVelocity().setY((float) (p.getMoveSpeed()* Math.sin(angleInRadians) * delta));
+                ps.addParticles(p,25);
 
             }
+
 
         }
         ps.update(delta);
