@@ -19,6 +19,7 @@ public class Collision extends GameComponent{
         super(parent);
     }
 
+
     public void collision(){
 
         for(int i = 0; i< Renderer.getGch().getObjects().size(); i++){
@@ -128,6 +129,20 @@ public class Collision extends GameComponent{
         && x2 < x + width && y2 < y + height);
 
     }
+    public static boolean GameObjectInGameObject(GameObject thisobject, GameObject otherObject ){
+        boolean collided = false;
+        Collider objCollider = (Collider) otherObject.getComponent(Collider.class);
+        Collider parentCollider = (Collider) thisobject.getComponent(Collider.class);
+
+        if(Math.abs(parentCollider.getCenterX() - objCollider.getCenterX()) < parentCollider.getHalfWidth() + objCollider.getHalfWidth()){
+            if(Math.abs(parentCollider.getCenterY() - objCollider.getCenterY())<parentCollider.getHalfHeight() + objCollider.getHalfHeight() ){
+                collided = true;
+            }
+
+        }
+        return  collided;
+    }
+
     public boolean RectInRect(GameObject collidedWith){
         boolean collided = false;
         Collider objCollider = (Collider) collidedWith.getComponent(Collider.class);

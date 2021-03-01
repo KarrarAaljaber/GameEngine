@@ -1,5 +1,6 @@
 package TestingGameEngine;
 
+import  Graphics.Screen;
 import Entities.Entity;
 import GameComponents.Collider;
 import GameComponents.Collision;
@@ -58,9 +59,10 @@ public class Game extends GameState {
 
     private  TileHandler tileHandler;
 
-    public Game( Screen screen) {
-        super( screen);
+    public Game(Screen screen) {
+        super(screen);
     }
+
 
     public static void main(String[]args){
         Game run = new Game(screen);
@@ -134,7 +136,7 @@ public class Game extends GameState {
 
 
         //Screen stuff
-        screen = new Screen(p,cam,WIDTH,HEIGHT, SCALE,false,false, new Color(4,200,200));
+        screen = new Screen(WIDTH,HEIGHT, SCALE,false,false, new Color(4,200,200));
         Renderer.getGch().getGameCases().add(this);
 
        // tileHandler.render();

@@ -25,7 +25,6 @@ public abstract class GameState {
 
     public GameState(Screen screen) {
         System.setProperty("sun.java2d.opengl", "True");
-
         this.screen = screen;
         init();
 
@@ -64,6 +63,11 @@ public abstract class GameState {
     public Screen getScreen() {
         return screen;
     }
+
+    public void setScreen(Screen screen) {
+        this.screen = screen;
+    }
+
     public GameStateController getGSC(){
         return gsc;
     }

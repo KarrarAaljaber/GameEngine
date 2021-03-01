@@ -52,13 +52,11 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
     private static Input input;
 
 
-    public Renderer(GameObject player, int WIDTH, int HEIGHT, int SCALE, Color backgroundcolor, Camera camera){
+    public Renderer( int WIDTH, int HEIGHT, int SCALE, Color backgroundcolor){
         this.WIDTH = WIDTH;
         this.SCALE = SCALE;
-        this.player = player;
         this.HEIGHT = HEIGHT;
         this.backgroundcolor = backgroundcolor;
-        this.camera = camera;
         setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
         setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
         setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
@@ -68,7 +66,6 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
         gch = new GameStateController(this, player);
         uiController = new UIController();
 
-
         init();
         requestFocus();
 
@@ -77,6 +74,21 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
     }
 
+    public void setCamera(Camera camera) {
+        this.camera = camera;
+    }
+
+    public void setPlayer(GameObject player) {
+        this.player = player;
+    }
+
+    public Camera getCamera() {
+        return camera;
+    }
+
+    public GameObject getPlayer() {
+        return player;
+    }
 
     public static Input getInput(){
         return input;
@@ -138,24 +150,34 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
 
 
+        uiController.render(engineGraphics);
 
         //g2d.scale(camera.getZoomscale(), camera.getZoomscale());
 
         AffineTransform transform = new AffineTransform();
-        transform.translate(camera.getX(), camera.getY());
+        if(camera!=null){
+            transform.translate(camera.getX(), camera.getY());
+            g2d.setTransform(transform);
+            gch.render(engineGraphics);
+            g2d.setTransform(oldAT);
 
-        g2d.setTransform(transform);
-        gch.render(engineGraphics);
+        }else{
+            gch.render(engineGraphics);
+
+        }
+
+
 
 
         g2d.setTransform(oldAT);
 
 
-        uiController.render(engineGraphics);
 
 
     }
     public void update(float deltaTime) {
+        mouseMovedCounter++;
+        gch.setPlayer(getPlayer());
         gch.update(deltaTime);
 
         input.update(deltaTime);
@@ -328,19 +350,37 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
         input.setMouseDragged(true);
 
+        if(camera!=null){
+            input.setMouseDragX(e.getX() / SCALE -camera.getX() );
+            input.setMouseDragY(e.getY() / SCALE -camera.getY() );
+        }else {
+            input.setMouseDragX(e.getX() / SCALE  );
+            input.setMouseDragY(e.getY() / SCALE  );
+        }
 
-        input.setMouseDragX(e.getX() / SCALE -camera.getX() );
-        input.setMouseDragY(e.getY() / SCALE -camera.getY() );
 
     }
 
+    private int mouseMovedCounter =0;
     @Override
     public void mouseMoved(MouseEvent e) {
+        mouseMovedCounter=0;
 
+        if(mouseMovedCounter ==0){
+            input.setMouseMoved(true);
+
+        }else{
+            input.setMouseMoved(false);
+        }
         input.setMouseX(e.getX() /SCALE);
         input.setMouseY(e.getY() / SCALE);
-        input.setMousetoGraphicsX(e.getX() / SCALE -camera.getX() );
-        input.setMouseToGraphicsY(e.getY() / SCALE -camera.getY());
+        if(camera !=null) {
+            input.setMousetoGraphicsX(e.getX() / SCALE - camera.getX());
+            input.setMouseToGraphicsY(e.getY() / SCALE - camera.getY());
+        }else{
+            input.setMousetoGraphicsX(e.getX() / SCALE );
+            input.setMouseToGraphicsY(e.getY() / SCALE );
+        }
 
     }
 }

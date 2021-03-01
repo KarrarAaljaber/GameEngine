@@ -113,6 +113,9 @@ public class EngineGraphics {
         g2d.drawImage(sprite,(int)obj.getX(), (int) obj.getY(), obj.getWidth(), obj.getHeight() , null);
     }
 
+    public boolean isLighting() {
+        return lighting;
+    }
 
     public void drawGameObject(GameObject obj){
 

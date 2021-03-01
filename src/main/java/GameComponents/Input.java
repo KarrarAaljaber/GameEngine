@@ -20,6 +20,7 @@ public class Input {
 
     private int mouseDragX =0, mouseDragY=0;
     private boolean mouseIsDragged= false;
+    private boolean mouseMoved = false;
 
     private Renderer renderer;
     public Input() {
@@ -105,6 +106,14 @@ public class Input {
 
     public int getMouseToGraphicsY() {
         return mouseToGraphicsY;
+    }
+
+    public boolean isMouseMoved() {
+        return mouseMoved;
+    }
+
+    public void setMouseMoved(boolean mouseMoved) {
+        this.mouseMoved = mouseMoved;
     }
 
     public void setMouseToGraphicsY(int mouseToGraphicsY) {

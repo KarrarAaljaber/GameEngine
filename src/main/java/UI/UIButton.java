@@ -43,9 +43,7 @@ public class UIButton extends  UIComponent{
         if(getText()!=null){
             g.drawString(getText(),getTextColor(),getCenterX(),getCenterY(),"arial",fontSize );
         }
-        if(clicked()){
-            parent.setVisiable(false);
-        }
+
 
     }
 }

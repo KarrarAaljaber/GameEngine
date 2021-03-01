@@ -88,6 +88,9 @@ public class UIController  {
     }
 
     */
+    public void removeUIContainer(UIContainer container){
+        uicontainers.remove(uicontainers.indexOf(container));
+    }
     public void addUIContainer(UIContainer uiContainer){
         uicontainers.add(uiContainer);
     }

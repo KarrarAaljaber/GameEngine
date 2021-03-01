@@ -13,17 +13,15 @@ public class Screen  {
 
     private JFrame frame = new JFrame();
     private Renderer renderer;
-    private Camera camera;
-    private GameObject player;
+
     private int sizeScale;
     private boolean fullscreen;
-    public Screen(GameObject player,Camera camera, int WIDTH, int HEIGHT, int sizeScale, boolean resizable, boolean fullscreen, Color Backgroundcolor){
-        this.camera = camera;
-        this.player = player;
+    public Screen( int WIDTH, int HEIGHT, int sizeScale, boolean resizable, boolean fullscreen, Color Backgroundcolor){
+
         this.sizeScale = sizeScale;
         this.fullscreen = fullscreen;
 
-        renderer = new Renderer(player,WIDTH, HEIGHT, sizeScale, Backgroundcolor, camera);
+        renderer = new Renderer(WIDTH, HEIGHT, sizeScale, Backgroundcolor);
         frame.setPreferredSize(new Dimension( WIDTH * sizeScale, HEIGHT * sizeScale));
         frame.setMinimumSize(new Dimension( WIDTH * sizeScale, HEIGHT * sizeScale));
         frame.setMaximumSize(new Dimension( WIDTH * sizeScale, HEIGHT * sizeScale));

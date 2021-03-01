@@ -4,12 +4,14 @@ import Audio.AudioClip;
 import Audio.AudioPlayer;
 import Audio.SoundClip;
 import Entities.Entity;
+import GameComponents.Collision;
 import GameComponents.Rigidbody;
 import Graphics.Animation;
 import Graphics.EngineGraphics;
 import Graphics.Sprite;
 import Graphics.SpriteSheet;
 import Particles.Particle;
+import Particles.ParticleSystem;
 import Utilities.EngineMath;
 import Utilities.Vector2f;
 
@@ -17,6 +19,7 @@ import javax.sound.sampled.Clip;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
+import Graphics.Renderer;
 
 public class ChessPlayer extends Entity {
 
@@ -90,6 +93,7 @@ public class ChessPlayer extends Entity {
         audio.setLoopable();
 
         audioPlayer.playSound(audio);
+        addComponent(ps);
 
 
 
@@ -103,25 +107,20 @@ public class ChessPlayer extends Entity {
 
 
         if(isUp()){
-
             g.drawImage(walkUp.getCurrentFrame(),getX(), getY(), width, height);
-
         }else if(isDown()){
             g.drawImage(walkDown.getCurrentFrame(),getX(),getY(), width, height);
-
-
         }else if( isLeft()){
             g.drawImage(walkLeft.getCurrentFrame(),getX(),getY(), width, height);
-
         }else if(isRight()){
             g.drawImage(walkRight.getCurrentFrame(),getX(),getY(),width, height);
-
         }else{
             g.drawImage(walkDownSprites[0],getX(),getY(), width, height);
-
         }
 
     }
+
+    private ParticleSystem ps = new ParticleSystem();
 
     @Override
     public void update(float delta) {
@@ -132,6 +131,22 @@ public class ChessPlayer extends Entity {
         walkRight.update();
         walkUp.update();
         walkDown.update();
+
+        Particle p = (new Particle(getCenterX(),getY(), 5,5,EngineMath.rand.nextInt(360),
+               Color.RED,1000));
+        var angleInRadians =(int)p.getRotationAngle() * Math.PI / 180;
+        p.setMoveSpeed(0.5f);
+        p.getRigidbody().getVelocity().setX((float) ( p.getMoveSpeed()* Math.cos(angleInRadians) * delta));
+        p.getRigidbody().getVelocity().setY((float) (p.getMoveSpeed()* Math.sin(angleInRadians) * delta));
+
+        TestPlayer player = (TestPlayer) Renderer.getGch().getGameObject(TestPlayer.class);
+        if(Collision.GameObjectInGameObject(this,player)){
+                ps.addParticles(p,50);
+
+
+
+
+        }
 
         if(rigidbody.getVelocity().getX() > 0){
             right = true;

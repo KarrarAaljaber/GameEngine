@@ -1,5 +1,9 @@
 package TestingGameEngine;
 
+import Audio.AudioClip;
+import Audio.AudioPlayer;
+import Audio.MusicClip;
+import Audio.SoundClip;
 import Entities.Entity;
 import Entities.Light;
 import GameComponents.*;
@@ -23,6 +27,7 @@ import Graphics.Sprite;
 import Graphics.Renderer;
 import Utilities.Vector2f;
 
+import javax.sound.sampled.Clip;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -65,10 +70,6 @@ public class Game2 extends GameState {
         super( screen);
     }
 
-    public static void main(String[]args){
-
-        Game2 run = new Game2(screen);
-    }
 
 
 
@@ -86,9 +87,18 @@ public class Game2 extends GameState {
     //particleSystem testing
     private ParticleSystem ps;
 
+    private AudioPlayer audioPlayer;
+
+
     @Override
     public void init() {
-    ps = new ParticleSystem();
+        ps = new ParticleSystem();
+        audioPlayer = new AudioPlayer();
+        Clip clip = AudioPlayer.getClip("music.wav");
+        AudioClip audio = new SoundClip(clip);
+        audio.setSoundVolume(-20);
+        audio.setLoopable();
+        audioPlayer.playSound(audio);
         /*
         AudioPlayer audioPlayer = new AudioPlayer();
         Clip clip = AudioPlayer.getClip("gatti.wav");
@@ -137,6 +147,7 @@ public class Game2 extends GameState {
 
         player = new TestPlayer((WIDTH / 3),(HEIGHT / 2), 32,32, s);
         player.placeGameObjectAtTile(6,15,32,32);
+
         //components
 
 
@@ -174,17 +185,17 @@ public class Game2 extends GameState {
 
         tileHandler = new TileHandler("test.tmx", 32,32,tilesheet );
 
-
+        getScreen().getRenderer().setPlayer(player);
+        getScreen().getRenderer().setCamera(cam);
 
 
         //Screen stuff
-        screen = new Screen(player,cam,WIDTH,HEIGHT, 2,false,false, new Color(0,0,0));
         Renderer.getGch().getGameCases().add(this);
 
         Renderer.addObject(player);
 
-        setDarkestvalue(0.2f);
-        setBrightvalue(0.5f);
+        setDarkestvalue(0.1f);
+        setBrightvalue(0.9f);
 
         Renderer.addObject(cam);
         tileHandler.render();
@@ -251,20 +262,18 @@ public class Game2 extends GameState {
 
         }
         if(Renderer.getInput().isMouseDragged()){
-            for(int i=0; i < 20; i++){
-                Particle p = (new Particle(Renderer.getInput().getMouseDragX(), Renderer.getInput().getMouseDragY(), 5,5,rand.nextInt(360),
-                        new Color(rand.nextInt(255), 83, 83),3000));
+            for(int i=0; i < 2; i++){
+                Particle p = (new Particle(Renderer.getInput().getMouseDragX(), Renderer.getInput().getMouseDragY(), 15,15,rand.nextInt(180),
+                        new Color(rand.nextInt(255), 83, 83),1000));
                 var angleInRadians =(int)p.getRotationAngle() * Math.PI / 180;
                 p.setMoveSpeed(1);
                 p.getRigidbody().getVelocity().setX((float) ( p.getMoveSpeed()* Math.cos(angleInRadians) * delta));
                 p.getRigidbody().getVelocity().setY((float) (p.getMoveSpeed()* Math.sin(angleInRadians) * delta));
-                ps.addParticles(p,5);
+                ps.addParticles(p,25);
 
             }
 
 
-        }else {
-            addParticles = false;
         }
         if(Renderer.getInput().KeyDown(KeyEvent.VK_L)){
             uiContainer.setVisiable(true);
@@ -281,7 +290,7 @@ public class Game2 extends GameState {
 
     @Override
     public void render(EngineGraphics g) {
-       //  g.setLighting(true);
+       // g.setLighting(true);
         ps.render(g);
 
     }
