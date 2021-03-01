@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class EngineMath {
 
-    private static Random rand = new Random();
+    public static Random rand = new Random();
     //smooth movement
     public static float Lerp(float goal, float current, float deltaTime){
         float Diff = goal - current;

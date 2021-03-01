@@ -66,10 +66,10 @@ public class UIContainer {
             }
         }
     }
-    public void update(){
+    public void update(float delta){
 
         for(int i=0; i < uiComponents.size(); i++){
-            uiComponents.get(i).update();
+            uiComponents.get(i).update(delta);
         }
 
 

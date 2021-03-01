@@ -156,9 +156,11 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
     }
     public void update(float deltaTime) {
-        uiController.update();
         gch.update(deltaTime);
+
         input.update(deltaTime);
+        uiController.update(deltaTime);
+
     }
 
 
@@ -187,7 +189,6 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
         double optimalRenderTime = 1000000000/MAX_FPS;
 
          long startTime = System.nanoTime();
-
         while (isRunning) {
             long curTime = System.nanoTime();
             deltaTime += (curTime - startTime);
@@ -246,6 +247,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
             }
         }
     }
+
     public static void addObjecArray(GameObject[]objects){
         for(int i=0; i < objects.length; i++){
             Renderer.addObject(objects[i]);
@@ -302,6 +304,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
     @Override
     public void mousePressed(MouseEvent e) {
+
         input.mousePressed(e);
     }
 
@@ -323,12 +326,21 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
     @Override
     public void mouseDragged(MouseEvent e) {
 
+        input.setMouseDragged(true);
+
+
+        input.setMouseDragX(e.getX() / SCALE -camera.getX() );
+        input.setMouseDragY(e.getY() / SCALE -camera.getY() );
+
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        input.setMouseX(e.getX() / SCALE -camera.getX() );
-        input.setMouseY(e.getY() / SCALE -camera.getY());
+
+        input.setMouseX(e.getX() /SCALE);
+        input.setMouseY(e.getY() / SCALE);
+        input.setMousetoGraphicsX(e.getX() / SCALE -camera.getX() );
+        input.setMouseToGraphicsY(e.getY() / SCALE -camera.getY());
 
     }
 }

@@ -168,8 +168,4 @@ public class ChessPlayer extends Entity {
         this.velocityGoal = velocityGoal;
     }
 
-    @Override
-    public void init() {
-
-    }
 }

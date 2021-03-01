@@ -65,10 +65,7 @@ public class SolidTile extends  Tile{
 
     }
 
-    @Override
-    public void init() {
 
-    }
 
     @Override
     public boolean isSolid() {

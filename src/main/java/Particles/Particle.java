@@ -24,6 +24,7 @@ public class Particle extends Entity {
 
 
 
+
     public Particle(int x, int y, int width, int height, float rotationAngle, Color color, int timeToLive) {
         super(x, y, width, height, rotationAngle, color);
         this.timeToLive = timeToLive;
@@ -51,7 +52,6 @@ public class Particle extends Entity {
 
     @Override
     public void update(float delta){
-        rigidbody.update(delta);
 
 
         timeToLive-=delta;
@@ -60,25 +60,27 @@ public class Particle extends Entity {
         rigidbody.getVelocity().setX((float) ( getMoveSpeed()* Math.cos(angleInRadians) * delta));
         rigidbody.getVelocity().setY((float) (getMoveSpeed()* Math.sin(angleInRadians) * delta));
 
+
        finalColor= EngineMath.fadeToColor(color, endColor,delta , timeToLive);
+
+        rigidbody.update(delta);
+
 
     }
 
     @Override
     public void render(EngineGraphics g){
 
-        g.drawRect((int)position.getX(),(int) position.getY(), height,width,getFinalColor(),true);
+        g.drawRect((int)position.getX(),(int) position.getY(), height,width,new Color(color.getRed(), color.getGreen(), color.getBlue(), timeToLive / 255),true);
 
     }
+
 
     public Rigidbody getRigidbody() {
         return rigidbody;
     }
 
-    @Override
-    public void init() {
 
-    }
 
 
     public java.awt.Color getFinalColor() {

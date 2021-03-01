@@ -34,8 +34,4 @@ public class GroundTile extends  Tile{
 
     }
 
-    @Override
-    public void init() {
-
-    }
 }

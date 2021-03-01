@@ -46,7 +46,7 @@ public class TestPlayer extends Entity {
     private boolean falling = true;
 
 
-    private ParticleSystem particleSystem;
+    private ParticleSystem ps;
     private SpriteSheet spriteSheet;
 
 
@@ -56,40 +56,38 @@ public class TestPlayer extends Entity {
 
     private Vector2f velocityGoal;
     public TestPlayer(int x, int y, int width, int height, Sprite sprite) {
-        super(x, y, width, height,sprite);
-        spriteSheet = new SpriteSheet("playersheet.png",24,32);
+        super(x, y, width, height, sprite);
+        spriteSheet = new SpriteSheet("playersheet.png", 24, 32);
 
 
         walkUpSprites = new BufferedImage[3];
-        velocityGoal = new Vector2f(0,0);
+        velocityGoal = new Vector2f(0, 0);
 
 
-        walkUpSprites[0] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,0,0);
-        walkUpSprites[1] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,0,1);
-        walkUpSprites[2] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,0,2);
+        walkUpSprites[0] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet, 0, 0);
+        walkUpSprites[1] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet, 0, 1);
+        walkUpSprites[2] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet, 0, 2);
 
         walkRightSprites = new BufferedImage[3];
 
-        walkRightSprites[0] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,1,0);
-        walkRightSprites[1] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,1,1);
-        walkRightSprites[2] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,1,2);
+        walkRightSprites[0] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet, 1, 0);
+        walkRightSprites[1] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet, 1, 1);
+        walkRightSprites[2] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet, 1, 2);
 
         walkDownSprites = new BufferedImage[3];
 
-        walkDownSprites[0] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,2,0);
-        walkDownSprites[1] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,2,1);
-        walkDownSprites[2] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,2,2);
+        walkDownSprites[0] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet, 2, 0);
+        walkDownSprites[1] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet, 2, 1);
+        walkDownSprites[2] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet, 2, 2);
 
         walkLeftSprites = new BufferedImage[3];
 
-        walkLeftSprites[0] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,3,0);
-        walkLeftSprites[1] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,3,1);
-        walkLeftSprites[2] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet,3,2);
+        walkLeftSprites[0] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet, 3, 0);
+        walkLeftSprites[1] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet, 3, 1);
+        walkLeftSprites[2] = SpriteSheet.getSpriteImageFromSpriteSheet(spriteSheet, 3, 2);
 
 
-
-
-  //    sheet = new SpriteSheet("blocksheet.png");
+        //    sheet = new SpriteSheet("blocksheet.png");
 //      health = new Sprite(sheet,32,32);
 
         walkUp = new Animation(300, walkUpSprites);
@@ -97,14 +95,10 @@ public class TestPlayer extends Entity {
         walkLeft = new Animation(300, walkLeftSprites);
         walkRight = new Animation(300, walkRightSprites);
 
-        particleSystem = new ParticleSystem(this);
-        addComponent(particleSystem);
+        ps = new ParticleSystem(this);
+        addComponent(ps);
 
         audio.setSoundVolume(-25);
-
-    }
-    @Override
-    public void init() {
 
     }
 
@@ -114,7 +108,7 @@ public class TestPlayer extends Entity {
      //   g.drawString("X:  " + pos.getX() + "   Y:" + pos.getY(), Color.WHITE , new Vector2f(getPos().getX() , getPos().getY() + 10 ) ,"Arial", 16);
 
         if(isUp()){
-          // particleSystem.addParticles(new Particle(new Vector2f(getX()  - width / 2, getY() ),3,3, new Color(65, 234, 65),10),3);
+
             g.drawImage(walkUp.getCurrentFrame(),getX(), getY(), width, height);
 
         }else if(isDown()){
@@ -240,16 +234,32 @@ public class TestPlayer extends Entity {
             setRight(false);
         }
 
+        Particle p = (new Particle(getCenterX(),getY(), 5,5,EngineMath.rand.nextInt(360),
+                new Color(66, 46, 46),2000));
+        var angleInRadians =(int)p.getRotationAngle() * Math.PI / 180;
+        p.setMoveSpeed(EngineMath.randomFloat(0,1));
+        p.getRigidbody().getVelocity().setX((float) ( p.getMoveSpeed()* Math.cos(angleInRadians) * delta));
+        p.getRigidbody().getVelocity().setY((float) (p.getMoveSpeed()* Math.sin(angleInRadians) * delta));
 
         if(up){
             setVelocityGoal(new Vector2f(0, -moveSpeed));
+            p.rotate(EngineMath.rand.nextInt(360));
+            ps.addParticles(p,25);
         }
         if(down){
             setVelocityGoal(new Vector2f(0, moveSpeed));
+
         }  if(left){
            setVelocityGoal(new Vector2f(-moveSpeed, 0));
+            p.rotate(EngineMath.rand.nextInt(360));
+
+            ps.addParticles(p,25);
+
         }  if(right){
            setVelocityGoal(new Vector2f(moveSpeed, 0));
+            p.rotate(EngineMath.rand.nextInt(360));
+
+            ps.addParticles(p,25);
         }
 
 

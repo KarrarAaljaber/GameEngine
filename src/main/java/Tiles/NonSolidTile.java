@@ -44,8 +44,5 @@ public class NonSolidTile extends Tile{
 
     }
 
-    @Override
-    public void init() {
 
-    }
 }

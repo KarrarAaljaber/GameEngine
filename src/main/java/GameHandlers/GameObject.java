@@ -75,10 +75,10 @@ public abstract class GameObject {
     }
 
     public int getCenterX(){
-        return getX() + getWidth() / 2;
+        return getX() - getWidth() / 2;
     }
     public int getCenterY(){
-        return getY() + getHeight() / 2;
+        return getY() - getHeight() / 2;
     }
 
     public float getScale(){
@@ -128,7 +128,6 @@ public abstract class GameObject {
 
     public abstract void render(EngineGraphics g);
     public abstract void update(float delta);
-    public abstract void init();
 
     public Sprite getSprite() {
         return sprite;

@@ -33,8 +33,6 @@ public class GameStateController {
 
 
 
-
-
     }
 
 
@@ -70,15 +68,6 @@ public class GameStateController {
 
 
 
-    public void init() {
-
-        gameStates.get(currentState).init();
-        for (int i = 0; i < objects.size(); i++) {
-            objects.get(i).init();
-            objects.get(i).initALlComponents(objects.get(i));
-        }
-
-    }
 
     public void update(float delta) {
         gameStates.get(currentState).update(delta);

@@ -21,7 +21,8 @@ public class UIButton extends  UIComponent{
     }
 
     @Override
-    public void update() {
+    public void update(float delta) {
+
         if(mouseInsideComponent() ){
             setBorderColor(Color.RED);
         }else{
@@ -29,9 +30,7 @@ public class UIButton extends  UIComponent{
 
         }
 
-        if(clicked()){
-            parent.setVisiable(false);
-        }
+
     }
 
 
@@ -39,9 +38,13 @@ public class UIButton extends  UIComponent{
     public void render(EngineGraphics g) {
         g.drawBorder(getX(),getY(),getWidth(),getHeight(), getBorderThickness(), getBorderColor());
 
+
         g.drawRect(getX(), getY(),getWidth(), getHeight(), getBackgroundColor(), true);
         if(getText()!=null){
             g.drawString(getText(),getTextColor(),getCenterX(),getCenterY(),"arial",fontSize );
+        }
+        if(clicked()){
+            parent.setVisiable(false);
         }
 
     }

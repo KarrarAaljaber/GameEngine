@@ -81,8 +81,5 @@ public class Camera extends GameObject {
         followEntity(player);
     }
 
-    @Override
-    public void init() {
 
-    }
 }

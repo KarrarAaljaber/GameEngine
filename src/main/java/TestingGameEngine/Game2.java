@@ -15,6 +15,7 @@ import Tiles.TileLayers;
 import UI.UIButton;
 import UI.UIComponent;
 import UI.UIContainer;
+import UI.UIController;
 import Utilities.Camera;
 import Utilities.Node;
 import Graphics.EngineGraphics;
@@ -27,6 +28,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Game2 extends GameState {
@@ -82,12 +84,11 @@ public class Game2 extends GameState {
     private UIContainer uiContainer;
 
     //particleSystem testing
-    private ParticleSystem ps = new ParticleSystem();
-
+    private ParticleSystem ps;
 
     @Override
     public void init() {
-
+    ps = new ParticleSystem();
         /*
         AudioPlayer audioPlayer = new AudioPlayer();
         Clip clip = AudioPlayer.getClip("gatti.wav");
@@ -120,7 +121,6 @@ public class Game2 extends GameState {
         uiContainer.addUIComponent(btn);
         uiContainer.addUIComponent(btn2);
 
-
         //objects
         // tileMap = new TileMap(500, 500, 32,32, tilesheet);
         SpriteSheet spriteSheet = new SpriteSheet("playersheet.png",24,32);
@@ -146,10 +146,6 @@ public class Game2 extends GameState {
         player.addComponent(new Collider(player, player.getWidth() - 6, player.getHeight() - 6));
         player.addComponent(new Collision(player));
         player.setMoveSpeed(2f);
-
-        ps = new ParticleSystem();
-
-
 
         Random random = new Random();
         p = new ArrayList<>();
@@ -247,7 +243,6 @@ public class Game2 extends GameState {
         light.setY(player.getY());
         light.setX(player.getX());
         ps.update(delta);
-
         for(int i=0; i < p.size(); i++){
             Vector2f v = Vector2f.minusVectors(player.getPosition(),p.get(i).getPosition() );
             v.multiplyValue(p.get(i).getMoveSpeed());
@@ -255,32 +250,40 @@ public class Game2 extends GameState {
             rigidbody.setVelocity(v);
 
         }
-        if(Renderer.getInput().mouseButtonDown(1)){
-
-            for(int i=0; i < 50; i++) {
-                Particle sm = new Particle(Renderer.getInput().getMouseX(),Renderer.getInput().getMouseY(),5,  5,rand.nextInt(180),Color.WHITE, 3000);
-                sm.setMoveSpeed(rand.nextFloat() * 2);
-                sm.rotate(rand.nextInt((int) angle));
-                 ps.addParticles(sm,50);
+        if(Renderer.getInput().isMouseDragged()){
+            for(int i=0; i < 20; i++){
+                Particle p = (new Particle(Renderer.getInput().getMouseDragX(), Renderer.getInput().getMouseDragY(), 5,5,rand.nextInt(360),
+                        new Color(rand.nextInt(255), 83, 83),3000));
+                var angleInRadians =(int)p.getRotationAngle() * Math.PI / 180;
+                p.setMoveSpeed(1);
+                p.getRigidbody().getVelocity().setX((float) ( p.getMoveSpeed()* Math.cos(angleInRadians) * delta));
+                p.getRigidbody().getVelocity().setY((float) (p.getMoveSpeed()* Math.sin(angleInRadians) * delta));
+                ps.addParticles(p,5);
 
             }
 
-        }
 
+        }else {
+            addParticles = false;
+        }
         if(Renderer.getInput().KeyDown(KeyEvent.VK_L)){
             uiContainer.setVisiable(true);
-
         }
 
+
+
     }
+    private Particle particle;
+    boolean addParticles = false;
+
 
 
 
     @Override
     public void render(EngineGraphics g) {
-
        //  g.setLighting(true);
         ps.render(g);
+
     }
 
 

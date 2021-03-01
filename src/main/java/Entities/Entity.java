@@ -18,7 +18,7 @@ public abstract class Entity extends GameObject {
 
     //abilities
     protected boolean up, down, right, left, idle;
-    protected float moveSpeed = 0.01f;
+    protected float moveSpeed = 0.1f;
 
 
     public Entity(int x, int y, int width, int height, Sprite sprite) {
@@ -47,14 +47,14 @@ public abstract class Entity extends GameObject {
         this.moveSpeed = moveSpeed;
     }
 
-
+/*
 
     public void moveTo(int x, int y){
         Rigidbody rigidbody = (Rigidbody) getComponent(Rigidbody.class);
         rigidbody.setVelocity(new Vector2f(0.001f, 0.001f));
 
     }
-
+*/
 
     public boolean isUp() {
         return up;

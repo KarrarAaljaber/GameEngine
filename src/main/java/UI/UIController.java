@@ -37,9 +37,9 @@ public class UIController  {
 
 
 
-    public void update() {
+    public void update(float delta) {
         for(int i=0; i < uicontainers.size(); i++){
-            uicontainers.get(i).update();
+            uicontainers.get(i).update(delta);
         }
 
     }
