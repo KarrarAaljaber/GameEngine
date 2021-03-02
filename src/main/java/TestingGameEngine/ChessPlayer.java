@@ -1,11 +1,10 @@
 package TestingGameEngine;
 
-import Audio.AudioClip;
 import Audio.AudioPlayer;
 import Audio.SoundClip;
 import Entities.Entity;
 import GameComponents.Collision;
-import GameComponents.Rigidbody;
+import GameComponents.Kinematic2D;
 import Graphics.Animation;
 import Graphics.EngineGraphics;
 import Graphics.Sprite;
@@ -124,9 +123,9 @@ public class ChessPlayer extends Entity {
 
     @Override
     public void update(float delta) {
-        Rigidbody rigidbody = (Rigidbody) getComponent(Rigidbody.class);
-        rigidbody.getVelocity().setX(EngineMath.Lerp(velocityGoal.getX(),rigidbody.getVelocity().getX(), delta * 1));
-        rigidbody.getVelocity().setY(EngineMath.Lerp(velocityGoal.getY(),rigidbody.getVelocity().getY(), delta *1));
+        Kinematic2D kinematic2D = (Kinematic2D) getComponent(Kinematic2D.class);
+        kinematic2D.getVelocity().setX(EngineMath.Lerp(velocityGoal.getX(), kinematic2D.getVelocity().getX(), delta * 1));
+        kinematic2D.getVelocity().setY(EngineMath.Lerp(velocityGoal.getY(), kinematic2D.getVelocity().getY(), delta *1));
         walkLeft.update();
         walkRight.update();
         walkUp.update();
@@ -148,24 +147,24 @@ public class ChessPlayer extends Entity {
 
         }
 
-        if(rigidbody.getVelocity().getX() > 0){
+        if(kinematic2D.getVelocity().getX() > 0){
             right = true;
             left = false;
             up = false;
             down = false;
-        }else if(rigidbody.getVelocity().getX() < 0){
+        }else if(kinematic2D.getVelocity().getX() < 0){
             right = false;
             left = true;
             up = false;
             down = false;
         }
 
-        if(rigidbody.getVelocity().getY() >  0&& rigidbody.getVelocity().getX() >= 0){
+        if(kinematic2D.getVelocity().getY() >  0&& kinematic2D.getVelocity().getX() >= 0){
             down = true;
             right = false;
             left = false;
             up = false;
-        }else if(rigidbody.getVelocity().getY() <0 && rigidbody.getVelocity().getX() <= 0){
+        }else if(kinematic2D.getVelocity().getY() <0 && kinematic2D.getVelocity().getX() <= 0){
             down = false;
             right = false;
             left = false;

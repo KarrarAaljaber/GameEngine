@@ -1,15 +1,9 @@
 package GameComponents;
 
-import Entities.Entity;
 import GameHandlers.GameObject;
 import Graphics.EngineGraphics;
 import Graphics.Renderer;
-import Particles.Particle;
 import Utilities.Vector2f;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.awt.image.RescaleOp;
 
 public class Collision extends GameComponent{
 
@@ -27,7 +21,7 @@ public class Collision extends GameComponent{
                 GameObject obj = Renderer.getGch().getObjects().get(i);
                 Collider parentCollider = (Collider) parent.getComponent(Collider.class);
                 Collider objCollider = (Collider) obj.getComponent(Collider.class);
-                Rigidbody rigidbodyParent = (Rigidbody) parent.getComponent(Rigidbody.class);
+                Kinematic2D kinematic2DParent = (Kinematic2D) parent.getComponent(Kinematic2D.class);
 
                 if (parentCollider != objCollider) {
                     if(RectInRect(obj)) {
@@ -39,15 +33,15 @@ public class Collision extends GameComponent{
                             //onTop of object
                             if (parentCollider.getCenterY() < objCollider.getCenterY()) {
 
-                                if (rigidbodyParent.getVelocity().getY() > 0) {
-                                    rigidbodyParent.setVelocity(new Vector2f(0,0));
-                                    parent.getPosition().setY(obj.getY() - parent.getHeight() +6);
+                                if (kinematic2DParent.getVelocity().getY() > 0) {
+                                    kinematic2DParent.setVelocity(new Vector2f(0,0));
+                                    parent.getPosition().setY(obj.getY() - parent.getHeight() -4 );
                                 }
 
                             }//hitting object above
                             if (parentCollider.getCenterY() > objCollider.getCenterY()) {
-                                if (rigidbodyParent.getVelocity().getY() < 0) {
-                                    rigidbodyParent.setVelocity( new Vector2f(0,0));
+                                if (kinematic2DParent.getVelocity().getY() < 0) {
+                                    kinematic2DParent.setVelocity( new Vector2f(0,0));
                                     parent.getPosition().setY(obj.getY() + parent.getHeight());
                                 }
                             }
@@ -56,15 +50,15 @@ public class Collision extends GameComponent{
                             //right
                             if (parentCollider.getCenterX() < objCollider.getCenterX()) {
 
-                                if (rigidbodyParent.getVelocity().getX() > 0) {
-                                    rigidbodyParent.setVelocity(new Vector2f(0,0));
+                                if (kinematic2DParent.getVelocity().getX() > 0) {
+                                    kinematic2DParent.setVelocity(new Vector2f(0,0));
                                     parent.getPosition().setX(obj.getX() - parent.getWidth() +6);
                                 }
 
                             }//left
                             if (parentCollider.getCenterX() > objCollider.getCenterX()) {
-                                if (rigidbodyParent.getVelocity().getX() < 0) {
-                                    rigidbodyParent.setVelocity(new Vector2f(0,0));
+                                if (kinematic2DParent.getVelocity().getX() < 0) {
+                                    kinematic2DParent.setVelocity(new Vector2f(0,0));
                                     parent.getPosition().setX(obj.getX() + parent.getWidth());
                                 }
                             }
@@ -73,8 +67,8 @@ public class Collision extends GameComponent{
                     /*
                     if (RectInRect(parentCollider.getCollLeft(), objCollider.getCollRight())) {
                         collided = true;
-                        if (rigidbodyParent.getVelocityX() < 0) {
-                            rigidbodyParent.setVelocityX(0);
+                        if (kinematic2DParent.getVelocityX() < 0) {
+                            kinematic2DParent.setVelocityX(0);
 
                         }
                     }
@@ -82,24 +76,24 @@ public class Collision extends GameComponent{
 
                     if (parentCollider.getCollRight().intersects(objCollider.getCollLeft())) {
                         collided = true;
-                        if (rigidbodyParent.getVelocityX() > 0) {
-                            rigidbodyParent.setVelocityX(0);
+                        if (kinematic2DParent.getVelocityX() > 0) {
+                            kinematic2DParent.setVelocityX(0);
                         }
 
                     }
 
                     if (parentCollider.getCollUp().intersects(objCollider.getCollDown())) {
                         collided = true;
-                        if (rigidbodyParent.getVelocityY() < 0) {
-                            rigidbodyParent.setVelocityY(0);
+                        if (kinematic2DParent.getVelocityY() < 0) {
+                            kinematic2DParent.setVelocityY(0);
                         }
 
                     }
 
                     if (parentCollider.getCollDown().intersects(objCollider.getCollUp())) {
                         collided = true;
-                        if (rigidbodyParent.getVelocityY() > 0) {
-                            rigidbodyParent.setVelocityY(0);
+                        if (kinematic2DParent.getVelocityY() > 0) {
+                            kinematic2DParent.setVelocityY(0);
                             parent.setY( obj.getY() - parent.getHeight());
 
                         }

@@ -1,25 +1,16 @@
 package TestingGameEngine;
 
 import  Graphics.Screen;
-import Entities.Entity;
-import GameComponents.Collider;
-import GameComponents.Collision;
-import GameComponents.Input;
-import GameComponents.Rigidbody;
+import GameComponents.Kinematic2D;
 import GameHandlers.GameState;
-import Graphics.Screen;
 
 import Graphics.EngineGraphics;
-import Particles.Particle;
-import Particles.ParticleSystem;
-import Tiles.SolidTile;
 import Tiles.TileHandler;
 import Tiles.TileLayers;
 import Utilities.Node;
 import Utilities.Camera;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -28,7 +19,6 @@ import Graphics.ImageLoader;
 import Graphics.Sprite;
 
 import Graphics.SpriteSheet;
-import Utilities.Vector2f;
 
 public class Game extends GameState {
 
@@ -101,7 +91,7 @@ public class Game extends GameState {
         BufferedImage chessplayer = ImageLoader.loadImage("chessplayer.png");
         Sprite chess = new Sprite(chessplayer, 32,32);
         p = new ChessPlayer(0,0,32,32,chess);
-        p.addComponent(new Rigidbody(p));
+        p.addComponent(new Kinematic2D(p));
         board = new Chessboard(6,p,1,1);
         board.start();
        // board.findRoute();
@@ -114,7 +104,7 @@ public class Game extends GameState {
         player.placeGameObjectAtTile(6,9,32,32);
         //components
         /*
-        player.addComponent(new Rigidbody(player));
+        player.addComponent(new Kinematic2D(player));
         player.addComponent(new Collider(player, player.getWidth() - 6, player.getHeight() - 6));
         player.addComponent(new Collision(player));
         player.addComponent(new Input(player));
@@ -136,7 +126,7 @@ public class Game extends GameState {
 
 
         //Screen stuff
-        screen = new Screen(WIDTH,HEIGHT, SCALE,false,false, new Color(4,200,200));
+        //screen = new Screen(WIDTH,HEIGHT, SCALE,false,false, new Color(4,200,200));
         Renderer.getGch().getGameCases().add(this);
 
        // tileHandler.render();

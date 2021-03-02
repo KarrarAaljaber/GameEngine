@@ -13,11 +13,6 @@ public class Main {
     public static final int WIDTH = 640;
     public static final int HEIGHT = 480;
 
-    public static void main(String[]args){
-        screen = new Screen(WIDTH,HEIGHT, 2,false,false, new Color(0,0,0));
 
-        MainMenuTest test = new MainMenuTest(screen);
-
-    }
 
 }

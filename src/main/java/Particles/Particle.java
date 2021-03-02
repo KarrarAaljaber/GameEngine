@@ -1,8 +1,7 @@
 package Particles;
 
 import Entities.Entity;
-import GameComponents.Rigidbody;
-import GameHandlers.GameObject;
+import GameComponents.Kinematic2D;
 import Graphics.EngineGraphics;
 import Utilities.EngineMath;
 import Utilities.Vector2f;
@@ -14,7 +13,7 @@ import Graphics.Sprite;
 public class Particle extends Entity {
 
 
-    private Rigidbody rigidbody;
+    private Kinematic2D kinematic2D;
 
 
     private Color endColor;
@@ -30,7 +29,7 @@ public class Particle extends Entity {
         this.timeToLive = timeToLive;
         endColor= new Color(0,0,0);
         finalColor = new Color(0,0,0);
-        rigidbody = new Rigidbody(this);
+        kinematic2D = new Kinematic2D(this);
     }
 
     public Particle(int x, int y, int width, int height, Sprite sprite, int timeToLive) {
@@ -38,7 +37,7 @@ public class Particle extends Entity {
         this.timeToLive = timeToLive;
         endColor= new Color(0,0,0);
         finalColor = new Color(0,0,0);
-        rigidbody = new Rigidbody(this);
+        kinematic2D = new Kinematic2D(this);
     }
 
     public Particle(int x, int y, int width, int height, float rotationAngle, Sprite sprite, int timeToLive) {
@@ -46,7 +45,7 @@ public class Particle extends Entity {
         this.timeToLive = timeToLive;
         endColor= new Color(0,0,0);
         finalColor = new Color(0,0,0);
-        rigidbody = new Rigidbody(this);
+        kinematic2D = new Kinematic2D(this);
     }
 
 
@@ -57,13 +56,13 @@ public class Particle extends Entity {
         timeToLive-=delta;
 
         var angleInRadians =(int)getRotationAngle() * Math.PI / 180;
-        rigidbody.getVelocity().setX((float) ( getMoveSpeed()* Math.cos(angleInRadians) * delta));
-        rigidbody.getVelocity().setY((float) (getMoveSpeed()* Math.sin(angleInRadians) * delta));
+        kinematic2D.getVelocity().setX((float) ( getMoveSpeed()* Math.cos(angleInRadians) * delta));
+        kinematic2D.getVelocity().setY((float) (getMoveSpeed()* Math.sin(angleInRadians) * delta));
 
 
        finalColor= EngineMath.fadeToColor(color, endColor,delta , timeToLive);
 
-        rigidbody.update(delta);
+        kinematic2D.update(delta);
 
 
     }
@@ -76,8 +75,8 @@ public class Particle extends Entity {
     }
 
 
-    public Rigidbody getRigidbody() {
-        return rigidbody;
+    public Kinematic2D getRigidbody() {
+        return kinematic2D;
     }
 
 

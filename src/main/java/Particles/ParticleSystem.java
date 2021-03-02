@@ -1,16 +1,10 @@
 package Particles;
 
 import GameComponents.GameComponent;
-import GameComponents.Rigidbody;
 import GameHandlers.GameObject;
 import Graphics.EngineGraphics;
-import Particles.Particle;
-import Utilities.EngineMath;
-import Utilities.Vector2f;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class ParticleSystem extends GameComponent {

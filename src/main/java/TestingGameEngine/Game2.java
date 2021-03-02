@@ -2,12 +2,10 @@ package TestingGameEngine;
 
 import Audio.AudioClip;
 import Audio.AudioPlayer;
-import Audio.MusicClip;
 import Audio.SoundClip;
 import Entities.Entity;
 import Entities.Light;
 import GameComponents.*;
-import GameHandlers.GameObject;
 import GameHandlers.GameState;
 import Graphics.ImageLoader;
 import Graphics.Screen;
@@ -17,9 +15,7 @@ import Particles.ParticleSystem;
 import Tiles.TileHandler;
 import Tiles.TileLayers;
 import UI.UIButton;
-import UI.UIComponent;
 import UI.UIContainer;
-import UI.UIController;
 import Utilities.Camera;
 import Utilities.Node;
 import Graphics.EngineGraphics;
@@ -30,10 +26,8 @@ import Utilities.Vector2f;
 import javax.sound.sampled.Clip;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class Game2 extends GameState {
@@ -78,7 +72,7 @@ public class Game2 extends GameState {
     private Chessboard board;
     private ArrayList<Node> moveSteps;
     private   ArrayList<Entity> p;
-    Rigidbody pbody;
+    Kinematic2D pbody;
 
 
     private Light light;
@@ -92,6 +86,7 @@ public class Game2 extends GameState {
 
     @Override
     public void init() {
+
         ps = new ParticleSystem();
         audioPlayer = new AudioPlayer();
         Clip clip = AudioPlayer.getClip("music.wav");
@@ -152,7 +147,7 @@ public class Game2 extends GameState {
 
 
 
-        Rigidbody playerbody = new Rigidbody(player );
+        Kinematic2D playerbody = new Kinematic2D(player );
         player.addComponent(playerbody);
         player.addComponent(new Collider(player, player.getWidth() - 6, player.getHeight() - 6));
         player.addComponent(new Collision(player));
@@ -168,7 +163,7 @@ public class Game2 extends GameState {
 
             p.get(i).addComponent(new Collider(  p.get(i),   p.get(i).getWidth() - 6,   p.get(i).getHeight() - 6));
             p.get(i).addComponent(new Collision(  p.get(i)));
-            p.get(i).addComponent(new Rigidbody(p.get(i)));
+            p.get(i).addComponent(new Kinematic2D(p.get(i)));
             p.get(i).setMoveSpeed(0.01f);
         }
 
@@ -185,12 +180,11 @@ public class Game2 extends GameState {
 
         tileHandler = new TileHandler("test.tmx", 32,32,tilesheet );
 
-        getScreen().getRenderer().setPlayer(player);
-        getScreen().getRenderer().setCamera(cam);
+//        getScreen().getRenderer().setPlayer(player);
+  //      getScreen().getRenderer().setCamera(cam);
 
 
         //Screen stuff
-        Renderer.getGch().getGameCases().add(this);
 
         Renderer.addObject(player);
 
@@ -200,7 +194,6 @@ public class Game2 extends GameState {
         Renderer.addObject(cam);
         tileHandler.render();
 
-        Renderer.addObject(player);
         Renderer.addEntities(p);
         Renderer.addUIContainer(uiContainer);
 
@@ -257,8 +250,8 @@ public class Game2 extends GameState {
         for(int i=0; i < p.size(); i++){
             Vector2f v = Vector2f.minusVectors(player.getPosition(),p.get(i).getPosition() );
             v.multiplyValue(p.get(i).getMoveSpeed());
-            Rigidbody rigidbody =(Rigidbody) p.get(i).getComponent(Rigidbody.class);
-            rigidbody.setVelocity(v);
+            Kinematic2D kinematic2D =(Kinematic2D) p.get(i).getComponent(Kinematic2D.class);
+            kinematic2D.setVelocity(v);
 
         }
         if(Renderer.getInput().isMouseDragged()){

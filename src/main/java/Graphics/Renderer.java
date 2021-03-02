@@ -97,7 +97,6 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
         img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         g2d = (Graphics2D) img.getGraphics();
-
         g2d.setRenderingHint(KEY_ANTIALIASING,
                 VALUE_ANTIALIAS_ON);
 
@@ -175,6 +174,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
 
     }
+
     public void update(float deltaTime) {
         mouseMovedCounter++;
         gch.setPlayer(getPlayer());

@@ -3,10 +3,8 @@ package TestingGameEngine;
 import Audio.AudioPlayer;
 import Audio.SoundClip;
 import Entities.Entity;
-import GameComponents.Input;
-import GameHandlers.GameObject;
 import Particles.ParticleSystem;
-import GameComponents.Rigidbody;
+import GameComponents.Kinematic2D;
 import Graphics.Animation;
 import Graphics.EngineGraphics;
 import Graphics.Sprite;
@@ -158,10 +156,10 @@ public class TestPlayer extends Entity {
         walkDown.update();
 
         //  move(delta);
-        Rigidbody rigidbody = (Rigidbody) getComponent(Rigidbody.class);
+        Kinematic2D kinematic2D = (Kinematic2D) getComponent(Kinematic2D.class);
 
-        rigidbody.getVelocity().setX(EngineMath.Lerp(velocityGoal.getX(),rigidbody.getVelocity().getX(), delta * 5));
-        rigidbody.getVelocity().setY(EngineMath.Lerp(velocityGoal.getY(),rigidbody.getVelocity().getY(), delta *5));
+        kinematic2D.getVelocity().setX(EngineMath.Lerp(velocityGoal.getX(), kinematic2D.getVelocity().getX(), delta * 5));
+        kinematic2D.getVelocity().setY(EngineMath.Lerp(velocityGoal.getY(), kinematic2D.getVelocity().getY(), delta *5));
         if(Renderer.getInput().KeyDown(KeyEvent.VK_W) ){
 
             setUp(true);

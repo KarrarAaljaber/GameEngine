@@ -13,7 +13,8 @@ public class Screen  {
 
     private JFrame frame = new JFrame();
     private Renderer renderer;
-
+    private Camera camera;
+    private GameObject player;
     private int sizeScale;
     private boolean fullscreen;
     public Screen( int WIDTH, int HEIGHT, int sizeScale, boolean resizable, boolean fullscreen, Color Backgroundcolor){

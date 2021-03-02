@@ -56,7 +56,7 @@ public class MainMenuTest extends GameState {
     public void update(float delta) {
         if (play.clicked()) {
             Renderer.getUiController().removeUIContainer(container);
-            Renderer.getGch().changeGameState(new Game2(getScreen()));
+            Renderer.getGch().changeGameState(new PlatformerGame(getScreen()));
         }
 
 

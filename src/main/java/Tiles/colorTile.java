@@ -11,6 +11,8 @@ public class colorTile extends  Tile{
 
     @Override
     public void render(EngineGraphics g) {
+        g.drawBorder(getX(),getY(),width,height,4,Color.WHITE);
+
         g.drawRect(getX(),getY(),width,height,color,true);
 
     }

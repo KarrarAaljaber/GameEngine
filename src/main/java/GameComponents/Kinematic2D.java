@@ -2,15 +2,20 @@ package GameComponents;
 
 import GameHandlers.GameObject;
 import Graphics.EngineGraphics;
+import Utilities.EngineMath;
 import Utilities.Vector2f;
 
-public class Rigidbody extends GameComponent{
+public class Kinematic2D extends GameComponent{
 
 
     private Vector2f velocity;
-    private float gravity = 0.001f;
+    public static float gravity = 0.001f;
     private Collision collision;
-    public Rigidbody(GameObject parent) {
+
+    private boolean isFalling = true;
+    private static float Gravity =0.98f;
+
+    public Kinematic2D(GameObject parent) {
         super(parent);
 
         velocity = new Vector2f(0,0);
@@ -21,6 +26,21 @@ public class Rigidbody extends GameComponent{
 
     }
 
+
+    public void addGravity(float delta){
+        if(isFalling){
+            getVelocity().setY(getVelocity().getY() + Gravity * delta);
+        }
+        Collision coll = (Collision) parent.getComponent(Collision.class);
+        if(coll.isCollided()){
+            getVelocity().setY(getVelocity().getY() );
+            isFalling = false;
+            System.out.println("coll");
+
+        }else{
+            isFalling = true;
+        }
+    }
     @Override
     public void update(float delta) {
 
@@ -31,6 +51,13 @@ public class Rigidbody extends GameComponent{
         parent.getPosition().setX((int) (parent.getX() + getVelocityX()));
         parent. getPosition().setY((int) (parent.getY() + getVelocityY()));
         */
+
+    }
+    public void addForce(Vector2f force, float delta ){
+        Vector2f goalVel = new Vector2f(force.getX(), force.getY() );
+        float forceX = EngineMath.Lerp(goalVel.getX(), getVelocity().getX(), delta );
+        float forceY = EngineMath.Lerp(goalVel.getY(), getVelocity().getY(), delta );
+        setVelocity(new Vector2f(getVelocity().getX() + forceX, getVelocity().getY() + forceY));
 
     }
 

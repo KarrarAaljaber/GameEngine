@@ -1,17 +1,8 @@
 package Entities;
-import GameComponents.Collider;
-import GameComponents.Collision;
-import GameComponents.GameComponent;
-import GameComponents.Rigidbody;
 import GameHandlers.GameObject;
 import Graphics.Sprite;
-import Utilities.APathfinding;
-import Utilities.Node;
 
 import java.awt.*;
-import java.util.ArrayList;
-import Graphics.Renderer;
-import Utilities.Vector2f;
 
 public abstract class Entity extends GameObject {
 
@@ -50,7 +41,7 @@ public abstract class Entity extends GameObject {
 /*
 
     public void moveTo(int x, int y){
-        Rigidbody rigidbody = (Rigidbody) getComponent(Rigidbody.class);
+        Kinematic2D rigidbody = (Kinematic2D) getComponent(Kinematic2D.class);
         rigidbody.setVelocity(new Vector2f(0.001f, 0.001f));
 
     }
