@@ -66,13 +66,5 @@ public class PlatformerPlayer extends Entity{
             setVelocityGoal(new Vector2f(0, 0));
         }
 
-        if(Renderer.getInput().KeyUp(KeyEvent.VK_SPACE)){
-            kinematic2D.addForce(new Vector2f(0,10f),delta);
-        }
-        kinematic2D.addGravity(delta* 50);
-
-
-
-
     }
 }

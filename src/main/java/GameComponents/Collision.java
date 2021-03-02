@@ -35,7 +35,7 @@ public class Collision extends GameComponent{
 
                                 if (kinematic2DParent.getVelocity().getY() > 0) {
                                     kinematic2DParent.setVelocity(new Vector2f(0,0));
-                                    parent.getPosition().setY(obj.getY() - parent.getHeight() -4 );
+                                    parent.getPosition().setY(obj.getY() - parent.getHeight() -6);
                                 }
 
                             }//hitting object above
@@ -63,6 +63,8 @@ public class Collision extends GameComponent{
                                 }
                             }
                         }
+                    }else {
+                        collided = false;
                     }
                     /*
                     if (RectInRect(parentCollider.getCollLeft(), objCollider.getCollRight())) {

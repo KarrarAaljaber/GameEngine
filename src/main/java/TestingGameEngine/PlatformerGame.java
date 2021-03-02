@@ -30,7 +30,6 @@ public class PlatformerGame  extends GameState {
         player.addComponent(new Collision(player));
         player.addComponent(new Collider(player,32,32));
         camera = new Camera(player,0,0, WIDTH,HEIGHT,2f);
-        camera.setyOffset(100);
 
 
 
