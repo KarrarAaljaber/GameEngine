@@ -90,7 +90,7 @@ public class TileHandler {
 
                 }
 
-                System.out.println("------------------------------------"+ "+\n" + data[i]);
+                //System.out.println("------------------------------------"+ "+\n" + data[i]);
             }
 
 

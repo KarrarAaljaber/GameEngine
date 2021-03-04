@@ -158,8 +158,7 @@ public class TestPlayer extends Entity {
         //  move(delta);
         Kinematic2D kinematic2D = (Kinematic2D) getComponent(Kinematic2D.class);
 
-        kinematic2D.getVelocity().setX(EngineMath.Lerp(velocityGoal.getX(), kinematic2D.getVelocity().getX(), delta * 5));
-        kinematic2D.getVelocity().setY(EngineMath.Lerp(velocityGoal.getY(), kinematic2D.getVelocity().getY(), delta *5));
+
         if(Renderer.getInput().KeyDown(KeyEvent.VK_W) ){
 
             setUp(true);
@@ -210,25 +209,25 @@ public class TestPlayer extends Entity {
 
 
         if(Renderer.getInput().KeyUp( KeyEvent.VK_W)) {
-            setVelocityGoal(new Vector2f(0, 0));
+            kinematic2D.setVelocity(new Vector2f(0, 0));
             setUp(false);
 
         }
 
         if(Renderer.getInput().KeyUp( KeyEvent.VK_S)) {
-           setVelocityGoal(new Vector2f(0, 0));
+            kinematic2D.setVelocity(new Vector2f(0, 0));
             setDown(false);
 
 
 
         }
         if(Renderer.getInput().KeyUp( KeyEvent.VK_A)) {
-            setVelocityGoal(new Vector2f(0, 0));
+            kinematic2D.setVelocity(new Vector2f(0, 0));
             setLeft(false);
 
         }
         if(Renderer.getInput().KeyUp( KeyEvent.VK_D)) {
-           setVelocityGoal(new Vector2f(0, 0));
+            kinematic2D.setVelocity(new Vector2f(0, 0));
             setRight(false);
         }
 
@@ -240,21 +239,21 @@ public class TestPlayer extends Entity {
         p.getRigidbody().getVelocity().setY((float) (p.getMoveSpeed()* Math.sin(angleInRadians) * delta));
 
         if(up){
-            setVelocityGoal(new Vector2f(0, -moveSpeed));
+            kinematic2D.setVelocity(new Vector2f(0, -moveSpeed));
             p.rotate(EngineMath.rand.nextInt(360));
             ps.addParticles(p,25);
         }
         if(down){
-            setVelocityGoal(new Vector2f(0, moveSpeed));
+            kinematic2D.setVelocity(new Vector2f(0, moveSpeed));
 
         }  if(left){
-           setVelocityGoal(new Vector2f(-moveSpeed, 0));
+            kinematic2D.setVelocity(new Vector2f(-moveSpeed, 0));
             p.rotate(EngineMath.rand.nextInt(360));
 
             ps.addParticles(p,25);
 
         }  if(right){
-           setVelocityGoal(new Vector2f(moveSpeed, 0));
+            kinematic2D.setVelocity(new Vector2f(moveSpeed, 0));
             p.rotate(EngineMath.rand.nextInt(360));
 
             ps.addParticles(p,25);

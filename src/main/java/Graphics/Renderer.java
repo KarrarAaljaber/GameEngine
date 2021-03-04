@@ -53,6 +53,8 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
         this.WIDTH = WIDTH;
         this.SCALE = SCALE;
         this.HEIGHT = HEIGHT;
+        gch = new GameStateController(this);
+
         this.backgroundcolor = backgroundcolor;
         setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
         setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
@@ -60,13 +62,11 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
         this.addKeyListener(this);
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
-        gch = new GameStateController(this);
         uiController = new UIController();
 
         init();
         requestFocus();
 
-        System.out.println(getWIDTH());
         input = new Input() ;
 
     }
@@ -141,7 +141,6 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
 
 
-        uiController.render(engineGraphics);
 
         //g2d.scale(camera.getZoomscale(), camera.getZoomscale());
 
@@ -149,15 +148,20 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
         if(getCamera()!=null){
             transform.translate(getCamera().getX(), getCamera().getY());
             g2d.setTransform(transform);
+
             gch.render(engineGraphics);
             g2d.setTransform(oldAT);
+            uiController.render(engineGraphics);
+
 
         }else{
+            uiController.render(engineGraphics);
+
             Camera cam = new Camera(0,0, WIDTH, HEIGHT, 1f);
-            setCamera(cam);
-            transform.translate(camera.getX(), camera.getY());
+            transform.translate(cam.getX(), cam.getY());
             g2d.setTransform(transform);
             gch.render(engineGraphics);
+
             g2d.setTransform(oldAT);
 
         }
@@ -272,14 +276,14 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
             Renderer.addObject(objects[i]);
         }
     }
-    public int getWIDTH() {
+    public int getWidthWithScale() {
         return WIDTH *SCALE ;
     }
     public int getSCALE(){
         return  SCALE;
     }
 
-    public int getHEIGHT() {
+    public int getHeightWithScale() {
         return HEIGHT * SCALE;
     }
 

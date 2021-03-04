@@ -62,29 +62,6 @@ public class Game2 extends GameState {
 
     public Game2( Screen screen) {
         super( screen);
-    }
-
-
-
-
-    private static final Color transparency = new Color(0, 0, 0, 0);
-
-    private ArrayList<Node> moveSteps;
-    private   ArrayList<Entity> p;
-    Kinematic2D pbody;
-
-
-    private Light light;
-    private UIContainer uiContainer;
-
-    //particleSystem testing
-    private ParticleSystem ps;
-
-    private AudioPlayer audioPlayer;
-
-
-    @Override
-    public void init() {
 
         ps = new ParticleSystem();
         audioPlayer = new AudioPlayer();
@@ -150,7 +127,7 @@ public class Game2 extends GameState {
         player.addComponent(playerbody);
         player.addComponent(new Collider(player, player.getWidth() - 6, player.getHeight() - 6));
         player.addComponent(new Collision(player));
-        player.setMoveSpeed(2f);
+        player.setMoveSpeed(1.5f);
 
         Random random = new Random();
         p = new ArrayList<>();
@@ -170,9 +147,6 @@ public class Game2 extends GameState {
 
         cam = new Camera(WIDTH / 2,HEIGHT /2, WIDTH ,HEIGHT,1);
 
-        cam.setZoomscale(2f);
-
-
 
         tilesheet = new SpriteSheet("terrain.png",32,32);
 
@@ -180,60 +154,48 @@ public class Game2 extends GameState {
         tileHandler = new TileHandler("test.tmx", 32,32,tilesheet );
 
 //        getScreen().getRenderer().setPlayer(player);
-  //      getScreen().getRenderer().setCamera(cam);
+        //      getScreen().getRenderer().setCamera(cam);
 
 
         //Screen stuff
+        Renderer.getGch().addGameState(this);
+        screen.getRenderer().setCamera(cam);
+        Renderer.getGch().setPlayer(player);
+        Renderer.getGch().setRenderOptimized(true);
+        Renderer.getGch().setUpdateOptimized(true);
 
-        Renderer.addObject(player);
 
         setDarkestvalue(0.1f);
         setBrightvalue(0.9f);
 
         Renderer.addObject(cam);
         tileHandler.render();
-
+        Renderer.addObject(player);
         Renderer.addEntities(p);
         Renderer.addUIContainer(uiContainer);
 
 
-
-        this.addLight(new Light(300,2, 300, new float[] {2,0,0}, getBrightvalue()));
-        this.addLight(new Light(500,1000, 100, new float[]  {0,0.2f,0}, getBrightvalue()));
-        this.addLight(new Light(700,600, 100, new float[] {0,1,0}, getBrightvalue()));
-        this.addLight(new Light(200,900, 100, new float[] {1,0,0}, getBrightvalue()));
-
-
-
-        light = new Light(player.getX(),player.getY(), 100, new float[]{1,1,1}, getBrightvalue());
-        this.addLight(light);
-
-
-
-
-        /*
-        SolidTile[] solidTile = new SolidTile[32];
-        for(int i=0; i < solidTile.length; i++)
-        {
-
-            solidTile[i] = new SolidTile( i * 32, HEIGHT, 32,32,Color.GREEN );
-        }
-        for(int i=0; i < solidTile.length; i++)
-        {
-
-            solidTile[i].addComponent(new Collider( solidTile[i],solidTile[i].getX(),  solidTile[i].getY(),  solidTile[i].getWidth(),  solidTile[i].getHeight()));
-        }
-
-        Renderer.addObjecArray(solidTile);
-
-         */
-
-
-
-
-
-
     }
+
+
+
+
+    private static final Color transparency = new Color(0, 0, 0, 0);
+
+    private ArrayList<Node> moveSteps;
+    private   ArrayList<Entity> p;
+    Kinematic2D pbody;
+
+
+    private Light light;
+    private UIContainer uiContainer;
+
+    //particleSystem testing
+    private ParticleSystem ps;
+
+    private AudioPlayer audioPlayer;
+
+
 
 
     private int counter =0;
@@ -244,8 +206,7 @@ public class Game2 extends GameState {
     public void update(float delta ) {
         cam.followEntity(player);
         angle ++;
-        light.setY(player.getY());
-        light.setX(player.getX());
+
         ps.update(delta);
         for(int i=0; i < p.size(); i++){
             Vector2f v = Vector2f.minusVectors(player.getPosition(),p.get(i).getPosition() );
