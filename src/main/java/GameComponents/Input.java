@@ -1,9 +1,6 @@
 package GameComponents;
 
-import GameHandlers.GameObject;
-import Graphics.EngineGraphics;
 import Graphics.Renderer;
-import TestingGameEngine.Game;
 
 import java.awt.event.MouseEvent;
 

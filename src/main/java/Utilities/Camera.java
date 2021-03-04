@@ -9,16 +9,15 @@ public class Camera extends GameObject {
 
 
     private double camSpeed;
-    private GameObject player;
+
 
     private float yOffset =0f, xOffset=0;
 
     private float zoomscale = 0f;
 
-    public Camera(GameObject player, int x, int y, int width, int height, double camSpeed) {
+    public Camera(int x, int y, int width, int height, double camSpeed) {
         super(x, y, width, height);
         this.camSpeed = camSpeed;
-        this.player = player;
     }
 
 
@@ -44,13 +43,6 @@ public class Camera extends GameObject {
         return camSpeed;
     }
 
-    public GameObject getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(GameObject player) {
-        this.player = player;
-    }
 
     public float getyOffset() {
         return yOffset;
@@ -78,7 +70,6 @@ public class Camera extends GameObject {
 
     @Override
     public void update(float delta) {
-        followEntity(player);
     }
 
 

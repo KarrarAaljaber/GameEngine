@@ -29,7 +29,7 @@ public class PlatformerGame  extends GameState {
         player.setMoveSpeed(5f);
         player.addComponent(new Collision(player));
         player.addComponent(new Collider(player,32,32));
-        camera = new Camera(player,0,0, WIDTH,HEIGHT,2f);
+        camera = new Camera(0,0, WIDTH,HEIGHT,2f);
 
 
 
@@ -44,7 +44,6 @@ public class PlatformerGame  extends GameState {
 
         }
         screen = new Screen(WIDTH,HEIGHT, 2,false,false, new Color(0,0,0));
-        screen.getRenderer().setPlayer(player);
         screen.getRenderer().setCamera(camera);
         Renderer.getGch().addGameState(this);
         Renderer.addObject(player);
@@ -52,11 +51,7 @@ public class PlatformerGame  extends GameState {
 
         Renderer.addObject(camera);
     }
-    public static void main(String[]args){
 
-        PlatformerGame test = new PlatformerGame(screen);
-
-    }
 
     @Override
     public void init() {
@@ -65,7 +60,7 @@ public class PlatformerGame  extends GameState {
 
     @Override
     public void update(float delta) {
-
+        camera.followEntity(player);
     }
 
     @Override

@@ -20,7 +20,7 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 import Graphics.Renderer;
 
-public class ChessPlayer extends Entity {
+public class NPCTest extends Entity {
 
     private  Animation walkUp;
     private BufferedImage[] walkUpSprites;
@@ -42,7 +42,7 @@ public class ChessPlayer extends Entity {
     SoundClip audio = new SoundClip(clip);
     private Vector2f velocityGoal;
 
-    public ChessPlayer(int x, int y, int width, int height, Sprite sprite) {
+    public NPCTest(int x, int y, int width, int height, Sprite sprite) {
         super(x, y, width, height, sprite);
 
         spriteSheet = new SpriteSheet("dog.png",32,48);

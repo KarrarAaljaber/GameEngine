@@ -23,21 +23,16 @@ public class GameStateController {
 
 
     private Renderer renderer;
-    private GameObject player;
 
-    public GameStateController(Renderer renderer, GameObject player) {
+    public GameStateController(Renderer renderer) {
         objects = new ArrayList<>();
         this.renderer = renderer;
-        this.player = player;
         gameStates = new ArrayList<GameState>();
 
         currentState = 0;
 
     }
 
-    public void setPlayer(GameObject player) {
-        this.player = player;
-    }
 
     public ArrayList<GameState> getGameCases() {
         return gameStates;
@@ -45,41 +40,57 @@ public class GameStateController {
 
 
 
-    public void render(EngineGraphics g) {
+    public void optimaziedRender(EngineGraphics g, GameObject player){
         GameState state = gameStates.get(currentState);
         state.render(g);
 
         for (int i = 0; i < objects.size(); i++) {
 
-                if(player !=null) {
-                    if (!((objects.get(i).getX() + 64 <= player.getX() - (renderer.getWIDTH() / renderer.getSCALE()) / 2 || (objects.get(i).getX() - 64 >= player.getX() + (renderer.getWIDTH() / renderer.getSCALE()) / 2)
-                            || (objects.get(i).getY() + 64 <= player.getY() - (renderer.getHEIGHT() / renderer.getSCALE()) / 2)) || (objects.get(i).getY() - 64 >= player.getY() + (renderer.getHEIGHT() / renderer.getSCALE()) / 2))) {
-                        g.renderWithTransformations(objects.get(i));
-                        if (g.isLighting()) {
-                            g.lighting(state.getLights(), objects.get(i), state.getDarkestvalue(), state.getBrightvalue());
+            if(player !=null) {
+                if (!((objects.get(i).getX() + 64 <= player.getX() - (renderer.getWIDTH() / renderer.getSCALE()) / 2 || (objects.get(i).getX() - 64 >= player.getX() + (renderer.getWIDTH() / renderer.getSCALE()) / 2)
+                        || (objects.get(i).getY() + 64 <= player.getY() - (renderer.getHEIGHT() / renderer.getSCALE()) / 2)) || (objects.get(i).getY() - 64 >= player.getY() + (renderer.getHEIGHT() / renderer.getSCALE()) / 2))) {
+                    g.renderWithTransformations(objects.get(i));
 
-                        }
+                    objects.get(i).renderAllComponents(objects.get(i), g);
 
 
-                        objects.get(i).renderAllComponents(objects.get(i), g);
-
-
-                    }
                 }
+            }
 
         }
-      //fix for lighting move up
+    }
+    public void render(EngineGraphics g) {
+        GameState state = gameStates.get(currentState);
+        state.render(g);
+
+        for (int i = 0; i < objects.size(); i++) {
+            g.renderWithTransformations(objects.get(i));
+
+            objects.get(i).renderAllComponents(objects.get(i), g);
 
 
+        }
 
     }
+
+
+      //fix for lighting move up
+
 
 
     public void removeState(GameState state){
         gameStates.remove(gameStates.indexOf(state));
     }
-
     public void update(float delta) {
+        gameStates.get(currentState).update(delta);
+        for (int i = 0; i < objects.size(); i++) {
+
+            objects.get(i).update(delta);
+            objects.get(i).updateAllComponents(delta, objects.get(i));
+
+        }
+    }
+    public void optimazedUpdate(float delta, GameObject player) {
         gameStates.get(currentState).update(delta);
 
 
@@ -105,11 +116,6 @@ public class GameStateController {
 
     }
 
-    public void mouseMoved(MouseEvent e){
-
-    }
-
-
 
     public ArrayList<GameObject> getObjects() {
         return objects;
@@ -134,9 +140,6 @@ public class GameStateController {
 
 
 
-    public GameObject getPlayer() {
-        return player;
-    }
 
     public void setObjects(ArrayList<GameObject> objects) {
         this.objects = objects;

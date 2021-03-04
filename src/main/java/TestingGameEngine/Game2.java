@@ -69,7 +69,6 @@ public class Game2 extends GameState {
 
     private static final Color transparency = new Color(0, 0, 0, 0);
 
-    private Chessboard board;
     private ArrayList<Node> moveSteps;
     private   ArrayList<Entity> p;
     Kinematic2D pbody;
@@ -156,7 +155,7 @@ public class Game2 extends GameState {
         Random random = new Random();
         p = new ArrayList<>();
         for(int  i=0; i < 1; i++){
-            p.add(new ChessPlayer(random.nextInt(199),random.nextInt(199),32,32,s2));
+            p.add(new NPCTest(random.nextInt(199),random.nextInt(199),32,32,s2));
         }
         for(int i=0; i < p.size(); i++){
 
@@ -169,7 +168,7 @@ public class Game2 extends GameState {
 
 
 
-        cam = new Camera(player,WIDTH / 2,HEIGHT /2, WIDTH ,HEIGHT,1);
+        cam = new Camera(WIDTH / 2,HEIGHT /2, WIDTH ,HEIGHT,1);
 
         cam.setZoomscale(2f);
 
@@ -243,6 +242,7 @@ public class Game2 extends GameState {
     private Random rand = new Random();
     @Override
     public void update(float delta ) {
+        cam.followEntity(player);
         angle ++;
         light.setY(player.getY());
         light.setX(player.getX());

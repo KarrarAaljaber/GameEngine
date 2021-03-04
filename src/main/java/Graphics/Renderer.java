@@ -8,7 +8,6 @@ import java.awt.*;
 import java.awt.Graphics;
 
 import GameHandlers.GameObject;
-import TestingGameEngine.Game;
 import Tiles.Tile;
 import UI.UIContainer;
 import UI.UIController;
@@ -16,7 +15,6 @@ import Utilities.Camera;
 
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.NoninvertibleTransformException;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -41,7 +39,6 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
     private int WIDTH, HEIGHT;
     private Color backgroundcolor;
     private  Camera camera;
-    private GameObject player;
     private int SCALE;
 
     public static boolean showLayers;
@@ -63,7 +60,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
         this.addKeyListener(this);
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
-        gch = new GameStateController(this, player);
+        gch = new GameStateController(this);
         uiController = new UIController();
 
         init();
@@ -78,17 +75,12 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
         this.camera = camera;
     }
 
-    public void setPlayer(GameObject player) {
-        this.player = player;
-    }
+
 
     public Camera getCamera() {
         return camera;
     }
 
-    public GameObject getPlayer() {
-        return player;
-    }
 
     public static Input getInput(){
         return input;
@@ -154,14 +146,19 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
         //g2d.scale(camera.getZoomscale(), camera.getZoomscale());
 
         AffineTransform transform = new AffineTransform();
-        if(camera!=null){
-            transform.translate(camera.getX(), camera.getY());
+        if(getCamera()!=null){
+            transform.translate(getCamera().getX(), getCamera().getY());
             g2d.setTransform(transform);
             gch.render(engineGraphics);
             g2d.setTransform(oldAT);
 
         }else{
+            Camera cam = new Camera(0,0, WIDTH, HEIGHT, 1f);
+            setCamera(cam);
+            transform.translate(camera.getX(), camera.getY());
+            g2d.setTransform(transform);
             gch.render(engineGraphics);
+            g2d.setTransform(oldAT);
 
         }
 
@@ -177,7 +174,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
     public void update(float deltaTime) {
         mouseMovedCounter++;
-        gch.setPlayer(getPlayer());
+
         gch.update(deltaTime);
 
         input.update(deltaTime);
