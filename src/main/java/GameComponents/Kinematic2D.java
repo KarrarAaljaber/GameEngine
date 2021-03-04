@@ -9,7 +9,7 @@ public class Kinematic2D extends GameComponent{
 
 
     private Vector2f velocity;
-    public static float gravity = 0.001f;
+    public static float gravity = 0.98f;
     private Collision collision;
 
 

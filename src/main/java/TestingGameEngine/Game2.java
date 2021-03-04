@@ -58,6 +58,8 @@ public class Game2 extends GameState {
     private Camera cam;
 
 
+
+
     private TileHandler tileHandler;
 
     public Game2( Screen screen) {
@@ -68,8 +70,8 @@ public class Game2 extends GameState {
         Clip clip = AudioPlayer.getClip("music.wav");
         AudioClip audio = new SoundClip(clip);
         audio.setSoundVolume(-20);
-        audio.setLoopable();
-        audioPlayer.playSound(audio);
+       // audio.setLoopable();
+        //audioPlayer.playSound(audio);
         /*
         AudioPlayer audioPlayer = new AudioPlayer();
         Clip clip = AudioPlayer.getClip("gatti.wav");
@@ -165,8 +167,7 @@ public class Game2 extends GameState {
         Renderer.getGch().setUpdateOptimized(true);
 
 
-        setDarkestvalue(0.1f);
-        setBrightvalue(0.9f);
+
 
         Renderer.addObject(cam);
         tileHandler.render();
@@ -245,6 +246,7 @@ public class Game2 extends GameState {
     @Override
     public void render(EngineGraphics g) {
        // g.setLighting(true);
+
         ps.render(g);
 
     }

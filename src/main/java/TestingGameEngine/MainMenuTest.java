@@ -15,6 +15,7 @@ import Utilities.EngineMath;
 import Utilities.Vector2f;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class MainMenuTest extends GameState {
 
@@ -23,9 +24,12 @@ public class MainMenuTest extends GameState {
     private UIButton play;
 
     private ParticleSystem ps;
+    private BufferedImage shadow;
     private  int oldX;
     public MainMenuTest(Screen screen) {
         super(screen);
+        shadow = new BufferedImage(screen.getFrame().getWidth(), screen.getFrame().getHeight(),
+                BufferedImage.TYPE_INT_ARGB);
         container = new UIContainer(0, 0, Game2.WIDTH, Game2.HEIGHT);
         container.setBackgroundColor(Color.BLACK);
         play = new UIButton(container, 33, 33, 150, 50, Color.WHITE);

@@ -158,7 +158,8 @@ public class TestPlayer extends Entity {
         //  move(delta);
         Kinematic2D kinematic2D = (Kinematic2D) getComponent(Kinematic2D.class);
 
-
+        kinematic2D.getVelocity().setX(EngineMath.Lerp(velocityGoal.getX(), kinematic2D.getVelocity().getX(), delta * 5));
+        kinematic2D.getVelocity().setY(EngineMath.Lerp(velocityGoal.getY(), kinematic2D.getVelocity().getY(), delta *5));
         if(Renderer.getInput().KeyDown(KeyEvent.VK_W) ){
 
             setUp(true);

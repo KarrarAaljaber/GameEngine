@@ -6,6 +6,7 @@ import GameHandlers.GameObject;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 import java.util.*;
@@ -13,12 +14,13 @@ import java.util.*;
 public class EngineGraphics {
 
     private Graphics2D g2d;
-    public EngineGraphics(Graphics2D g2d){
+    private Renderer renderer;
+    public EngineGraphics(Graphics2D g2d, Renderer renderer){
         this.g2d = g2d;
+        this.renderer = renderer;
 
     }
 
-    private boolean lighting = false;
 
     public void renderWithTransformations(GameObject gb){
         AffineTransform oldAT = g2d.getTransform();
@@ -38,41 +40,6 @@ public class EngineGraphics {
 
     }
 
-    public void setLighting(boolean lighting){
-        this.lighting = lighting;
-    }
-    public void lighting(ArrayList<Light> lights, GameObject gb, float darkestvalue, float brightvalue){
-
-
-
-        ArrayList<GameObject> gbs = new ArrayList<>();
-        ArrayList<float[]> colors = new ArrayList<>();
-
-            if(lighting ) {
-                for (int i = 0; i < lights.size(); i++) {
-                    if (Collision.CircleContainsRect(lights.get(i).getX(), lights.get(i).getY(), lights.get(i).getRadius(), gb.getX(), gb.getY(), gb.getWidth(), gb.getHeight())) {
-                        gbs.add(gb);
-                        colors.add(lights.get(i).getColor());
-                    }
-
-
-                    gb.setColorFilter(new float[]{darkestvalue,darkestvalue,darkestvalue});
-
-                }
-               for(int i=0; i < gbs.size(); i++){
-
-                   gb.setColorFilter(colors.get(i));
-               }
-
-
-
-            }
-
-
-
-
-
-    }
     public void drawCircle(int x, int y, int radius, Color color, boolean isFilled){
         if(!isFilled) {
             g2d.setColor(color);
@@ -113,27 +80,14 @@ public class EngineGraphics {
         g2d.drawImage(sprite,(int)obj.getX(), (int) obj.getY(), obj.getWidth(), obj.getHeight() , null);
     }
 
-    public boolean isLighting() {
-        return lighting;
-    }
 
     public void drawGameObject(GameObject obj){
 
 
 
-        if(lighting){
-            BufferedImage sprite = obj.getSprite().getSpriteBufferImage();
-
-            g2d.drawImage(sprite,
-                    new RescaleOp(
-                            obj.getColorFilter(),
-                            new float[]{0,0,0,0},
-                            null),(int) obj.getX(), (int) obj.getY());
-        }else{
             BufferedImage sprite = obj.getSprite().getSpriteBufferImage();
 
             g2d.drawImage(sprite, (int) obj.getX(), (int) obj.getY(), obj.getWidth(), obj.getHeight(), null);
-        }
 
 
 

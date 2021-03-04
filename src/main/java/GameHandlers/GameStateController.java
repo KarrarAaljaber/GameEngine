@@ -88,6 +88,8 @@ public class GameStateController {
     }
 
     public void renderOptimized(EngineGraphics g) {
+        GameState state = gameStates.get(currentState);
+        state.render(g);
         if (getPlayer() != null) {
             for (int i = 0; i < objects.size(); i++) {
 

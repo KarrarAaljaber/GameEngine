@@ -15,6 +15,7 @@ import Utilities.Camera;
 
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -85,9 +86,11 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
     public static Input getInput(){
         return input;
     }
+    private BufferedImage shadow;
     public void init() {
 
         img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+
         g2d = (Graphics2D) img.getGraphics();
         g2d.setRenderingHint(KEY_ANTIALIASING,
                 VALUE_ANTIALIAS_ON);
@@ -137,7 +140,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
 
 
-        EngineGraphics engineGraphics = new EngineGraphics(g2d);
+        EngineGraphics engineGraphics = new EngineGraphics(g2d, this);
 
 
 
@@ -171,6 +174,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
         g2d.setTransform(oldAT);
 
+        g2d.drawImage(shadow, 0,0, null);
 
 
 
@@ -305,6 +309,9 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
 
 
     }
+
+
+
 
 
 
