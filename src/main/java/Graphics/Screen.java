@@ -17,7 +17,7 @@ public class Screen  {
     private GameObject player;
     private int sizeScale;
     private boolean fullscreen;
-    public Screen( int WIDTH, int HEIGHT, int sizeScale, boolean resizable, boolean fullscreen, Color Backgroundcolor){
+    public Screen( int WIDTH, int HEIGHT, int sizeScale, boolean resizable, Color Backgroundcolor){
 
         this.sizeScale = sizeScale;
         this.fullscreen = fullscreen;

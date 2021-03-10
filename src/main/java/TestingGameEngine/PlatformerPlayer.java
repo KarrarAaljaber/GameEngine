@@ -50,20 +50,19 @@ public class PlatformerPlayer extends Entity{
 
     @Override
     public void update(float delta) {
-        kinematic2D.getVelocity().setX(EngineMath.Lerp(velocityGoal.getX(), kinematic2D.getVelocity().getX(), delta *30));
-        kinematic2D.getVelocity().setY(EngineMath.Lerp(velocityGoal.getY(), kinematic2D.getVelocity().getY(), delta *30));
+
         if(Renderer.getInput().KeyDown(KeyEvent.VK_D)){
-            setVelocityGoal(new Vector2f(getMoveSpeed(), 0));
+            kinematic2D.setVelocity(new Vector2f(getMoveSpeed(), 0));
         }
         if(Renderer.getInput().KeyDown(KeyEvent.VK_A)){
-            setVelocityGoal(new Vector2f(-getMoveSpeed(), 0));
+            kinematic2D.setVelocity(new Vector2f(-getMoveSpeed(), 0));
         }
 
         if(Renderer.getInput().KeyUp(KeyEvent.VK_D)){
-            setVelocityGoal(new Vector2f(0, 0));
+            kinematic2D.setVelocity(new Vector2f(0, 0));
         }
         if(Renderer.getInput().KeyUp(KeyEvent.VK_A)){
-            setVelocityGoal(new Vector2f(0, 0));
+            kinematic2D.setVelocity(new Vector2f(0, 0));
         }
 
     }

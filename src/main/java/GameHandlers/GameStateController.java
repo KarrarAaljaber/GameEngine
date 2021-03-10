@@ -48,27 +48,25 @@ public class GameStateController {
     }
 
 
-    public void optimaziedRender(EngineGraphics g, GameObject player) {
-        GameState state = gameStates.get(currentState);
-        state.render(g);
 
-
-    }
 
     public void render(EngineGraphics g) {
 
-        GameState state = gameStates.get(currentState);
-        state.render(g);
-        if (!renderOptimized) {
-            for (int i = 0; i < objects.size(); i++) {
-                g.renderWithTransformations(objects.get(i));
-                objects.get(i).renderAllComponents(objects.get(i), g);
+        if(gameStates.size() !=0){
+            GameState state = gameStates.get(currentState);
+            state.render(g);
+            if (!renderOptimized) {
+                for (int i = 0; i < objects.size(); i++) {
+                    g.renderWithTransformations(objects.get(i));
+                    objects.get(i).renderAllComponents(objects.get(i), g);
 
+                }
+
+            } else {
+                renderOptimized(g);
             }
-
-        } else {
-            renderOptimized(g);
         }
+
     }
 
     public boolean isRenderOptimized() {
@@ -88,23 +86,25 @@ public class GameStateController {
     }
 
     public void renderOptimized(EngineGraphics g) {
-        GameState state = gameStates.get(currentState);
-        state.render(g);
-        if (getPlayer() != null) {
-            for (int i = 0; i < objects.size(); i++) {
+        if(gameStates.size() !=0) {
 
-                if (!((objects.get(i).getX() + 64 <= getPlayer().getX() - (renderer.getWidthWithScale() / renderer.getSCALE()) / 2 || (objects.get(i).getX() - 64 >= player.getX() + (renderer.getWidthWithScale() / renderer.getSCALE()) / 2)
-                        || (objects.get(i).getY() + 64 <= getPlayer().getY() - (renderer.getHeightWithScale() / renderer.getSCALE()) / 2)) || (objects.get(i).getY() - 64 >= player.getY() + (renderer.getHeightWithScale() / renderer.getSCALE()) / 2))) {
-                    g.renderWithTransformations(objects.get(i));
-                    objects.get(i).renderAllComponents(objects.get(i), g);
+            GameState state = gameStates.get(currentState);
+            state.render(g);
+            if (getPlayer() != null) {
+                for (int i = 0; i < objects.size(); i++) {
 
+                    if (!((objects.get(i).getX() + 64 <= getPlayer().getX() - (renderer.getWidthWithScale() / renderer.getSCALE()) / 2 || (objects.get(i).getX() - 64 >= player.getX() + (renderer.getWidthWithScale() / renderer.getSCALE()) / 2)
+                            || (objects.get(i).getY() + 64 <= getPlayer().getY() - (renderer.getHeightWithScale() / renderer.getSCALE()) / 2)) || (objects.get(i).getY() - 64 >= player.getY() + (renderer.getHeightWithScale() / renderer.getSCALE()) / 2))) {
+                        g.renderWithTransformations(objects.get(i));
+                        objects.get(i).renderAllComponents(objects.get(i), g);
+
+                    }
                 }
+
+            } else {
+                System.out.println("You need to set the player using setPlayer(GameObject player)");
             }
-
-        } else {
-            System.out.println("You need to set the player using setPlayer(GameObject player)");
         }
-
 
     }
 
@@ -116,33 +116,39 @@ public class GameStateController {
         gameStates.remove(gameStates.indexOf(state));
     }
     public void update(float delta) {
-        gameStates.get(currentState).update(delta);
-        if(!updateOptimized) {
-            for (int i = 0; i < objects.size(); i++) {
+        if(gameStates.size() !=0) {
 
-                objects.get(i).update(delta);
-                objects.get(i).updateAllComponents(delta, objects.get(i));
-
-            }
-        }else{
-            updateOptimized(delta);
-        }
-    }
-    public void updateOptimized(float delta) {
-        if(getPlayer() !=null) {
             gameStates.get(currentState).update(delta);
-            for (int i = 0; i < objects.size(); i++) {
-
-                if (!((objects.get(i).getX() + 64 <= getPlayer().getX() - (renderer.getWidthWithScale() / renderer.getSCALE()) / 2 || (objects.get(i).getX() - 64 >= getPlayer().getX() + (renderer.getWidthWithScale() / renderer.getSCALE()) / 2)
-                        || (objects.get(i).getY() + 64 <= getPlayer().getY() - (renderer.getHeightWithScale() / renderer.getSCALE()) / 2)) || (objects.get(i).getY() - 64 >= getPlayer().getY() + (renderer.getHeightWithScale() / renderer.getSCALE()) / 2))) {
+            if (!updateOptimized) {
+                for (int i = 0; i < objects.size(); i++) {
 
                     objects.get(i).update(delta);
                     objects.get(i).updateAllComponents(delta, objects.get(i));
 
                 }
+            } else {
+                updateOptimized(delta);
             }
-        } else {
-            System.out.println("You need to set the player using setPlayer(GameObject player)");
+        }
+    }
+    public void updateOptimized(float delta) {
+        if(gameStates.size() !=0) {
+
+            if (getPlayer() != null) {
+                gameStates.get(currentState).update(delta);
+                for (int i = 0; i < objects.size(); i++) {
+
+                    if (!((objects.get(i).getX() + 64 <= getPlayer().getX() - (renderer.getWidthWithScale() / renderer.getSCALE()) / 2 || (objects.get(i).getX() - 64 >= getPlayer().getX() + (renderer.getWidthWithScale() / renderer.getSCALE()) / 2)
+                            || (objects.get(i).getY() + 64 <= getPlayer().getY() - (renderer.getHeightWithScale() / renderer.getSCALE()) / 2)) || (objects.get(i).getY() - 64 >= getPlayer().getY() + (renderer.getHeightWithScale() / renderer.getSCALE()) / 2))) {
+
+                        objects.get(i).update(delta);
+                        objects.get(i).updateAllComponents(delta, objects.get(i));
+
+                    }
+                }
+            } else {
+                System.out.println("You need to set the player using setPlayer(GameObject player)");
+            }
         }
     }
 
