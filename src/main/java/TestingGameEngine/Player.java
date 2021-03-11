@@ -26,10 +26,10 @@ public class Player  extends Entity {
     @Override
     public void update(float delta) {
         if(Renderer.getInput().KeyDown(KeyEvent.VK_D)){
-            kinematic2D.setVelocity(new Vector2f(2,0));
+            kinematic2D.setVelocity(new Vector2f(1,0));
         }
         if(Renderer.getInput().KeyDown(KeyEvent.VK_A)){
-            kinematic2D.setVelocity(new Vector2f(-2,0));
+            kinematic2D.setVelocity(new Vector2f(-1,0));
         }
         if(Renderer.getInput().KeyUp(KeyEvent.VK_D)){
             kinematic2D.setVelocity(new Vector2f(0,0));

@@ -14,7 +14,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class TestScene  extends GameState {
+public class TestScene extends GameState {
 
     private PlatformerPlayer r;
     private Camera camera;
@@ -25,11 +25,12 @@ public class TestScene  extends GameState {
     public TestScene(Screen screen) {
         super(screen);
 
-        Player player = new Player(100,100,32,32,new Color(255, 75, 75));
-        ArrayList<Tile> colorTiles = new ArrayList<>(10);
+        Player player = new Player(200,100,62,22,new Color(255, 75, 75));
+        ArrayList<Tile> colorTiles = new ArrayList<>(30);
         Random random = new Random();
-        for(int i=0; i < 25; i++){
-            colorTiles.add(new colorTile(i * 32, 400,32,32,new Color(random.nextInt(255),
+        for(int i=0; i < screen.getWIDTH()/21; i++){
+            System.out.println(screen.getWIDTH());
+            colorTiles.add(new colorTile(i * 22, 400,22,22,new Color(random.nextInt(255),
                     random.nextInt(255),random.nextInt(255))));
         }
 

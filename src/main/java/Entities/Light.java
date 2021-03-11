@@ -2,7 +2,6 @@ package Entities;
 
 public class Light {
 
-
     private int x, y;
     private int radius;
     private float[]color;

@@ -16,11 +16,14 @@ public class Screen  {
     private Camera camera;
     private GameObject player;
     private int sizeScale;
+    private int WIDTH;
     private boolean fullscreen;
+
     public Screen( int WIDTH, int HEIGHT, int sizeScale, boolean resizable, Color Backgroundcolor){
 
         this.sizeScale = sizeScale;
         this.fullscreen = fullscreen;
+        this.WIDTH = WIDTH;
 
         renderer = new Renderer(WIDTH, HEIGHT, sizeScale, Backgroundcolor);
         frame.setPreferredSize(new Dimension( WIDTH * sizeScale, HEIGHT * sizeScale));
@@ -64,6 +67,10 @@ public class Screen  {
 
     }
 
+    public int getWIDTH() {
+        return WIDTH;
+    }
+
     public Renderer getRenderer(){
         return renderer;
     }
@@ -72,5 +79,6 @@ public class Screen  {
     public JFrame getFrame(){
         return frame;
     }
+
 
 }
