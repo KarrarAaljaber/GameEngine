@@ -5,7 +5,6 @@ import javax.sound.sampled.FloatControl;
 
 public abstract class AudioClip {
 
-
     private final Clip clip;
     private float musicVolume;
     private float soundVolume;
