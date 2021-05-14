@@ -3,12 +3,10 @@ package TestingGameEngine;
 import Audio.AudioPlayer;
 import Audio.SoundClip;
 import Entities.Entity;
-import Particles.ParticleSystem;
 import GameComponents.Kinematic2D;
 import Graphics.Animation;
 import Graphics.EngineGraphics;
 import Graphics.Sprite;
-import Particles.Particle;
 import Graphics.Renderer;
 
 import java.awt.*;
@@ -44,7 +42,6 @@ public class TestPlayer extends Entity {
     private boolean falling = true;
 
 
-    private ParticleSystem ps;
     private SpriteSheet spriteSheet;
 
 
@@ -93,8 +90,6 @@ public class TestPlayer extends Entity {
         walkLeft = new Animation(300, walkLeftSprites);
         walkRight = new Animation(300, walkRightSprites);
 
-        ps = new ParticleSystem(this);
-        addComponent(ps);
 
         audio.setSoundVolume(-25);
 
@@ -232,32 +227,21 @@ public class TestPlayer extends Entity {
             setRight(false);
         }
 
-        Particle p = (new Particle(getCenterX(),getY(), 5,5,EngineMath.rand.nextInt(360),
-                new Color(66, 46, 46),2000));
-        var angleInRadians =(int)p.getRotationAngle() * Math.PI / 180;
-        p.setMoveSpeed(EngineMath.randomFloat(0,1));
-        p.getRigidbody().getVelocity().setX((float) ( p.getMoveSpeed()* Math.cos(angleInRadians) * delta));
-        p.getRigidbody().getVelocity().setY((float) (p.getMoveSpeed()* Math.sin(angleInRadians) * delta));
 
         if(up){
             kinematic2D.setVelocity(new Vector2f(0, -moveSpeed));
-            p.rotate(EngineMath.rand.nextInt(360));
-            ps.addParticles(p,25);
+
         }
         if(down){
             kinematic2D.setVelocity(new Vector2f(0, moveSpeed));
 
         }  if(left){
             kinematic2D.setVelocity(new Vector2f(-moveSpeed, 0));
-            p.rotate(EngineMath.rand.nextInt(360));
 
-            ps.addParticles(p,25);
 
         }  if(right){
             kinematic2D.setVelocity(new Vector2f(moveSpeed, 0));
-            p.rotate(EngineMath.rand.nextInt(360));
 
-            ps.addParticles(p,25);
         }
 
 

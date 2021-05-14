@@ -120,11 +120,9 @@ public class Input {
     public boolean isMouseDragged() {
         return mouseIsDragged;
     }
-
     public void setMouseDragged(boolean mouseIsDragged) {
         this.mouseIsDragged = mouseIsDragged;
     }
-
     public boolean KeyDown(int key){
         return keys[key] && !lastKeys[key];
     }
@@ -135,7 +133,6 @@ public class Input {
     {
         keys[key] = false;
     }
-
     public  void mousePressed(MouseEvent e){
         mousebtns[e.getButton()] = true;
     }

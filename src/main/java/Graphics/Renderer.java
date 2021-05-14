@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.Graphics;
 
 import GameHandlers.GameObject;
+import GameHandlers.InputHandler;
 import Tiles.Tile;
 import UI.UIContainer;
 import UI.UIController;
@@ -21,54 +22,56 @@ import java.util.ArrayList;
 
 import static java.awt.RenderingHints.*;
 
-public class Renderer extends Canvas implements  Runnable, KeyListener , MouseListener, MouseMotionListener {
+public class Renderer extends Canvas implements  Runnable {
 
     private Thread thread;
     private boolean isRunning = false;
 
     //FRAMES
     private int FPS = 60;
-    public 	int frames =0;
+    public int frames = 0;
 
     //Grap
     private BufferedImage img;
     private Graphics2D g2d;
 
-    private static GameStateController gch;
-
+    private static GameStateController gameStateController;
 
     private int WIDTH, HEIGHT;
     private Color backgroundcolor;
-    private  Camera camera;
+    private Camera camera;
     private int SCALE;
 
     public static boolean showLayers;
-    public static  boolean toggle;
+    public static boolean toggle;
     private static UIController uiController;
 
 
+    private  InputHandler inputHandler;
     private static Input input;
 
 
-    public Renderer( int WIDTH, int HEIGHT, int SCALE, Color backgroundcolor){
+    public Renderer(int WIDTH, int HEIGHT, int SCALE, Color backgroundcolor) {
         this.WIDTH = WIDTH;
-        this.SCALE = SCALE;
         this.HEIGHT = HEIGHT;
-        gch = new GameStateController(this);
+        this.SCALE = SCALE;
+        gameStateController = new GameStateController(this);
 
         this.backgroundcolor = backgroundcolor;
-        setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-        setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-        setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-        this.addKeyListener(this);
-        this.addMouseListener(this);
-        this.addMouseMotionListener(this);
+        setPreferredSize(new Dimension(WIDTH  * SCALE, HEIGHT * SCALE ));
+        setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT *SCALE ));
+        setMaximumSize(new Dimension(WIDTH *SCALE, HEIGHT * SCALE ));
+        input = new Input();
+        inputHandler = new InputHandler(input, this);
+
+        this.addKeyListener(inputHandler);
+        this.addMouseListener(inputHandler);
+        this.addMouseMotionListener(inputHandler);
         uiController = new UIController();
 
         init();
         requestFocus();
 
-        input = new Input() ;
 
     }
 
@@ -77,16 +80,17 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
     }
 
 
-
     public Camera getCamera() {
         return camera;
     }
 
 
-    public static Input getInput(){
+    public static Input getInput() {
         return input;
     }
+
     private BufferedImage shadow;
+
     public void init() {
 
         img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -98,7 +102,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
         g2d.setRenderingHint(KEY_ALPHA_INTERPOLATION,
                 VALUE_ALPHA_INTERPOLATION_QUALITY);
 
-        g2d.setRenderingHint(KEY_RENDERING,	VALUE_RENDER_QUALITY);
+        g2d.setRenderingHint(KEY_RENDERING, VALUE_RENDER_QUALITY);
         g2d.setRenderingHint(KEY_COLOR_RENDERING,
                 VALUE_COLOR_RENDER_QUALITY);
 
@@ -109,7 +113,7 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
                 VALUE_INTERPOLATION_BILINEAR);
 
 
-        g2d.setRenderingHint(KEY_TEXT_ANTIALIASING,VALUE_TEXT_ANTIALIAS_ON);
+        g2d.setRenderingHint(KEY_TEXT_ANTIALIASING, VALUE_TEXT_ANTIALIAS_ON);
 
 
     }
@@ -126,65 +130,54 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
     }
 
 
-
     public void render() {
 
 
         AffineTransform oldAT = g2d.getTransform();
 
 
-
-
         g2d.setColor(backgroundcolor);
-        g2d.fillRect( 0, 0, WIDTH, HEIGHT);
-
+        g2d.fillRect(0, 0, WIDTH, HEIGHT);
 
 
         EngineGraphics engineGraphics = new EngineGraphics(g2d, this);
 
 
-
-
         //g2d.scale(camera.getZoomscale(), camera.getZoomscale());
 
         AffineTransform transform = new AffineTransform();
-        if(getCamera()!=null){
+        if (getCamera() != null) {
             transform.translate(getCamera().getX(), getCamera().getY());
             g2d.setTransform(transform);
 
-            gch.render(engineGraphics);
+            gameStateController.render(engineGraphics);
             g2d.setTransform(oldAT);
             uiController.render(engineGraphics);
 
 
-        }else{
+        } else {
             uiController.render(engineGraphics);
 
-            Camera cam = new Camera(0,0, WIDTH, HEIGHT, 1f);
+            Camera cam = new Camera(0, 0, WIDTH, HEIGHT, 1f);
             transform.translate(cam.getX(), cam.getY());
             g2d.setTransform(transform);
-            gch.render(engineGraphics);
+            gameStateController.render(engineGraphics);
 
             g2d.setTransform(oldAT);
 
         }
 
 
-
-
         g2d.setTransform(oldAT);
 
-        g2d.drawImage(shadow, 0,0, null);
-
+        g2d.drawImage(shadow, 0, 0, null);
 
 
     }
 
     public void update(float deltaTime) {
-        mouseMovedCounter++;
 
-        gch.update(deltaTime);
-
+        gameStateController.update(deltaTime);
         input.update(deltaTime);
         uiController.update(deltaTime);
 
@@ -204,38 +197,39 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
         thread.start();
         isRunning = true;
     }
+
     private final int MAX_FPS = 1000;
     private final int MAX_UPS = 60;
 
     @Override
     public void run() {
         long timer = System.currentTimeMillis();
-        int fps = 0, ups =  0;
-        double deltaTime =0, deltaRenderTime =0;
-        double optimalUpdateTime = 1000000000/MAX_UPS;
-        double optimalRenderTime = 1000000000/MAX_FPS;
+        int fps = 0, ups = 0;
+        double deltaTime = 0, deltaRenderTime = 0;
+        double optimalUpdateTime = 1000000000 / MAX_UPS;
+        double optimalRenderTime = 1000000000 / MAX_FPS;
 
-         long startTime = System.nanoTime();
+        long startTime = System.nanoTime();
         while (isRunning) {
             long curTime = System.nanoTime();
             deltaTime += (curTime - startTime);
-            deltaRenderTime +=(curTime - startTime);
+            deltaRenderTime += (curTime - startTime);
             startTime = curTime;
 
-           if(deltaTime >= optimalUpdateTime){
-               update((float)deltaTime/1000000000);
-               ups++;
-               deltaTime -=optimalUpdateTime;
-           }
-            if(deltaRenderTime >= optimalRenderTime){
+            if (deltaTime >= optimalUpdateTime) {
+                update((float) deltaTime / 1000000000);
+                ups++;
+                deltaTime -= optimalUpdateTime;
+            }
+            if (deltaRenderTime >= optimalRenderTime) {
                 renderToScreen();
                 render();
                 fps++;
-                deltaRenderTime -=optimalRenderTime;
+                deltaRenderTime -= optimalRenderTime;
             }
-            if(System.currentTimeMillis() - timer >= 1000){
+            if (System.currentTimeMillis() - timer >= 1000) {
                 System.out.println(String.format("FPS : %d, UPS: %d", fps, ups));
-                fps =0;
+                fps = 0;
                 ups = 0;
                 timer += 1000;
             }
@@ -246,149 +240,63 @@ public class Renderer extends Canvas implements  Runnable, KeyListener , MouseLi
     }
 
 
-    public static GameStateController getGch() {
-        return gch;
+    public static GameStateController getGameStateController() {
+        return gameStateController;
     }
+
     public static void addObject(GameObject object) {
-        getGch().getObjects().add(object);
+        getGameStateController().getObjects().add(object);
     }
 
     public static void addObjects(ArrayList<GameObject> object) {
-        getGch().getObjects().addAll(object);
+        getGameStateController().getObjects().addAll(object);
     }
+
     public static void addEntities(ArrayList<Entity> object) {
-        getGch().getObjects().addAll(object);
+        getGameStateController().getObjects().addAll(object);
     }
 
     public static void addTiles(ArrayList<Tile> object) {
-        getGch().getObjects().addAll(object);
+        getGameStateController().getObjects().addAll(object);
     }
-    public static void addUIContainer(UIContainer container){
+
+    public static void addUIContainer(UIContainer container) {
         getUiController().addUIContainer(container);
     }
 
     public static void add2DObjectArray(GameObject[][] objectz) {
         for (int i = 0; i < objectz.length; i++) {
             for (int j = 0; j < objectz[i].length; j++) {
-                getGch().getObjects().add(objectz[i][j]);
+                getGameStateController().getObjects().add(objectz[i][j]);
             }
         }
     }
 
-    public static void addObjecArray(GameObject[]objects){
-        for(int i=0; i < objects.length; i++){
+    public static void addObjecArray(GameObject[] objects) {
+        for (int i = 0; i < objects.length; i++) {
             Renderer.addObject(objects[i]);
         }
     }
+
     public int getWidthWithScale() {
-        return WIDTH *SCALE ;
+        return WIDTH * SCALE;
     }
-    public int getSCALE(){
-        return  SCALE;
+
+    public int getSCALE() {
+        return SCALE;
     }
 
     public int getHeightWithScale() {
         return HEIGHT * SCALE;
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        int key = e.getKeyCode();
-        input.keyPressed(key);
-
-
-        if (key == KeyEvent.VK_G && !toggle) {
-            showLayers = !showLayers;
-            toggle = true;
-        } else if (!(key == KeyEvent.VK_G)) toggle = false;
-
-
-    }
-
-
-
-
-
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        int key = e.getKeyCode();
-
-        input.keyReleased(key);
-    }
 
     public static UIController getUiController() {
         return uiController;
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
 
 
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-        input.mousePressed(e);
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        input.mouseReleased(e);
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-
-        input.setMouseDragged(true);
-
-        if(camera!=null){
-            input.setMouseDragX(e.getX() / SCALE -camera.getX() );
-            input.setMouseDragY(e.getY() / SCALE -camera.getY() );
-        }else {
-            input.setMouseDragX(e.getX() / SCALE  );
-            input.setMouseDragY(e.getY() / SCALE  );
-        }
 
 
-    }
-
-    private int mouseMovedCounter =0;
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        mouseMovedCounter=0;
-
-        if(mouseMovedCounter ==0){
-            input.setMouseMoved(true);
-
-        }else{
-            input.setMouseMoved(false);
-        }
-        input.setMouseX(e.getX() /SCALE);
-        input.setMouseY(e.getY() / SCALE);
-        if(camera !=null) {
-            input.setMousetoGraphicsX(e.getX() / SCALE - camera.getX());
-            input.setMouseToGraphicsY(e.getY() / SCALE - camera.getY());
-        }else{
-            input.setMousetoGraphicsX(e.getX() / SCALE );
-            input.setMouseToGraphicsY(e.getY() / SCALE );
-        }
-
-    }
 }

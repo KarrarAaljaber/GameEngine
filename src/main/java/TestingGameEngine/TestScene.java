@@ -35,7 +35,7 @@ public class TestScene extends GameState {
         }
 
 
-        Renderer.getGch().addGameState(this);
+        Renderer.getGameStateController().addGameState(this);
         Renderer.addTiles(colorTiles);
         Renderer.addObject(player);
 

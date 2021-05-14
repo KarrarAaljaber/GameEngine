@@ -10,14 +10,12 @@ import GameHandlers.GameState;
 import Graphics.ImageLoader;
 import Graphics.Screen;
 import Graphics.SpriteSheet;
-import Particles.Particle;
-import Particles.ParticleSystem;
+
 import Tiles.TileHandler;
 import Tiles.TileLayers;
 import UI.UIButton;
 import UI.UIContainer;
 import Utilities.Camera;
-import Utilities.Node;
 import Graphics.EngineGraphics;
 import Graphics.Sprite;
 import Graphics.Renderer;
@@ -65,7 +63,6 @@ public class Game2 extends GameState {
     public Game2( Screen screen) {
         super( screen);
 
-        ps = new ParticleSystem();
         audioPlayer = new AudioPlayer();
         Clip clip = AudioPlayer.getClip("music.wav");
         AudioClip audio = new SoundClip(clip);
@@ -160,11 +157,11 @@ public class Game2 extends GameState {
 
 
         //Screen stuff
-        Renderer.getGch().addGameState(this);
+        Renderer.getGameStateController().addGameState(this);
         screen.getRenderer().setCamera(cam);
-        Renderer.getGch().setPlayer(player);
-        Renderer.getGch().setRenderOptimized(true);
-        Renderer.getGch().setUpdateOptimized(true);
+        Renderer.getGameStateController().setPlayer(player);
+        Renderer.getGameStateController().setRenderOptimized(true);
+        Renderer.getGameStateController().setUpdateOptimized(true);
 
 
 
@@ -183,7 +180,6 @@ public class Game2 extends GameState {
 
     private static final Color transparency = new Color(0, 0, 0, 0);
 
-    private ArrayList<Node> moveSteps;
     private   ArrayList<Entity> p;
     Kinematic2D pbody;
 
@@ -191,8 +187,7 @@ public class Game2 extends GameState {
     private Light light;
     private UIContainer uiContainer;
 
-    //particleSystem testing
-    private ParticleSystem ps;
+
 
     private AudioPlayer audioPlayer;
 
@@ -208,7 +203,7 @@ public class Game2 extends GameState {
         cam.followEntity(player);
         angle ++;
 
-        ps.update(delta);
+        /*
         for(int i=0; i < p.size(); i++){
             Vector2f v = Vector2f.minusVectors(player.getPosition(),p.get(i).getPosition() );
             v.multiplyValue(p.get(i).getMoveSpeed());
@@ -216,38 +211,16 @@ public class Game2 extends GameState {
             kinematic2D.setVelocity(v);
 
         }
-        if(Renderer.getInput().isMouseDragged()){
-            for(int i=0; i < 2; i++){
-                Particle p = (new Particle(Renderer.getInput().getMouseDragX(), Renderer.getInput().getMouseDragY(), 15,15,rand.nextInt(180),
-                        new Color(rand.nextInt(255), 83, 83),1000));
-                var angleInRadians =(int)p.getRotationAngle() * Math.PI / 180;
-                p.setMoveSpeed(1);
-                p.getRigidbody().getVelocity().setX((float) ( p.getMoveSpeed()* Math.cos(angleInRadians) * delta));
-                p.getRigidbody().getVelocity().setY((float) (p.getMoveSpeed()* Math.sin(angleInRadians) * delta));
-                ps.addParticles(p,25);
+        */
 
-            }
-
-
-        }
         if(Renderer.getInput().KeyDown(KeyEvent.VK_L)){
             uiContainer.setVisiable(true);
         }
 
-
-
     }
-    private Particle particle;
-    boolean addParticles = false;
-
-
-
 
     @Override
     public void render(EngineGraphics g) {
-       // g.setLighting(true);
-
-        ps.render(g);
 
     }
 

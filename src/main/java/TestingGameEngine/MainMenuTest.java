@@ -5,8 +5,7 @@ import GameHandlers.GameState;
 import Graphics.EngineGraphics;
 import Graphics.Renderer;
 import Graphics.Screen;
-import Particles.Particle;
-import Particles.ParticleSystem;
+
 import Tiles.NonSolidTile;
 import Tiles.colorTile;
 import UI.UIButton;
@@ -23,7 +22,6 @@ public class MainMenuTest extends GameState {
     private UIContainer container;
     private UIButton play;
 
-    private ParticleSystem ps;
     private BufferedImage shadow;
     private  int oldX;
     public MainMenuTest(Screen screen) {
@@ -44,9 +42,8 @@ public class MainMenuTest extends GameState {
         oldX = play.getX();
 
         Renderer.addUIContainer(container);
-        ps = new ParticleSystem();
 
-        Renderer.getGch().addGameState(this);
+        Renderer.getGameStateController().addGameState(this);
 
 
     }
@@ -57,25 +54,11 @@ public class MainMenuTest extends GameState {
     public void update(float delta) {
         if (play.clicked()) {
             Renderer.getUiController().removeUIContainer(container);
-            Renderer.getGch().changeGameState(new TestScene(getScreen()));
+            Renderer.getGameStateController().changeGameState(new Game2(getScreen()));
         }
 
 
-        if(Renderer.getInput().isMouseMoved()){
-            for(int i=0; i < 2; i++){
-                Particle p = (new Particle(Renderer.getInput().getMouseX(), Renderer.getInput().getMouseY(), 25,25,EngineMath.rand.nextInt(180),
-                        new Color(EngineMath.rand.nextInt(255), 83, 83),1000));
-                var angleInRadians =(int)p.getRotationAngle() * Math.PI / 180;
-                p.setMoveSpeed(1);
-                p.getRigidbody().getVelocity().setX((float) ( p.getMoveSpeed()* Math.cos(angleInRadians) * delta));
-                p.getRigidbody().getVelocity().setY((float) (p.getMoveSpeed()* Math.sin(angleInRadians) * delta));
-                ps.addParticles(p,25);
 
-            }
-
-
-        }
-        ps.update(delta);
 
     }
 
@@ -84,6 +67,5 @@ public class MainMenuTest extends GameState {
     public void render(EngineGraphics g) {
 
 
-        ps.render(g);
     }
 }

@@ -14,8 +14,8 @@ public class Main {
     public static final int HEIGHT = 480;
 
     public static void main(String[]args){
-        screen = new Screen(WIDTH, HEIGHT,SCALE,true,Color.black);
-        TestScene scene = new TestScene(screen);
+        screen = new Screen(WIDTH, HEIGHT,SCALE, false,Color.black);
+        MainMenuTest scene = new MainMenuTest(screen);
     }
 
 }

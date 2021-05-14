@@ -16,9 +16,9 @@ public class Collision extends GameComponent{
 
     public void collision(){
 
-        for(int i = 0; i< Renderer.getGch().getObjects().size(); i++){
-            if(Renderer.getGch().getObjects().get(i).isSolid()) {
-                GameObject obj = Renderer.getGch().getObjects().get(i);
+        for(int i = 0; i< Renderer.getGameStateController().getObjects().size(); i++){
+            if(Renderer.getGameStateController().getObjects().get(i).isSolid()) {
+                GameObject obj = Renderer.getGameStateController().getObjects().get(i);
                 Collider parentCollider = (Collider) parent.getComponent(Collider.class);
                 Collider objCollider = (Collider) obj.getComponent(Collider.class);
                 Kinematic2D kinematic2DParent = (Kinematic2D) parent.getComponent(Kinematic2D.class);

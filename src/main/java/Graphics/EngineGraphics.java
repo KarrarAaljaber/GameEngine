@@ -82,16 +82,8 @@ public class EngineGraphics {
 
 
     public void drawGameObject(GameObject obj){
-
-
-
-            BufferedImage sprite = obj.getSprite().getSpriteBufferImage();
-
-            g2d.drawImage(sprite, (int) obj.getX(), (int) obj.getY(), obj.getWidth(), obj.getHeight(), null);
-
-
-
-
+        BufferedImage sprite = obj.getSprite().getSpriteBufferImage();
+        g2d.drawImage(sprite, (int) obj.getX(), (int) obj.getY(), obj.getWidth(), obj.getHeight(), null);
     }
 
 

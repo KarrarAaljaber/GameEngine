@@ -9,8 +9,7 @@ import Graphics.Animation;
 import Graphics.EngineGraphics;
 import Graphics.Sprite;
 import Graphics.SpriteSheet;
-import Particles.Particle;
-import Particles.ParticleSystem;
+
 import Utilities.EngineMath;
 import Utilities.Vector2f;
 
@@ -92,7 +91,6 @@ public class NPCTest extends Entity {
         audio.setLoopable();
 
         audioPlayer.playSound(audio);
-        addComponent(ps);
 
 
 
@@ -119,7 +117,6 @@ public class NPCTest extends Entity {
 
     }
 
-    private ParticleSystem ps = new ParticleSystem();
 
     @Override
     public void update(float delta) {
@@ -131,21 +128,8 @@ public class NPCTest extends Entity {
         walkUp.update();
         walkDown.update();
 
-        Particle p = (new Particle(getCenterX(),getY(), 5,5,EngineMath.rand.nextInt(360),
-               Color.RED,1000));
-        var angleInRadians =(int)p.getRotationAngle() * Math.PI / 180;
-        p.setMoveSpeed(0.5f);
-        p.getRigidbody().getVelocity().setX((float) ( p.getMoveSpeed()* Math.cos(angleInRadians) * delta));
-        p.getRigidbody().getVelocity().setY((float) (p.getMoveSpeed()* Math.sin(angleInRadians) * delta));
-
-        TestPlayer player = (TestPlayer) Renderer.getGch().getGameObject(TestPlayer.class);
-        if(Collision.GameObjectInGameObject(this,player)){
-                ps.addParticles(p,50);
 
 
-
-
-        }
 
         if(kinematic2D.getVelocity().getX() > 0){
             right = true;
