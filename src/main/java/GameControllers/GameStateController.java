@@ -1,14 +1,10 @@
-package GameHandlers;
+package GameControllers;
 
-import GameComponents.GameComponent;
-import GameComponents.Input;
+import GameObjects.GameObject;
 import Graphics.Renderer;
 
 import Graphics.EngineGraphics;
-import Utilities.Camera;
 
-import java.awt.event.MouseEvent;
-import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
 public class GameStateController {
@@ -58,7 +54,6 @@ public class GameStateController {
             if (!renderOptimized) {
                 for (int i = 0; i < objects.size(); i++) {
                     g.renderWithTransformations(objects.get(i));
-                    objects.get(i).renderAllComponents(objects.get(i), g);
 
                 }
 
@@ -96,7 +91,6 @@ public class GameStateController {
                     if (!((objects.get(i).getX() + 64 <= getPlayer().getX() - (renderer.getWidthWithScale() / renderer.getSCALE()) / 2 || (objects.get(i).getX() - 64 >= player.getX() + (renderer.getWidthWithScale() / renderer.getSCALE()) / 2)
                             || (objects.get(i).getY() + 64 <= getPlayer().getY() - (renderer.getHeightWithScale() / renderer.getSCALE()) / 2)) || (objects.get(i).getY() - 64 >= player.getY() + (renderer.getHeightWithScale() / renderer.getSCALE()) / 2))) {
                         g.renderWithTransformations(objects.get(i));
-                        objects.get(i).renderAllComponents(objects.get(i), g);
 
                     }
                 }
@@ -152,7 +146,6 @@ public class GameStateController {
         }
     }
 
-
     public ArrayList<GameObject> getObjects() {
         return objects;
     }
@@ -173,9 +166,6 @@ public class GameStateController {
         return  null;
 
     }
-
-
-
 
     public void setObjects(ArrayList<GameObject> objects) {
         this.objects = objects;

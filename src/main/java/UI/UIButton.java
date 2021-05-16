@@ -1,11 +1,8 @@
 package UI;
 
-import GameComponents.Collision;
-import GameComponents.Input;
 import Graphics.EngineGraphics;
 
 import java.awt.*;
-import Graphics.Renderer;
 
 public class UIButton extends  UIComponent{
 

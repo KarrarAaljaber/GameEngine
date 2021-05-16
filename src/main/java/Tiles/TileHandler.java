@@ -1,6 +1,6 @@
 package Tiles;
 
-import GameHandlers.GameState;
+import GameControllers.GameState;
 import Graphics.Sprite;
 import Graphics.SpriteSheet;
 import org.w3c.dom.Document;

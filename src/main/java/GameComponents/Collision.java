@@ -1,7 +1,6 @@
 package GameComponents;
 
-import GameHandlers.GameObject;
-import Graphics.EngineGraphics;
+import GameObjects.GameObject;
 import Graphics.Renderer;
 import Utilities.Vector2f;
 
@@ -66,43 +65,6 @@ public class Collision extends GameComponent{
                     }else {
                         collided = false;
                     }
-                    /*
-                    if (RectInRect(parentCollider.getCollLeft(), objCollider.getCollRight())) {
-                        collided = true;
-                        if (kinematic2DParent.getVelocityX() < 0) {
-                            kinematic2DParent.setVelocityX(0);
-
-                        }
-                    }
-
-
-                    if (parentCollider.getCollRight().intersects(objCollider.getCollLeft())) {
-                        collided = true;
-                        if (kinematic2DParent.getVelocityX() > 0) {
-                            kinematic2DParent.setVelocityX(0);
-                        }
-
-                    }
-
-                    if (parentCollider.getCollUp().intersects(objCollider.getCollDown())) {
-                        collided = true;
-                        if (kinematic2DParent.getVelocityY() < 0) {
-                            kinematic2DParent.setVelocityY(0);
-                        }
-
-                    }
-
-                    if (parentCollider.getCollDown().intersects(objCollider.getCollUp())) {
-                        collided = true;
-                        if (kinematic2DParent.getVelocityY() > 0) {
-                            kinematic2DParent.setVelocityY(0);
-                            parent.setY( obj.getY() - parent.getHeight());
-
-                        }
-
-                    }
-
-                     */
                 }
             }
 
@@ -168,8 +130,5 @@ public class Collision extends GameComponent{
 
     }
 
-    @Override
-    public void render(EngineGraphics g) {
 
-    }
 }

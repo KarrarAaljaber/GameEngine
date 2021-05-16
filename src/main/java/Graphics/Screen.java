@@ -1,23 +1,21 @@
 package Graphics;
 
-import Entities.Entity;
-import GameHandlers.GameObject;
-import GameHandlers.GameState;
-import Utilities.Camera;
+import GameControllers.GameLoop;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Screen  {
+public class Screen   {
 
 
     private JFrame frame = new JFrame();
     private Renderer renderer;
-    private Camera camera;
-    private GameObject player;
+    private GameLoop gameLoop;
+
     private int sizeScale;
     private int WIDTH;
     private boolean fullscreen;
+
 
     public Screen( int WIDTH, int HEIGHT, int sizeScale, boolean resizable, Color Backgroundcolor){
 
@@ -42,7 +40,9 @@ public class Screen  {
         }
         frame.setVisible(true);
 
-        renderer.start();
+        gameLoop = new GameLoop(renderer);
+        gameLoop.start();
+
 
     }
     public void fullscreen(){
@@ -54,18 +54,10 @@ public class Screen  {
 
         device.setFullScreenWindow(frame);
     }
-    public void windowed(){
-        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice device = env.getDefaultScreenDevice();
 
-        frame.setVisible(false);
-        if(device.getFullScreenWindow() != null && frame.isDisplayable())device.getFullScreenWindow().dispose();
-        device.setFullScreenWindow(null);
-        frame.setResizable(false);
-        frame.setUndecorated(false);
-        frame.setVisible(true);
 
-    }
+
+
 
     public int getWIDTH() {
         return WIDTH;

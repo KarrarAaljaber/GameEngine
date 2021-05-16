@@ -1,4 +1,4 @@
-package GameComponents;
+package GameControllers;
 
 import Graphics.Renderer;
 

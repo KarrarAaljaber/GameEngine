@@ -1,8 +1,6 @@
 package GameComponents;
 
-import GameHandlers.GameObject;
-import Graphics.EngineGraphics;
-import Utilities.EngineMath;
+import GameObjects.GameObject;
 import Utilities.Vector2f;
 
 public class Kinematic2D extends GameComponent{
@@ -31,20 +29,7 @@ public class Kinematic2D extends GameComponent{
 
         parent.getPosition().addVec(velocity);
 
-
-        /*
-        parent.getPosition().setX((int) (parent.getX() + getVelocityX()));
-        parent. getPosition().setY((int) (parent.getY() + getVelocityY()));
-        */
-
     }
-
-
-    @Override
-    public void render(EngineGraphics g) {
-
-    }
-
 
 
     public Collision getCollision() {

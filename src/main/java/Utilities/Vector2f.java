@@ -52,6 +52,7 @@ public class Vector2f {
     public float dotProduct(Vector2f v2){
         return x * v2.getX() + y *v2.getY();
     }
+
     public void addVec(Vector2f v2){
         this.x+= v2.getX();
         this.y+=v2.getY();

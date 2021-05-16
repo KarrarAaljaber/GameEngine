@@ -1,9 +1,7 @@
 package Utilities;
 
-import GameHandlers.GameObject;
+import GameObjects.GameObject;
 import Graphics.EngineGraphics;
-
-import java.awt.*;
 
 public class Camera extends GameObject {
 

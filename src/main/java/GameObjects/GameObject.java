@@ -1,4 +1,4 @@
-package GameHandlers;
+package GameObjects;
 
 import GameComponents.GameComponent;
 import Graphics.Sprite;
@@ -19,7 +19,6 @@ public abstract class GameObject {
     private ArrayList<GameComponent> components;
     protected Color color;
 
-    protected float[] colorFilter = {1,1,1};
 
 
     private float rotationAngle;
@@ -36,14 +35,6 @@ public abstract class GameObject {
 
     }
 
-
-    public float[] getColorFilter() {
-        return colorFilter;
-    }
-
-    public void setColorFilter(float[] colorFilter) {
-        this.colorFilter = colorFilter;
-    }
 
     public GameObject(int x, int y, int width, int height){
         position = new Vector2f(x,y);
@@ -180,11 +171,7 @@ public abstract class GameObject {
             components.get(i).init();
         }
     }
-    public void renderAllComponents(GameObject obj,EngineGraphics g){
-        for(int i=0; i < components.size(); i++){
-            components.get(i).render(g);
-        }
-    }
+
 
     public void updateAllComponents(float delta, GameObject obj){
         for(int i=0; i < components.size(); i++){

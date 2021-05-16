@@ -1,9 +1,8 @@
 package TestingGameEngine;
 
-import Entities.Entity;
+import GameObjects.Entity;
 import GameComponents.Kinematic2D;
 import Graphics.*;
-import Utilities.EngineMath;
 import Utilities.Vector2f;
 
 import java.awt.*;

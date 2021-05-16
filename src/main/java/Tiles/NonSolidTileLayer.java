@@ -1,9 +1,7 @@
 package Tiles;
 
-import GameHandlers.GameState;
 import Graphics.Sprite;
 import Graphics.SpriteSheet;
-import Utilities.Vector2f;
 
 public class NonSolidTileLayer extends  TileLayers{
 

@@ -1,15 +1,10 @@
 package Graphics;
 
-import Entities.Light;
-import GameComponents.Collision;
-import GameHandlers.GameObject;
+import GameObjects.GameObject;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-import java.awt.image.RescaleOp;
-import java.util.*;
 
 public class EngineGraphics {
 

@@ -1,9 +1,6 @@
 package GameComponents;
 
-import GameHandlers.GameObject;
-import Graphics.EngineGraphics;
-
-import java.awt.*;
+import GameObjects.GameObject;
 
 public class Collider extends GameComponent {
 
@@ -12,28 +9,23 @@ public class Collider extends GameComponent {
     private int halfWidth, halfHeight;
     private int centerX, centerY;
 
-    public Collider(GameObject parent, int width, int height){
+    public Collider(GameObject parent, int width, int height) {
         super(parent);
-        this.parent  = parent;
+        this.parent = parent;
         this.width = width;
         this.height = height;
-
     }
-
 
     @Override
     public void init() {
     }
 
-
-
-
     @Override
-    public void update(float delta ) {
-        centerX = (int) parent.getX() +  (width / 2);
-        centerY = (int) parent.getY() +  (height / 2);
-        halfHeight = height /2;
-        halfWidth = width /2;
+    public void update(float delta) {
+        centerX = (int) parent.getX() + (width / 2);
+        centerY = (int) parent.getY() + (height / 2);
+        halfHeight = height / 2;
+        halfWidth = width / 2;
 
     }
 
@@ -84,23 +76,6 @@ public class Collider extends GameComponent {
     public void setCenterY(int centerY) {
         this.centerY = centerY;
     }
-
-    @Override
-    public void render( EngineGraphics g) {
-
-        /*
-        if(parent.isSolid()) {
-            g.drawRect(parent.getX(),parent.getY(), width, height, Color.PINK, false);
-        }
-        /*
-        if(parent.isSolid()) {
-            g.drawRect(getCollRight(), Color.BLUE, false);
-            g.drawRect(getCollLeft(), Color.BLUE, false);
-            g.drawRect(getCollUp(), Color.BLUE, false);
-            g.drawRect(getCollDown(), Color.BLUE, false);
-
-        }
-
-         */
-    }
 }
+
+

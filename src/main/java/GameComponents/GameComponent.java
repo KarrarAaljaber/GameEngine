@@ -1,7 +1,6 @@
 package GameComponents;
 
-import GameHandlers.GameObject;
-import Graphics.EngineGraphics;
+import GameObjects.GameObject;
 
 public abstract class GameComponent {
 
@@ -15,5 +14,4 @@ public abstract class GameComponent {
 
     public abstract void init();
     public abstract void update( float delta);
-    public abstract void render(EngineGraphics g);
 }

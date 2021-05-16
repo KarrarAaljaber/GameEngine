@@ -1,6 +1,5 @@
 package UI;
 
-import GameHandlers.GameObject;
 import Graphics.EngineGraphics;
 
 import java.awt.*;

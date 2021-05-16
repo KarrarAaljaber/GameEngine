@@ -1,9 +1,8 @@
 package TestingGameEngine;
 
+import Audio.AudioClip;
 import Audio.AudioPlayer;
-import Audio.SoundClip;
-import Entities.Entity;
-import GameComponents.Collision;
+import GameObjects.Entity;
 import GameComponents.Kinematic2D;
 import Graphics.Animation;
 import Graphics.EngineGraphics;
@@ -14,10 +13,8 @@ import Utilities.EngineMath;
 import Utilities.Vector2f;
 
 import javax.sound.sampled.Clip;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
-import Graphics.Renderer;
 
 public class NPCTest extends Entity {
 
@@ -38,7 +35,7 @@ public class NPCTest extends Entity {
 
     private AudioPlayer audioPlayer = new AudioPlayer();
     Clip clip = AudioPlayer.getClip("bark.wav");
-    SoundClip audio = new SoundClip(clip);
+    AudioClip audio = new AudioClip(clip);
     private Vector2f velocityGoal;
 
     public NPCTest(int x, int y, int width, int height, Sprite sprite) {

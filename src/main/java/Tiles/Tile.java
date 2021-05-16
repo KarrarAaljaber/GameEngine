@@ -1,9 +1,7 @@
 package Tiles;
 
-import GameHandlers.GameObject;
-import Graphics.EngineGraphics;
+import GameObjects.GameObject;
 import Graphics.Sprite;
-import Utilities.Vector2f;
 
 import java.awt.*;
 

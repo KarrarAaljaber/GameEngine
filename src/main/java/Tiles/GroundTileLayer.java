@@ -1,6 +1,5 @@
 package Tiles;
 
-import GameHandlers.GameState;
 import Graphics.Sprite;
 import Graphics.SpriteSheet;
 

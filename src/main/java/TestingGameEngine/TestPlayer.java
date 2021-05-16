@@ -1,15 +1,14 @@
 package TestingGameEngine;
 
+import Audio.AudioClip;
 import Audio.AudioPlayer;
-import Audio.SoundClip;
-import Entities.Entity;
+import GameObjects.Entity;
 import GameComponents.Kinematic2D;
 import Graphics.Animation;
 import Graphics.EngineGraphics;
 import Graphics.Sprite;
 import Graphics.Renderer;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
@@ -47,7 +46,7 @@ public class TestPlayer extends Entity {
 
     private AudioPlayer audioPlayer = new AudioPlayer();
     Clip clip = AudioPlayer.getClip("walk.wav");
-    SoundClip audio = new SoundClip(clip);
+    AudioClip audio = new AudioClip(clip);
 
     private Vector2f velocityGoal;
     public TestPlayer(int x, int y, int width, int height, Sprite sprite) {

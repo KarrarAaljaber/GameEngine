@@ -1,8 +1,6 @@
 package TestingGameEngine;
 
-import GameComponents.Collider;
-import GameComponents.Collision;
-import GameHandlers.GameState;
+import GameControllers.GameState;
 import Graphics.EngineGraphics;
 import Graphics.Renderer;
 import Graphics.Screen;

@@ -1,5 +1,4 @@
-package Entities;
-import GameHandlers.GameObject;
+package GameObjects;
 import Graphics.Sprite;
 
 import java.awt.*;

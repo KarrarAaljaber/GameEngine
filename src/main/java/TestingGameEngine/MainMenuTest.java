@@ -1,17 +1,12 @@
 package TestingGameEngine;
 
-import GameHandlers.GameObject;
-import GameHandlers.GameState;
+import GameControllers.GameState;
 import Graphics.EngineGraphics;
 import Graphics.Renderer;
 import Graphics.Screen;
 
-import Tiles.NonSolidTile;
-import Tiles.colorTile;
 import UI.UIButton;
 import UI.UIContainer;
-import Utilities.EngineMath;
-import Utilities.Vector2f;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

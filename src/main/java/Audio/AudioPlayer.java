@@ -14,22 +14,9 @@ public class AudioPlayer {
         audioclips = new ArrayList<>();
     }
 
-
-    public void playMusic(String filename){
-        final Clip clip = getClip(filename);
-        audioclips.add(new MusicClip(clip));
-
-    }
-
-    public void playMusic(MusicClip clip){
-
-            audioclips.add(clip);
-
-    }
-
     public void playSound(String filename){
         final Clip clip = getClip(filename);
-        audioclips.add(new SoundClip(clip));
+        audioclips.add(new AudioClip(clip));
     }
     public void playSound(AudioClip clip){
         clip.setLoopable();
@@ -39,6 +26,7 @@ public class AudioPlayer {
     public void stopSound(AudioClip clip){
         clip.stopClip();
     }
+
     public void setLoopable(AudioClip clip){
         AudioClip c = audioclips.get(audioclips.indexOf(clip));
 

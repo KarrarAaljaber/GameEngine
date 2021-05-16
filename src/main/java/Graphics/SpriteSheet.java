@@ -1,6 +1,7 @@
 package Graphics;
 
-import javax.imageio.ImageIO;
+import Utilities.ImageLoader;
+
 import java.awt.image.BufferedImage;
 
 

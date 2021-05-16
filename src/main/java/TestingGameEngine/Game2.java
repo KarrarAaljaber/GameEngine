@@ -2,12 +2,10 @@ package TestingGameEngine;
 
 import Audio.AudioClip;
 import Audio.AudioPlayer;
-import Audio.SoundClip;
-import Entities.Entity;
-import Entities.Light;
+import GameObjects.Entity;
 import GameComponents.*;
-import GameHandlers.GameState;
-import Graphics.ImageLoader;
+import GameControllers.GameState;
+import Utilities.ImageLoader;
 import Graphics.Screen;
 import Graphics.SpriteSheet;
 
@@ -19,7 +17,6 @@ import Utilities.Camera;
 import Graphics.EngineGraphics;
 import Graphics.Sprite;
 import Graphics.Renderer;
-import Utilities.Vector2f;
 
 import javax.sound.sampled.Clip;
 import java.awt.*;
@@ -65,7 +62,7 @@ public class Game2 extends GameState {
 
         audioPlayer = new AudioPlayer();
         Clip clip = AudioPlayer.getClip("music.wav");
-        AudioClip audio = new SoundClip(clip);
+        AudioClip audio = new AudioClip(clip);
         audio.setSoundVolume(-20);
        // audio.setLoopable();
         //audioPlayer.playSound(audio);
@@ -184,7 +181,6 @@ public class Game2 extends GameState {
     Kinematic2D pbody;
 
 
-    private Light light;
     private UIContainer uiContainer;
 
 
