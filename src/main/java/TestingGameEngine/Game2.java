@@ -17,6 +17,7 @@ import Utilities.Camera;
 import Graphics.EngineGraphics;
 import Graphics.Sprite;
 import Graphics.Renderer;
+import Utilities.Vector2f;
 
 import javax.sound.sampled.Clip;
 import java.awt.*;
@@ -199,7 +200,7 @@ public class Game2 extends GameState {
         cam.followEntity(player);
         angle ++;
 
-        /*
+
         for(int i=0; i < p.size(); i++){
             Vector2f v = Vector2f.minusVectors(player.getPosition(),p.get(i).getPosition() );
             v.multiplyValue(p.get(i).getMoveSpeed());
@@ -207,7 +208,7 @@ public class Game2 extends GameState {
             kinematic2D.setVelocity(v);
 
         }
-        */
+
 
         if(Renderer.getInput().KeyDown(KeyEvent.VK_L)){
             uiContainer.setVisiable(false);
