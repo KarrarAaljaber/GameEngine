@@ -16,9 +16,6 @@ public class Collider extends GameComponent {
         this.height = height;
     }
 
-    @Override
-    public void init() {
-    }
 
     @Override
     public void update(float delta) {

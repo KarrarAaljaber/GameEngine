@@ -12,6 +12,5 @@ public abstract class GameComponent {
     public GameComponent( ) {
     }
 
-    public abstract void init();
     public abstract void update( float delta);
 }

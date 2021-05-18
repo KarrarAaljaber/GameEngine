@@ -23,7 +23,7 @@ public class Collision extends GameComponent{
                 Kinematic2D kinematic2DParent = (Kinematic2D) parent.getComponent(Kinematic2D.class);
 
                 if (parentCollider != objCollider) {
-                    if(RectInRect(obj)) {
+                    if(GameObjectInGameObject(parent,obj)) {
 
                         collided = true;
 
@@ -72,21 +72,12 @@ public class Collision extends GameComponent{
 
     }
 
-    public static boolean CircleContainsRect(int circleX, int circleY, int radius, int RectX, int RectY, int width, int height){
-        int dx = Math.max(Math.abs(circleX - RectX), Math.abs(RectX + width - circleX));
-        int dy = Math.max(Math.abs(circleY - RectY + height), Math.abs(RectY - circleY));
-        return (radius * radius) >= (dx * dx) + (dy * dy);
-    }
 
     public boolean isCollided() {
         return collided;
     }
 
-    public static boolean PointInRect(int x, int y, int width, int height, int x2, int y2){
-        return (x2 >= x && y2 >=y
-        && x2 < x + width && y2 < y + height);
 
-    }
     public static boolean GameObjectInGameObject(GameObject thisobject, GameObject otherObject ){
         boolean collided = false;
         Collider objCollider = (Collider) otherObject.getComponent(Collider.class);
@@ -101,28 +92,8 @@ public class Collision extends GameComponent{
         return  collided;
     }
 
-    public boolean RectInRect(GameObject collidedWith){
-        boolean collided = false;
-        Collider objCollider = (Collider) collidedWith.getComponent(Collider.class);
-        Collider parentCollider = (Collider) parent.getComponent(Collider.class);
-
-        if(Math.abs(parentCollider.getCenterX() - objCollider.getCenterX()) < parentCollider.getHalfWidth() + objCollider.getHalfWidth()){
-            if(Math.abs(parentCollider.getCenterY() - objCollider.getCenterY())<parentCollider.getHalfHeight() + objCollider.getHalfHeight() ){
-                collided = true;
-            }
-
-        }
-        return  collided;
-    }
 
 
-
-
-
-    @Override
-    public void init() {
-
-    }
 
     @Override
     public void update(float delta) {

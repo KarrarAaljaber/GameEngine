@@ -13,6 +13,7 @@ public class GameLoop implements  Runnable{
     private final int MAX_FPS = 1000;
     private final int MAX_UPS = 60;
 
+
     public GameLoop(Renderer renderer){
         this.renderer = renderer;
     }

@@ -16,7 +16,6 @@ public class EngineGraphics {
 
     }
 
-
     public void renderWithTransformations(GameObject gb){
         AffineTransform oldAT = g2d.getTransform();
 

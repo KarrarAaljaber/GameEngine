@@ -36,7 +36,6 @@ public class Renderer extends Canvas  {
     public static boolean toggle;
     private static UIController uiController;
 
-
     private InputController inputController;
     private static Input input;
 

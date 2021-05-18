@@ -9,7 +9,7 @@ import Utilities.ImageLoader;
 import Graphics.Screen;
 import Graphics.SpriteSheet;
 
-import Tiles.TileHandler;
+import Tiles.TileController;
 import Tiles.TileLayers;
 import UI.UIButton;
 import UI.UIContainer;
@@ -55,7 +55,7 @@ public class Game2 extends GameState {
 
 
 
-    private TileHandler tileHandler;
+    private TileController tileHandler;
 
     public Game2( Screen screen) {
         super( screen);
@@ -118,7 +118,6 @@ public class Game2 extends GameState {
         //components
 
 
-
         Kinematic2D playerbody = new Kinematic2D(player );
         player.addComponent(playerbody);
         player.addComponent(new Collider(player, player.getWidth() - 6, player.getHeight() - 6));
@@ -147,7 +146,7 @@ public class Game2 extends GameState {
         tilesheet = new SpriteSheet("terrain.png",32,32);
 
 
-        tileHandler = new TileHandler("test.tmx", 32,32,tilesheet );
+        tileHandler = new TileController("test.tmx", 32,32,tilesheet );
 
 //        getScreen().getRenderer().setPlayer(player);
         //      getScreen().getRenderer().setCamera(cam);
@@ -196,6 +195,7 @@ public class Game2 extends GameState {
     private Random rand = new Random();
     @Override
     public void update(float delta ) {
+
         cam.followEntity(player);
         angle ++;
 
@@ -210,7 +210,7 @@ public class Game2 extends GameState {
         */
 
         if(Renderer.getInput().KeyDown(KeyEvent.VK_L)){
-            uiContainer.setVisiable(true);
+            uiContainer.setVisiable(false);
         }
 
     }

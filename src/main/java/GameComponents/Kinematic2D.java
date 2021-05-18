@@ -8,7 +8,6 @@ public class Kinematic2D extends GameComponent{
 
     private Vector2f velocity;
     public static float gravity = 0.98f;
-    private Collision collision;
 
 
 
@@ -18,10 +17,6 @@ public class Kinematic2D extends GameComponent{
         velocity = new Vector2f(0,0);
     }
 
-    @Override
-    public void init() {
-
-    }
 
 
     @Override
@@ -32,13 +27,6 @@ public class Kinematic2D extends GameComponent{
     }
 
 
-    public Collision getCollision() {
-        return collision;
-    }
-
-    public void setCollision(Collision collision) {
-        this.collision = collision;
-    }
 
     public float getGravity() {
         return gravity;

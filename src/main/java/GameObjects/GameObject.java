@@ -166,11 +166,7 @@ public abstract class GameObject {
         components.remove(component);
 
     }
-    public void initALlComponents(GameObject parent){
-        for(int i=0; i < components.size(); i++){
-            components.get(i).init();
-        }
-    }
+
 
 
     public void updateAllComponents(float delta, GameObject obj){

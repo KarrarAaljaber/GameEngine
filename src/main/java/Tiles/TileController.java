@@ -13,13 +13,13 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.ArrayList;
 
-public class TileHandler {
+public class TileController {
 
     private ArrayList<TileLayers> tileLayers;
 
     private int tilecount;
     private int tilecols;
-    public TileHandler(){
+    public TileController(){
         tileLayers = new ArrayList<TileLayers>();
     }
 
@@ -27,7 +27,7 @@ public class TileHandler {
     private SpriteSheet spriteSheet;
     private GameState gameState;
 
-    public TileHandler(String path, int tileWidth, int tileHeight, SpriteSheet spriteSheet){
+    public TileController(String path, int tileWidth, int tileHeight, SpriteSheet spriteSheet){
         tileLayers = new ArrayList<TileLayers>();
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;

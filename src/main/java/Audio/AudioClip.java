@@ -19,26 +19,14 @@ public  class AudioClip {
     public int frameLength(){
         return  clip.getFrameLength();
     }
-    public void setStartFrame(int frame){
-        clip.setFramePosition(frame);
-    }
-
 
     public void startClip(){
-        updateSound();
+        final FloatControl control = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        control.setValue(getSoundVolume());
         clip.start();
     }
 
 
-
-    public void updatemusikk(){
-        final FloatControl control = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        control.setValue(getMusicVolume());
-    }
-    public void updateSound(){
-        final FloatControl control = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        control.setValue(getSoundVolume());
-    }
     public void setLoopable(){
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
@@ -60,14 +48,6 @@ public  class AudioClip {
     }
 
 
-
-    public float getMusicVolume() {
-        return musicVolume;
-    }
-
-    public void setMusicVolume(float musicVolume) {
-        this.musicVolume = musicVolume;
-    }
 
     public float getSoundVolume() {
         return soundVolume;

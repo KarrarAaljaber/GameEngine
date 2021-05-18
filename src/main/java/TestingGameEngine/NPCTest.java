@@ -84,7 +84,6 @@ public class NPCTest extends Entity {
         audio.startClip();
 
         Random random  = new Random();
-        audio.setStartFrame(random.nextInt(audio.frameLength()));
         audio.setLoopable();
 
         audioPlayer.playSound(audio);

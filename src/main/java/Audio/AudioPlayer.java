@@ -19,7 +19,6 @@ public class AudioPlayer {
         audioclips.add(new AudioClip(clip));
     }
     public void playSound(AudioClip clip){
-        clip.setLoopable();
        clip.startClip();
 
     }
@@ -29,7 +28,7 @@ public class AudioPlayer {
 
     public void setLoopable(AudioClip clip){
         AudioClip c = audioclips.get(audioclips.indexOf(clip));
-
+        c.setLoopable();
     }
 
 
