@@ -45,8 +45,7 @@ public class TestPlayer extends Entity {
 
 
     private AudioPlayer audioPlayer = new AudioPlayer();
-    Clip clip = AudioPlayer.getClip("walk.wav");
-    AudioClip audio = new AudioClip(clip);
+    AudioClip clip = new AudioClip (AudioPlayer.getClip("walk.wav"));
 
     private Vector2f velocityGoal;
     public TestPlayer(int x, int y, int width, int height, Sprite sprite) {
@@ -90,7 +89,7 @@ public class TestPlayer extends Entity {
         walkRight = new Animation(300, walkRightSprites);
 
 
-        audio.setSoundVolume(-25);
+        clip.setSoundVolume(-25);
 
     }
 
@@ -119,7 +118,7 @@ public class TestPlayer extends Entity {
 
         }else{
             g.drawImage(walkDownSprites[0],getX(),getY(), width, height);
-            audioPlayer.stopSound(audio);
+            audioPlayer.stopSound(clip);
         }
 
         /*
@@ -161,7 +160,7 @@ public class TestPlayer extends Entity {
             setLeft(false);
             setRight(false);
 
-            audioPlayer.playSound(audio);
+            audioPlayer.playSound(clip);
 
 
         }
@@ -172,7 +171,7 @@ public class TestPlayer extends Entity {
             setDown(true);
             setLeft(false);
             setRight(false);
-            audioPlayer.playSound(audio);
+            audioPlayer.playSound(clip);
 
         }
 
@@ -182,7 +181,7 @@ public class TestPlayer extends Entity {
             setDown(false);
             setLeft(true);
             setRight(false);
-            audioPlayer.playSound(audio);
+            audioPlayer.playSound(clip);
 
         }
         if(Renderer.getInput().KeyDown(KeyEvent.VK_D) ){
@@ -190,7 +189,7 @@ public class TestPlayer extends Entity {
             setDown(false);
             setLeft(false);
             setRight(true);
-            audioPlayer.playSound(audio);
+            audioPlayer.playSound(clip);
 
         }
         if(Renderer.getInput().KeyDown(KeyEvent.VK_SPACE) ){

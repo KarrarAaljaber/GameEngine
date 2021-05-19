@@ -15,8 +15,6 @@ public class UIContainer {
     private boolean isVisiable = true;
 
 
-
-
     public UIContainer(int x, int y, int width, int height){
         uiComponents = new ArrayList<UIComponent>();
         this.x =x ;

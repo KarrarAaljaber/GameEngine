@@ -32,11 +32,11 @@ public class TileController {
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
         this.spriteSheet = spriteSheet;
-        addTileMap(spriteSheet,path);
+        addTileMap(path);
     }
 
 
-    public void addTileMap(SpriteSheet spriteSheet, String path){
+    public void addTileMap(String path){
         String imgPath;
         int width =0;
         int height =0;

@@ -28,9 +28,7 @@ public abstract class UIComponent {
     public UIComponent(UIContainer parent) {
         this.parent = parent;
     }
-    public UIComponent( ) {
 
-    }
 
     public UIContainer getParent() {
         return parent;
