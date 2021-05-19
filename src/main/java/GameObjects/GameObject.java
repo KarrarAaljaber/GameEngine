@@ -167,8 +167,6 @@ public abstract class GameObject {
 
     }
 
-
-
     public void updateAllComponents(float delta, GameObject obj){
         for(int i=0; i < components.size(); i++){
             components.get(i).update(delta);

@@ -6,7 +6,6 @@ import java.awt.image.BufferedImage;
 public class Sprite {
 
     private int width, height;
-    private SpriteSheet sheet;
 
     private int col,row;
     private BufferedImage sprite;
@@ -30,9 +29,6 @@ public class Sprite {
     }
 
 
-    public SpriteSheet getSheet() {
-        return sheet;
-    }
 
     public int getWidth() {
         return width;

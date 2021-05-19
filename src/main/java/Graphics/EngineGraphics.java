@@ -43,15 +43,6 @@ public class EngineGraphics {
             g2d.fillOval((int) x, y, radius, radius);
         }
     }
-    public void drawRect(Rectangle rectangle, Color color, boolean isFilled){
-        if(!isFilled) {
-            g2d.setColor(color);
-            g2d.draw(rectangle);
-        }else{
-            g2d.setColor(color);
-            g2d.fill(rectangle);
-        }
-    }
 
     public void drawRect(int x, int y, int width, int height, Color color, boolean isFilled){
         if(!isFilled) {
@@ -62,6 +53,7 @@ public class EngineGraphics {
             g2d.fillRect(x, (int) y, width, height);
         }
     }
+
     public void drawImage(BufferedImage img, int x, int y, int width, int height){
         g2d.drawImage(img, x,y,width,height, null);
     }
@@ -101,9 +93,7 @@ public class EngineGraphics {
     public void drawSprite(Sprite sprite, int x, int y, int width, int height){
         g2d.drawImage(sprite.getSpriteBufferImage(), x, y, width, height, null );
     }
-    public void drawAnim(BufferedImage curImg, int x, int y, int width, int height) {
-        g2d.drawImage(curImg, x, y, width, height, null);
-    }
+
     public void drawBorder(int x, int y, int width, int height, int borderThickness, Color borderColor){
         Stroke oldStroke = g2d.getStroke();
         g2d.setStroke(new BasicStroke(borderThickness));
@@ -115,7 +105,4 @@ public class EngineGraphics {
 
 
 
-    public Graphics2D getG2d() {
-        return g2d;
-    }
 }

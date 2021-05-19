@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 
 public class Input {
 
-    private boolean[] keys = new boolean[256];
+    private boolean[]  keys = new boolean[256];
     private boolean[] lastKeys = new boolean[256];
 
     private boolean[] mousebtns = new boolean[5];
@@ -19,7 +19,6 @@ public class Input {
     private boolean mouseIsDragged= false;
     private boolean mouseMoved = false;
 
-    private Renderer renderer;
     public Input() {
 
     }

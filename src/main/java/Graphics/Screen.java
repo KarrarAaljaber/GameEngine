@@ -14,15 +14,15 @@ public class Screen   {
 
     private int sizeScale;
     private int WIDTH;
+    private int HEIGHT;
     private boolean fullscreen;
 
 
     public Screen( int WIDTH, int HEIGHT, int sizeScale, boolean resizable, Color Backgroundcolor){
 
         this.sizeScale = sizeScale;
-        this.fullscreen = fullscreen;
         this.WIDTH = WIDTH;
-
+        this.HEIGHT = HEIGHT;
         renderer = new Renderer(WIDTH, HEIGHT, sizeScale, Backgroundcolor);
         frame.setPreferredSize(new Dimension( WIDTH * sizeScale, HEIGHT * sizeScale));
         frame.setMinimumSize(new Dimension( WIDTH * sizeScale, HEIGHT * sizeScale));
@@ -35,9 +35,6 @@ public class Screen   {
         frame.requestFocus();
 
 
-        if(fullscreen){
-            fullscreen();
-        }
         frame.setVisible(true);
 
         gameLoop = new GameLoop(renderer);
@@ -45,19 +42,8 @@ public class Screen   {
 
 
     }
-    public void fullscreen(){
-        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice device = env.getDefaultScreenDevice();
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setUndecorated(true);
-        frame.setResizable(false);
 
-        device.setFullScreenWindow(frame);
-    }
-
-
-
-
+    public int getHEIGHT(){return  HEIGHT;}
 
     public int getWIDTH() {
         return WIDTH;
@@ -67,10 +53,8 @@ public class Screen   {
         return renderer;
     }
 
-
     public JFrame getFrame(){
         return frame;
     }
-
 
 }
