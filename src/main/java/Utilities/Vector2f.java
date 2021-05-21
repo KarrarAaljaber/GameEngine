@@ -17,11 +17,7 @@ public class Vector2f {
         }
     }
 
-    public void applyForce(Vector2f force, float mass){
-        Vector2f v = new Vector2f(0,0);
-        force.divideValue(mass);
-        addVec(force);
-    }
+
     public Vector2f rotate(float angle) {
         double rad = Math.toRadians(angle);
         double cos = Math.cos(rad);

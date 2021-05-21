@@ -74,13 +74,7 @@ public class InputController implements KeyListener, MouseListener, MouseMotionL
     public void mouseMoved(MouseEvent e) {
         input.setMouseX(e.getX() /renderer.getSCALE());
         input.setMouseY(e.getY() / renderer.getSCALE());
-        if(renderer.getCamera() !=null) {
-            input.setMousetoGraphicsX(e.getX() / renderer.getSCALE() - renderer.getCamera().getX());
-            input.setMouseToGraphicsY(e.getY() / renderer.getSCALE() - renderer.getCamera().getY());
-        }else{
-            input.setMousetoGraphicsX(e.getX() / renderer.getSCALE() );
-            input.setMouseToGraphicsY(e.getY() / renderer.getSCALE() );
-        }
+
     }
 
     public Input getInput() {

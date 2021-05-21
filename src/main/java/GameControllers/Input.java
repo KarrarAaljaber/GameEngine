@@ -6,28 +6,17 @@ import java.awt.event.MouseEvent;
 
 public class Input {
 
-    private boolean[]  keys = new boolean[256];
-    private boolean[] lastKeys = new boolean[256];
+    private final boolean[]  keys = new boolean[256];
+    private final boolean[] lastKeys = new boolean[256];
 
-    private boolean[] mousebtns = new boolean[5];
-    private boolean[] lastMousebtns = new boolean[5];
+    private final boolean[] mousebtns = new boolean[5];
+    private final boolean[] lastMousebtns = new boolean[5];
 
     private int mouseX = 0, mouseY = 0;
-    private int mousetoGraphicsX = 0, mouseToGraphicsY = 0;
 
     private int mouseDragX =0, mouseDragY=0;
     private boolean mouseIsDragged= false;
-    private boolean mouseMoved = false;
 
-    public Input() {
-
-    }
-
-
-
-    public void init() {
-
-    }
 
 
     public void update(float delta) {
@@ -92,29 +81,12 @@ public class Input {
 
     }
 
-    public int getMousetoGraphicsX() {
-        return mousetoGraphicsX;
-    }
 
-    public void setMousetoGraphicsX(int mousetoGraphicsX) {
-        this.mousetoGraphicsX = mousetoGraphicsX;
-    }
 
-    public int getMouseToGraphicsY() {
-        return mouseToGraphicsY;
-    }
 
-    public boolean isMouseMoved() {
-        return mouseMoved;
-    }
 
-    public void setMouseMoved(boolean mouseMoved) {
-        this.mouseMoved = mouseMoved;
-    }
 
-    public void setMouseToGraphicsY(int mouseToGraphicsY) {
-        this.mouseToGraphicsY = mouseToGraphicsY;
-    }
+
 
     public boolean isMouseDragged() {
         return mouseIsDragged;
